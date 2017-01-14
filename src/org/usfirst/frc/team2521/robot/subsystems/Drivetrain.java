@@ -34,8 +34,8 @@ public class Drivetrain extends Subsystem {
 		double left = OI.getInstance().getLeftStick().getY();
 		double right = OI.getInstance().getRightStick().getY();
 		
-		frontDrive.tankDrive(right, left);
-		rearDrive.tankDrive(right, left);
+		frontDrive.tankDrive(-right, -left);
+		rearDrive.tankDrive(-right, -left);
 	}
 	
 	public void teleoperatedDrive() {
