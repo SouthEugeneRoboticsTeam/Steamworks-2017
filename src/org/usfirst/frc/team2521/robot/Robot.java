@@ -15,6 +15,7 @@ import org.usfirst.frc.team2521.robot.subsystems.*;
  * directory.
  */
 public class Robot extends IterativeRobot {
+	public static final boolean DEBUG = true;
 
 	public static Drivetrain drivetrain;
 	public static Sensors sensors;

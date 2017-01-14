@@ -9,10 +9,11 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DisplaySensors extends Command {
 
-    public DisplaySensors() {}
-
-    protected void initialize() {
+    public DisplaySensors() {
+    	requires(Robot.sensors);
     }
+
+    protected void initialize() {}
 
     protected void execute() {
     	Robot.sensors.display();
