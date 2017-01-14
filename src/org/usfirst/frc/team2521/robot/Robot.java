@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
-import org.usfirst.frc.team2521.robot.subsystems.Drivetrain;
+import org.usfirst.frc.team2521.robot.subsystems.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -17,6 +17,7 @@ import org.usfirst.frc.team2521.robot.subsystems.Drivetrain;
 public class Robot extends IterativeRobot {
 
 	public static Drivetrain drivetrain;
+	public static Sensors sensors;
 	
 	public static OI oi;
 
@@ -27,6 +28,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		drivetrain = new Drivetrain();
+		sensors = new Sensors();
 		
 		oi = new OI();
 	}
