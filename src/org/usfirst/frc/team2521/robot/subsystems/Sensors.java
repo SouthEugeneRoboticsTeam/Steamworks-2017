@@ -9,8 +9,8 @@ import org.usfirst.frc.team2521.robot.RobotMap;
 import org.usfirst.frc.team2521.robot.commands.DisplaySensors;
 
 public class Sensors extends Subsystem {
-	AnalogInput leftLidar;
-	AnalogInput rightLidar;
+	private AnalogInput leftLidar;
+	private AnalogInput rightLidar;
 	
 	public Sensors() {
 		leftLidar = new AnalogInput(RobotMap.LEFT_LIDAR_PORT);
@@ -21,7 +21,16 @@ public class Sensors extends Subsystem {
 		if (Robot.DEBUG) {
 			SmartDashboard.putNumber("Left lidar", leftLidar.getValue());
 			SmartDashboard.putNumber("Right lidar", rightLidar.getValue());
+			SmartDashboard.putNumber("Input", getLeftLidar()-getRightLidar());
 		}
+	}
+	
+	public double getLeftLidar() {
+		return leftLidar.getValue();
+	}
+	
+	public double getRightLidar() {
+		return rightLidar.getValue();
 	}
 
     public void initDefaultCommand() {
