@@ -27,17 +27,9 @@ public class AutoAlign extends PIDCommand {
     	SmartDashboard.putString("Auto align status", "No errors");
     }
 
-    protected void execute() {
-    	if(Robot.DEBUG) {
-    		SmartDashboard.putNumber("Setpoint", getSetpoint());
-    		SmartDashboard.putNumber("Error", super.getPIDController().getError());
-    	}
-    }
+    protected void execute() {}
 
     protected boolean isFinished() {
-        if (Robot.DEBUG) {
-        	SmartDashboard.putNumber("Error threshold error", Math.abs(Robot.sensors.getLeftLidar()-Robot.sensors.getRightLidar()));
-        }
         if (Robot.sensors.getLeftLidar() < LIDAR_MAX_DISTANCE || Robot.sensors.getRightLidar() < LIDAR_MAX_DISTANCE) {
         	SmartDashboard.putString("Auto align status", "Error: Lidar pointing off too far");
         	overShot = true;
@@ -62,7 +54,7 @@ public class AutoAlign extends PIDCommand {
     protected void usePIDOutput(double output) {
     	// Accepts whatever PID output should be used for the loop
     	if (Robot.DEBUG) {
-    		SmartDashboard.putNumber("Output", output);
+    		SmartDashboard.putNumber("Auto align output", output);
     	}
     	Robot.drivetrain.setLeft(output);
     	Robot.drivetrain.setRight(-output);
