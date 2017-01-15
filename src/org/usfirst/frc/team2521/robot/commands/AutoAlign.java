@@ -12,6 +12,8 @@ public class AutoAlign extends PIDCommand {
 	private static final double P = 0.005;
 	private static final double I = 0;
 	private static final double D = 0;
+	
+	private static final double errorThreshold = .00001;
 
     public AutoAlign() {
     	super(P, I, D);
@@ -23,11 +25,12 @@ public class AutoAlign extends PIDCommand {
     protected void execute() {
     	if(Robot.DEBUG) {
     		SmartDashboard.putNumber("Setpoint", getSetpoint());
+    		SmartDashboard.putNumber("Error", super.getPIDController().getError());
     	}
     }
 
     protected boolean isFinished() {
-        return false;
+        return super.getPIDController().getError() < errorThreshold;
     }
 
     protected void end() {}
