@@ -18,12 +18,8 @@ public class OI {
 	}
 	
 	public synchronized static OI getInstance() {
-		if (instance == null) {
-			instance = new OI();
-		}
-		
-		return instance;
-	}
+        return instance == null ? instance = new OI() : instance;
+    }
 	
 	public Joystick getLeftStick() {
 		return left;

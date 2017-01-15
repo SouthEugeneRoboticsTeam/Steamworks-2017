@@ -43,18 +43,8 @@ public class Drivetrain extends Subsystem {
 		
 		tankDrive();
 	}
-	
-	public void set(double value) {
-		frontRight.set(value);
-		frontLeft.set(value);
-		
-		rearRight.changeControlMode(TalonControlMode.Follower);
-		rearRight.set(RobotMap.FRONT_RIGHT_MOTOR);
-		
-		rearLeft.changeControlMode(TalonControlMode.Follower);
-		rearLeft.set(RobotMap.FRONT_LEFT_MOTOR);
-	}
-	
+
+    @Override
     public void initDefaultCommand() {
     	setDefaultCommand(new TeleopDrivetrain());
     }
