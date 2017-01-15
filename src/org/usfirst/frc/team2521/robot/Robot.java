@@ -2,9 +2,12 @@
 package org.usfirst.frc.team2521.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team2521.robot.commands.AutoAlign;
 import org.usfirst.frc.team2521.robot.subsystems.*;
 
 /**
@@ -21,6 +24,8 @@ public class Robot extends IterativeRobot {
 	public static Sensors sensors;
 	
 	public static OI oi;
+	
+	private Command auto;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -32,6 +37,8 @@ public class Robot extends IterativeRobot {
 		sensors = new Sensors();
 		
 		oi = new OI();
+		
+		auto = new AutoAlign();
 	}
 
 	/**
@@ -61,6 +68,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		auto.start();
 	}
 
 	/**

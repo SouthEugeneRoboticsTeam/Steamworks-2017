@@ -18,6 +18,7 @@ public class Sensors extends Subsystem {
 	}
 
 	public void display() {
+		if (Robot.DEBUG) {
 			SmartDashboard.putNumber("Left lidar", leftLidar.getValue());
 			SmartDashboard.putNumber("Right lidar", rightLidar.getValue());
 		}
