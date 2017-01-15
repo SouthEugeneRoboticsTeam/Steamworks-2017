@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+    id 'jaci.openrio.gradle.GradleRIO' version '2017.0.7'
+}
+
+frc {
+    team = '2521'
+    robotClass = 'org.usfirst.frc.team2521.robot.Robot'
+    rioIP = '10.25.21.101'
+}
+
+dependencies {
+    compile wpilib()
+    compile talonSrx()
+}
+
+def robotManifest = {
+    attributes 'Main-Class': 'edu.wpi.first.wpilibj.RobotBase'
+    attributes 'Robot-Class': frc.robotClass
+}
+
+jar {
+    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    manifest robotManifest
+}

@@ -1,20 +1,4 @@
-*.class
-
-# Package Files #
-*.war
-*.ear
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-
-# backup files
-*~
-
-# Output Folder
-build/
-bin/
-
-dist/
-
-# system properties file
-sysProps.xml
+**.iml
+.idea
+.gradle
+build
