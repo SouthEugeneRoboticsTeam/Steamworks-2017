@@ -10,9 +10,6 @@ import com.ctre.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-/**
- *
- */
 public class Drivetrain extends Subsystem {
 
 	private RobotDrive frontDrive;
