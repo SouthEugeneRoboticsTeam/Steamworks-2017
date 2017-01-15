@@ -7,20 +7,20 @@ import edu.wpi.first.wpilibj.Joystick;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	private Joystick left;
-	private Joystick right;
-	
-	private static OI instance;
-	
-	private OI() {
-		left = new Joystick(RobotMap.LEFT_STICK_PORT);
-		right = new Joystick(RobotMap.RIGHT_STICK_PORT);
-	}
-	
-	public synchronized static OI getInstance() {
-		if (instance == null) {
-			instance = new OI();
-		}
+    private static OI instance;
+
+    private final Joystick left;
+    private final Joystick right;
+
+    private OI() {
+        left = new Joystick(RobotMap.LEFT_STICK_PORT);
+        right = new Joystick(RobotMap.RIGHT_STICK_PORT);
+    }
+
+    public synchronized static OI getInstance() {
+        if (instance == null) {
+            instance = new OI();
+        }
 		
 		return instance;
 	}
