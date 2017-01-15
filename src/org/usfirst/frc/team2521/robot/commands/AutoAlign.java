@@ -13,7 +13,7 @@ public class AutoAlign extends PIDCommand {
 	private static final double I = 0;
 	private static final double D = 0;
 	
-	private static final double errorThreshold = .00001;
+	private static final double errorThreshold = 5;
 
     public AutoAlign() {
     	super(P, I, D);
@@ -30,7 +30,10 @@ public class AutoAlign extends PIDCommand {
     }
 
     protected boolean isFinished() {
-        return super.getPIDController().getError() < errorThreshold;
+        if (Robot.DEBUG) {
+        	SmartDashboard.putNumber("Error threshold error", Math.abs(Robot.sensors.getLeftLidar()-Robot.sensors.getRightLidar()));
+        }
+    	return Math.abs(Robot.sensors.getLeftLidar()-Robot.sensors.getRightLidar()) < errorThreshold;
     }
 
     protected void end() {}
