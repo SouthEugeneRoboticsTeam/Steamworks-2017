@@ -24,8 +24,6 @@ public class Robot extends IterativeRobot {
 	public static Sensors sensors;
 	
 	public static OI oi;
-	
-	private Command auto;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -37,8 +35,6 @@ public class Robot extends IterativeRobot {
 		sensors = new Sensors();
 		
 		oi = new OI();
-		
-		auto = new AutoAlign();
 	}
 
 	/**
@@ -67,9 +63,7 @@ public class Robot extends IterativeRobot {
 	 * to the switch structure below with additional strings & commands.
 	 */
 	@Override
-	public void autonomousInit() {
-		auto.start();
-	}
+	public void autonomousInit() {}
 
 	/**
 	 * This function is called periodically during autonomous
@@ -80,8 +74,7 @@ public class Robot extends IterativeRobot {
 	}
 
 	@Override
-	public void teleopInit() {
-	}
+	public void teleopInit() {}
 
 	/**
 	 * This function is called periodically during operator control
