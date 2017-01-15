@@ -12,12 +12,12 @@ public class OI {
 	
 	private static OI instance;
 	
-	public OI() {
+	private OI() {
 		left = new Joystick(RobotMap.LEFT_STICK_PORT);
 		right = new Joystick(RobotMap.RIGHT_STICK_PORT);
 	}
 	
-	public static OI getInstance() {
+	public synchronized static OI getInstance() {
 		if (instance == null) {
 			instance = new OI();
 		}

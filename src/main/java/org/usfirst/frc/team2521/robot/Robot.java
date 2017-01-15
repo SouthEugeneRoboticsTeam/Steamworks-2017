@@ -20,7 +20,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		drivetrain = new Drivetrain();
 		
-		oi = new OI();
+		oi = OI.getInstance();
 	}
 
 	/**
