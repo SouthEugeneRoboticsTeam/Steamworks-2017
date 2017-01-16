@@ -8,38 +8,38 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 public class Robot extends IterativeRobot {
-    public static final boolean DEBUG = false;
+	public static final boolean DEBUG = false;
 
-    public static Drivetrain drivetrain;
-    public static Sensors sensors;
+	public static Drivetrain drivetrain;
+	public static Sensors sensors;
 
-    public static OI oi;
+	public static OI oi;
 
-    @Override
-    public void robotInit() {
-        drivetrain = new Drivetrain();
-        sensors = new Sensors();
+	@Override
+	public void robotInit() {
+		drivetrain = new Drivetrain();
+		sensors = new Sensors();
 
-        oi = OI.getInstance();
-    }
+		oi = OI.getInstance();
+	}
 
-    @Override
-    public void disabledPeriodic() {
-        Scheduler.getInstance().run();
-    }
+	@Override
+	public void disabledPeriodic() {
+		Scheduler.getInstance().run();
+	}
 
-    @Override
-    public void autonomousPeriodic() {
-        Scheduler.getInstance().run();
-    }
+	@Override
+	public void autonomousPeriodic() {
+		Scheduler.getInstance().run();
+	}
 
-    @Override
-    public void teleopPeriodic() {
-        Scheduler.getInstance().run();
-    }
+	@Override
+	public void teleopPeriodic() {
+		Scheduler.getInstance().run();
+	}
 
-    @Override
-    public void testPeriodic() {
-        LiveWindow.run();
-    }
+	@Override
+	public void testPeriodic() {
+		LiveWindow.run();
+	}
 }
