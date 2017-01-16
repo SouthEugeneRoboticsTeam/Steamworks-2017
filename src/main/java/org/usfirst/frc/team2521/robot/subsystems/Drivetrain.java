@@ -7,6 +7,9 @@ import org.usfirst.frc.team2521.robot.OI;
 import org.usfirst.frc.team2521.robot.RobotMap;
 import org.usfirst.frc.team2521.robot.commands.TeleopDrivetrain;
 
+import com.ctre.CANTalon;
+import com.ctre.CANTalon.TalonControlMode;
+
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -44,9 +47,34 @@ public class Drivetrain extends Subsystem {
 		tankDrive();
 	}
 
+    public void set(double value) {
+        frontRight.set(value);
+        frontLeft.set(value);
+
+        rearRight.changeControlMode(TalonControlMode.Follower);
+        rearRight.set(RobotMap.FRONT_RIGHT_MOTOR);
+
+        rearLeft.changeControlMode(TalonControlMode.Follower);
+        rearLeft.set(RobotMap.FRONT_LEFT_MOTOR);
+    }
+
+    public void setLeft(double value) {
+        frontLeft.set(value);
+
+        rearLeft.changeControlMode(TalonControlMode.Follower);
+        rearLeft.set(RobotMap.FRONT_LEFT_MOTOR);
+    }
+
+    public void setRight(double value) {
+        frontRight.set(value);
+
+        rearRight.changeControlMode(TalonControlMode.Follower);
+        rearRight.set(RobotMap.FRONT_LEFT_MOTOR);
+    }
+
     @Override
     public void initDefaultCommand() {
-    	setDefaultCommand(new TeleopDrivetrain());
+        setDefaultCommand(new TeleopDrivetrain());
     }
 }
 

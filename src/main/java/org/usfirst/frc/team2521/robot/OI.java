@@ -1,6 +1,9 @@
 package org.usfirst.frc.team2521.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+
+import org.usfirst.frc.team2521.robot.commands.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -12,9 +15,13 @@ public class OI {
     private final Joystick left;
 	private final Joystick right;
 
+    private JoystickButton autoAlignButton;
+
 	private OI() {
 		left = new Joystick(RobotMap.LEFT_STICK_PORT);
 		right = new Joystick(RobotMap.RIGHT_STICK_PORT);
+
+		initButtons();
 	}
 	
 	public synchronized static OI getInstance() {
@@ -27,5 +34,15 @@ public class OI {
 	
 	public Joystick getRightStick() {
 		return right;
+	}
+
+	public void initButtons() {
+		autoAlignButton = new JoystickButton(right, RobotMap.AUTO_ALIGN_BUTTON_PORT);
+
+		tieButtons();
+	}
+
+	public void tieButtons() {
+		autoAlignButton.whenPressed(new AutoAlign());
 	}
 }
