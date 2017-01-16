@@ -54,7 +54,7 @@ public class Drivetrain extends Subsystem {
 		frontRight.set(value);
 
 		rearRight.changeControlMode(TalonControlMode.Follower);
-		rearRight.set(RobotMap.FRONT_LEFT_MOTOR);
+		rearRight.set(RobotMap.FRONT_RIGHT_MOTOR);
 	}
 
 	@Override
