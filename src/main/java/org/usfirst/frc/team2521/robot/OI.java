@@ -10,39 +10,39 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-    private static OI instance;
+	private static OI instance;
 
-    private final Joystick left;
-    private final Joystick right;
+	private final Joystick left;
+	private final Joystick right;
 
-    private JoystickButton autoAlignButton;
+	private JoystickButton autoAlignButton;
 
-    private OI() {
-        left = new Joystick(RobotMap.LEFT_STICK_PORT);
-        right = new Joystick(RobotMap.RIGHT_STICK_PORT);
+	private OI() {
+		left = new Joystick(RobotMap.LEFT_STICK_PORT);
+		right = new Joystick(RobotMap.RIGHT_STICK_PORT);
 
-        initButtons();
-    }
+		initButtons();
+	}
 
-    public synchronized static OI getInstance() {
-        return instance == null ? instance = new OI() : instance;
-    }
+	public synchronized static OI getInstance() {
+		return instance == null ? instance = new OI() : instance;
+	}
 
-    public Joystick getLeftStick() {
-        return left;
-    }
+	public Joystick getLeftStick() {
+		return left;
+	}
 
-    public Joystick getRightStick() {
-        return right;
-    }
+	public Joystick getRightStick() {
+		return right;
+	}
 
-    public void initButtons() {
-        autoAlignButton = new JoystickButton(right, RobotMap.AUTO_ALIGN_BUTTON_PORT);
+	public void initButtons() {
+		autoAlignButton = new JoystickButton(right, RobotMap.AUTO_ALIGN_BUTTON_PORT);
 
-        tieButtons();
-    }
+		tieButtons();
+	}
 
-    public void tieButtons() {
-        autoAlignButton.whenPressed(new AutoAlign());
-    }
+	public void tieButtons() {
+		autoAlignButton.whenPressed(new AutoAlign());
+	}
 }

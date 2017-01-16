@@ -9,33 +9,33 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Sensors extends Subsystem {
-    private AnalogInput leftLidar;
-    private AnalogInput rightLidar;
+	private AnalogInput leftLidar;
+	private AnalogInput rightLidar;
 
-    public Sensors() {
-        leftLidar = new AnalogInput(RobotMap.LEFT_LIDAR_PORT);
-        rightLidar = new AnalogInput(RobotMap.RIGHT_LIDAR_PORT);
-    }
+	public Sensors() {
+		leftLidar = new AnalogInput(RobotMap.LEFT_LIDAR_PORT);
+		rightLidar = new AnalogInput(RobotMap.RIGHT_LIDAR_PORT);
+	}
 
-    public void display() {
-        if (Robot.DEBUG) {
-            SmartDashboard.putNumber("Left lidar", leftLidar.getValue());
-            SmartDashboard.putNumber("Right lidar", rightLidar.getValue());
-            SmartDashboard.putNumber("Lidar difference", getLeftLidar() - getRightLidar());
-        }
-    }
+	public void display() {
+		if (Robot.DEBUG) {
+			SmartDashboard.putNumber("Left lidar", leftLidar.getValue());
+			SmartDashboard.putNumber("Right lidar", rightLidar.getValue());
+			SmartDashboard.putNumber("Lidar difference", getLeftLidar() - getRightLidar());
+		}
+	}
 
-    public double getLeftLidar() {
-        return leftLidar.getValue();
-    }
+	public double getLeftLidar() {
+		return leftLidar.getValue();
+	}
 
-    public double getRightLidar() {
-        return rightLidar.getValue();
-    }
+	public double getRightLidar() {
+		return rightLidar.getValue();
+	}
 
-    @Override
-    public void initDefaultCommand() {
-        setDefaultCommand(new DisplaySensors());
-    }
+	@Override
+	public void initDefaultCommand() {
+		setDefaultCommand(new DisplaySensors());
+	}
 }
 
