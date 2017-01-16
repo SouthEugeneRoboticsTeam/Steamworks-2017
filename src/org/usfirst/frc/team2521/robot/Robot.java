@@ -2,14 +2,19 @@
 package org.usfirst.frc.team2521.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team2521.robot.subsystems.Drivetrain;
+import org.usfirst.frc.team2521.robot.commands.AutoAlign;
+import org.usfirst.frc.team2521.robot.subsystems.*;
 
 public class Robot extends IterativeRobot {
+	public static final boolean DEBUG = false;
 
 	public static Drivetrain drivetrain;
+	public static Sensors sensors;
 	
 	public static OI oi;
 
@@ -19,6 +24,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		drivetrain = new Drivetrain();
+		sensors = new Sensors();
 		
 		oi = new OI();
 	}
@@ -39,8 +45,7 @@ public class Robot extends IterativeRobot {
 	 * This function is called when the robot starts up in autonomous mode
 	 */
 	@Override
-	public void autonomousInit() {
-	}
+	public void autonomousInit() {}
 
 	/**
 	 * This function is called periodically during autonomous
@@ -54,8 +59,7 @@ public class Robot extends IterativeRobot {
 	 * This function is called when the robot starts up in teleop mode
 	 */
 	@Override
-	public void teleopInit() {
-	}
+	public void teleopInit() {}
 
 	/**
 	 * This function is called periodically during operator control
