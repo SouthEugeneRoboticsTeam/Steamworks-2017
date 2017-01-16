@@ -5,17 +5,16 @@ import org.usfirst.frc.team2521.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class TeleopDrivetrain extends Command {
-
 	public TeleopDrivetrain() {
 		requires(Robot.drivetrain);
 	}
 
-	// Called repeatedly when this Command is scheduled to run
+	@Override
 	protected void execute() {
 		Robot.drivetrain.teleoperatedDrive();
 	}
 
-	// Make this return true when this Command no longer needs to run execute()
+	@Override
 	protected boolean isFinished() {
 		return false;
 	}
