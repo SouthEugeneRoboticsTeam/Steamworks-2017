@@ -1,9 +1,9 @@
 package org.usfirst.frc.team2521.robot;
 
+import org.usfirst.frc.team2521.robot.commands.AutoAlign;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-
-import org.usfirst.frc.team2521.robot.commands.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -13,36 +13,36 @@ public class OI {
     private static OI instance;
 
     private final Joystick left;
-	private final Joystick right;
+    private final Joystick right;
 
     private JoystickButton autoAlignButton;
 
-	private OI() {
-		left = new Joystick(RobotMap.LEFT_STICK_PORT);
-		right = new Joystick(RobotMap.RIGHT_STICK_PORT);
+    private OI() {
+        left = new Joystick(RobotMap.LEFT_STICK_PORT);
+        right = new Joystick(RobotMap.RIGHT_STICK_PORT);
 
-		initButtons();
-	}
-	
-	public synchronized static OI getInstance() {
+        initButtons();
+    }
+
+    public synchronized static OI getInstance() {
         return instance == null ? instance = new OI() : instance;
     }
-	
-	public Joystick getLeftStick() {
-		return left;
-	}
-	
-	public Joystick getRightStick() {
-		return right;
-	}
 
-	public void initButtons() {
-		autoAlignButton = new JoystickButton(right, RobotMap.AUTO_ALIGN_BUTTON_PORT);
+    public Joystick getLeftStick() {
+        return left;
+    }
 
-		tieButtons();
-	}
+    public Joystick getRightStick() {
+        return right;
+    }
 
-	public void tieButtons() {
-		autoAlignButton.whenPressed(new AutoAlign());
-	}
+    public void initButtons() {
+        autoAlignButton = new JoystickButton(right, RobotMap.AUTO_ALIGN_BUTTON_PORT);
+
+        tieButtons();
+    }
+
+    public void tieButtons() {
+        autoAlignButton.whenPressed(new AutoAlign());
+    }
 }
