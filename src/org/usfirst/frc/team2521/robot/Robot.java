@@ -2,12 +2,9 @@
 package org.usfirst.frc.team2521.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team2521.robot.commands.AutoAlign;
 import org.usfirst.frc.team2521.robot.subsystems.*;
 
 public class Robot extends IterativeRobot {
@@ -33,8 +30,7 @@ public class Robot extends IterativeRobot {
 	 * This function is called when robot becomes disabled
 	 */
 	@Override
-	public void disabledInit() {
-	}
+	public void disabledInit() {}
 
 	@Override
 	public void disabledPeriodic() {

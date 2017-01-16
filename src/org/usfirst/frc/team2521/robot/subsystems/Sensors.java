@@ -33,8 +33,8 @@ public class Sensors extends Subsystem {
 		return rightLidar.getValue();
 	}
 
-    public void initDefaultCommand() {
-    	setDefaultCommand(new DisplaySensors());
-    }
+	public void initDefaultCommand() {
+		setDefaultCommand(new DisplaySensors());
+	}
 }
 
