@@ -12,14 +12,19 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
 	private static OI instance;
 
+	//Driving
 	private final Joystick left;
 	private final Joystick right;
+	
+	//Manipulating
+	private final Joystick gunner;
 
 	private JoystickButton autoAlignButton;
 
 	private OI() {
 		left = new Joystick(RobotMap.LEFT_STICK_PORT);
 		right = new Joystick(RobotMap.RIGHT_STICK_PORT);
+		gunner = new Joystick(RobotMap.GUNNER_STICK_PORT);
 
 		autoAlignButton = new JoystickButton(right, RobotMap.AUTO_ALIGN_BUTTON_PORT);
 
@@ -43,6 +48,10 @@ public class OI {
 
 	public Joystick getRightStick() {
 		return right;
+	}
+	
+	public Joystick getGunnerStick() {
+		return gunner;
 	}
 
 	private void setButtonListeners() {
