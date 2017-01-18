@@ -55,14 +55,16 @@ public class Sensors extends Subsystem {
 		return table.getNumber("offset_x", 0.0);
 	}
 	
-	public double getAngleToVisionTarget() {
-		// Gets the angle between the vision target and a plane parallel to the wall
-		//double alpha = Math.atan(())
-		return 0;
+	public double getAngleFromCamToVisionTarget() {
+		// Gets the angle between the line of sight of the camera and the vision target
+		// Beta in whiteboard drawings
+		return Math.toDegrees(Math.atan(getCVOffsetX()/CAMERA_PROJ_PLANE_DISTANCE));
 	}
 	
-	public double getAngleToVisionTarg() {
-		return Math.atan(getCVOffsetX() / CAMERA_PROJ_PLANE_DISTANCE);
+	public double getAngleFromCamToWallPlane() {
+		// Gets the angle between camera's line of sight and a plane parallel to the wall
+		// Alpha in whiteboard drawings
+		return Math.toDegrees(Math.atan((LIDAR_WIDTH/(getRightLidarInches() - getLeftLidarInches()))));
 	}
 	
 	@Override
