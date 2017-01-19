@@ -21,7 +21,9 @@ public class OI {
 		left = new Joystick(RobotMap.LEFT_STICK_PORT);
 		right = new Joystick(RobotMap.RIGHT_STICK_PORT);
 
-		initButtons();
+		autoAlignButton = new JoystickButton(right, RobotMap.AUTO_ALIGN_BUTTON_PORT);
+
+		setButtonListeners();
 	}
 
 	public static OI getInstance() {
@@ -43,13 +45,7 @@ public class OI {
 		return right;
 	}
 
-	public void initButtons() {
-		autoAlignButton = new JoystickButton(right, RobotMap.AUTO_ALIGN_BUTTON_PORT);
-
-		tieButtons();
-	}
-
-	public void tieButtons() {
+	private void setButtonListeners() {
 		autoAlignButton.whenPressed(new AutoAlign());
 	}
 }
