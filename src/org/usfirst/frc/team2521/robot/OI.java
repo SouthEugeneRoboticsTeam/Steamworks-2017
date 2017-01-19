@@ -24,8 +24,15 @@ public class OI {
 		initButtons();
 	}
 
-	public synchronized static OI getInstance() {
-		return instance == null ? instance = new OI() : instance;
+	public static OI getInstance() {
+		if (instance == null) {
+			synchronized (OI.class) {
+				if (instance == null) {
+					instance = new OI();
+				}
+			}
+		}
+		return instance;
 	}
 
 	public Joystick getLeftStick() {
