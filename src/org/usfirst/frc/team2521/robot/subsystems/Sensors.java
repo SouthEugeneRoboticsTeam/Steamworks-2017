@@ -15,7 +15,7 @@ public class Sensors extends Subsystem {
 	private AnalogInput leftLidar;
 	private AnalogInput rightLidar;
 	private NetworkTable table;
-	private AHRS ahrs; // Navx
+	private AHRS ahrs;
 	
 	private final double CAMERA_PROJ_PLANE_DISTANCE = 216.226;
 	/* Distance in pixels to imaginary camera projection plane
@@ -62,13 +62,13 @@ public class Sensors extends Subsystem {
 	public double getAngleFromCamToVisionTarget() {
 		// Gets the angle between the line of sight of the camera and the vision target
 		// Beta in whiteboard drawings
-		return Math.toDegrees(Math.atan(getCVOffsetX()/CAMERA_PROJ_PLANE_DISTANCE));
+		return Math.toDegrees(Math.atan(getCVOffsetX() / CAMERA_PROJ_PLANE_DISTANCE));
 	}
 	
 	public double getAngleFromCamToWallPlane() {
 		// Gets the angle between camera's line of sight and a plane parallel to the wall
 		// Alpha in whiteboard drawings
-		return Math.toDegrees(Math.atan((LIDAR_WIDTH/(getRightLidarInches() - getLeftLidarInches()))));
+		return Math.toDegrees(Math.atan((LIDAR_WIDTH / (getRightLidarInches() - getLeftLidarInches()))));
 	}
 	
 	@Override
