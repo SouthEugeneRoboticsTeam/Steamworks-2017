@@ -5,6 +5,7 @@ import org.usfirst.frc.team2521.robot.RobotMap;
 import org.usfirst.frc.team2521.robot.commands.DisplaySensors;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -15,7 +16,9 @@ public class Sensors extends Subsystem {
 	private AnalogInput leftLidar;
 	private AnalogInput rightLidar;
 	private NetworkTable table;
-	private AHRS ahrs;
+	private AHRS ahrs; // Navx
+	
+	private double initAngle;
 	
 	private final double CAMERA_PROJ_PLANE_DISTANCE = 216.226;
 	/* Distance in pixels to imaginary camera projection plane
@@ -28,14 +31,16 @@ public class Sensors extends Subsystem {
 		leftLidar.setAverageBits(3);
 		rightLidar.setAverageBits(3);
 		table = NetworkTable.getTable("Vision");
+		ahrs = new AHRS(SPI.Port.kMXP);
+		initAngle = ahrs.getAngle();
 	}
 
 	public void display() {
 		if (Robot.DEBUG) {
 			SmartDashboard.putNumber("Left lidar", getLeftLidarInches());
 			SmartDashboard.putNumber("Right lidar", getRightLidarInches());
-			SmartDashboard.putNumber("Left lidar raw", getLeftLidar());
 			SmartDashboard.putNumber("Lidar difference", getLeftLidar() - getRightLidar());
+			SmartDashboard.putNumber("Navx angle", ahrs.getAngle());
 		}
 	}
 
