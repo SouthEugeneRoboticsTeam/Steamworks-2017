@@ -9,10 +9,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import com.kauailabs.navx.frc.AHRS;
+
 public class Sensors extends Subsystem {
 	private AnalogInput leftLidar;
 	private AnalogInput rightLidar;
 	private NetworkTable table;
+	private AHRS ahrs; // Navx
 	
 	private final double CAMERA_PROJ_PLANE_DISTANCE = 216.226;
 	/* Distance in pixels to imaginary camera projection plane
@@ -22,8 +25,8 @@ public class Sensors extends Subsystem {
 	public Sensors() {
 		leftLidar = new AnalogInput(RobotMap.LEFT_LIDAR_PORT);
 		rightLidar = new AnalogInput(RobotMap.RIGHT_LIDAR_PORT);
-		leftLidar.setAverageBits(2);
-		rightLidar.setAverageBits(2);
+		leftLidar.setAverageBits(3);
+		rightLidar.setAverageBits(3);
 		table = NetworkTable.getTable("Vision");
 	}
 
@@ -31,6 +34,7 @@ public class Sensors extends Subsystem {
 		if (Robot.DEBUG) {
 			SmartDashboard.putNumber("Left lidar", getLeftLidarInches());
 			SmartDashboard.putNumber("Right lidar", getRightLidarInches());
+			SmartDashboard.putNumber("Left lidar raw", getLeftLidar());
 			SmartDashboard.putNumber("Lidar difference", getLeftLidar() - getRightLidar());
 		}
 	}
@@ -44,11 +48,11 @@ public class Sensors extends Subsystem {
 	}
 
 	public double getLeftLidarInches() {
-		return 439583/getLeftLidar()-219.66; // Measured
+		return (226423.53/getLeftLidar()-77.11); // Measured
 	}
 	
 	public double getRightLidarInches() {
-		return 439583/getRightLidar()-219.66;
+		return (226423.53/getRightLidar()-77.11); // Measured
 	}
 	
 	private double getCVOffsetX() {
