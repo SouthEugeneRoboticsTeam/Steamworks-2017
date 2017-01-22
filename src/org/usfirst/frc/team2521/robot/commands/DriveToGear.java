@@ -18,13 +18,16 @@ public class DriveToGear extends Command {
 
 	protected void initialize() {
 		initAngle =  Robot.sensors.getNaxAngle();
-		
-		if(Robot.DEBUG) {
-			SmartDashboard.putNumber("Init angle", initAngle);
-		}
 	}
 
 	protected void execute() {
+		
+		if(Robot.DEBUG) {
+			SmartDashboard.putNumber("Init angle", initAngle);
+			
+			SmartDashboard.putNumber("Delta angle", Robot.sensors.getNaxAngle() - initAngle);
+		}
+		
 		double alpha = Robot.sensors.getAngleFromCamToWallPlane();
 		SmartDashboard.putNumber("Alpha", alpha);
 		double beta = Robot.sensors.getAngleFromCamToVisionTarget();

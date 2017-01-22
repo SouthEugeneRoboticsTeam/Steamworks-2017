@@ -40,7 +40,6 @@ public class Sensors extends Subsystem {
 			SmartDashboard.putNumber("Left lidar", getLeftLidarInches());
 			SmartDashboard.putNumber("Right lidar", getRightLidarInches());
 			
-			
 			SmartDashboard.putNumber("Current angle", ahrs.getAngle());
 		}
 	}
