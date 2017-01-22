@@ -16,7 +16,7 @@ public class Sensors extends Subsystem {
 	private AnalogInput leftLidar;
 	private AnalogInput rightLidar;
 	private NetworkTable table;
-	private AHRS ahrs; // Navx
+	private AHRS ahrs;
 	
 	private double initAngle;
 	
@@ -32,15 +32,16 @@ public class Sensors extends Subsystem {
 		rightLidar.setAverageBits(3);
 		table = NetworkTable.getTable("Vision");
 		ahrs = new AHRS(SPI.Port.kMXP);
-		initAngle = ahrs.getAngle();
+		ahrs.reset();
 	}
 
 	public void display() {
 		if (Robot.DEBUG) {
 			SmartDashboard.putNumber("Left lidar", getLeftLidarInches());
 			SmartDashboard.putNumber("Right lidar", getRightLidarInches());
-			SmartDashboard.putNumber("Lidar difference", getLeftLidar() - getRightLidar());
-			SmartDashboard.putNumber("Navx angle", ahrs.getAngle());
+			
+			
+			SmartDashboard.putNumber("Current angle", ahrs.getAngle());
 		}
 	}
 
@@ -74,6 +75,10 @@ public class Sensors extends Subsystem {
 		// Gets the angle between camera's line of sight and a plane parallel to the wall
 		// Alpha in whiteboard drawings
 		return Math.toDegrees(Math.atan((LIDAR_WIDTH / (getRightLidarInches() - getLeftLidarInches()))));
+	}
+	
+	public double getNaxAngle() {
+		return ahrs.getAngle();
 	}
 	
 	@Override

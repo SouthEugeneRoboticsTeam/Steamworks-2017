@@ -6,16 +6,23 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ * Command for driving to the gear automatically
  */
 public class DriveToGear extends Command {
 	double targetAngle;
+	double initAngle;
 
 	public DriveToGear() {
 		requires(Robot.drivetrain);
 	}
 
-	protected void initialize() {}
+	protected void initialize() {
+		initAngle =  Robot.sensors.getNaxAngle();
+		
+		if(Robot.DEBUG) {
+			SmartDashboard.putNumber("Init angle", initAngle);
+		}
+	}
 
 	protected void execute() {
 		double alpha = Robot.sensors.getAngleFromCamToWallPlane();
