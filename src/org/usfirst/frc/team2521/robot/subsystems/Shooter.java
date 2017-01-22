@@ -2,6 +2,7 @@ package org.usfirst.frc.team2521.robot.subsystems;
 
 import org.usfirst.frc.team2521.robot.RobotMap;
 import org.usfirst.frc.team2521.robot.commands.SetShooter;
+import org.usfirst.frc.team2521.robot.commands.Shoot;
 
 import com.ctre.CANTalon;
 
@@ -18,21 +19,25 @@ public class Shooter extends Subsystem {
 	public Shooter() {
 		left = new CANTalon(RobotMap.LEFT_SHOOT_MOTOR);
 		right = new CANTalon(RobotMap.RIGHT_SHOOT_MOTOR);
-		
-		right.changeControlMode(CANTalon.TalonControlMode.Follower);
+		//right.changeControlMode(CANTalon.TalonControlMode.Follower);
 	}
 	
 	public void setMotor(double value) {
 		//if (fetch == true) {
 			left.set(value);
-			right.set(RobotMap.LEFT_SHOOT_MOTOR);
+			right.set(-value);
+			//right.set(RobotMap.LEFT_SHOOT_MOTOR);
 		//}
+	}
+	
+	public double getEncVelocity() {
+		return left.getEncVelocity();
 	}
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new SetShooter());
+    	setDefaultCommand(new Shoot());
     }
 }
 
