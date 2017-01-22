@@ -11,12 +11,12 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Drivetrain extends Subsystem {
-
+	
 	private RobotDrive frontDrive;
 	private RobotDrive rearDrive;
 	
 	private CANTalon frontLeft, frontRight, rearLeft, rearRight;
-
+	
 	public Drivetrain() {
 		frontLeft = new CANTalon(RobotMap.FRONT_LEFT_MOTOR);
 		frontRight = new CANTalon(RobotMap.FRONT_RIGHT_MOTOR);
@@ -55,8 +55,9 @@ public class Drivetrain extends Subsystem {
 		rearLeft.set(RobotMap.FRONT_LEFT_MOTOR);
 	}
 	
-    public void initDefaultCommand() {
-    	setDefaultCommand(new TeleopDrivetrain());
-    }
+	@Override
+	public void initDefaultCommand() {
+		setDefaultCommand(new TeleopDrivetrain());
+	}
+	
 }
-
