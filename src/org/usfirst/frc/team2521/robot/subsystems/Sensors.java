@@ -41,6 +41,7 @@ public class Sensors extends Subsystem {
 			SmartDashboard.putNumber("Right lidar", getRightLidarInches());
 			
 			SmartDashboard.putNumber("Current angle", ahrs.getAngle());
+			SmartDashboard.putNumber("NT x offset",  getCVOffsetX());
 		}
 	}
 
@@ -60,7 +61,7 @@ public class Sensors extends Subsystem {
 		return (226423.53/getRightLidar()-77.11); // Measured
 	}
 	
-	private double getCVOffsetX() {
+	public double getCVOffsetX() {
 		return table.getNumber("offset_x", 0.0);
 	}
 	
