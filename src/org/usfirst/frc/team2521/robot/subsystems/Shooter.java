@@ -8,7 +8,6 @@ import org.usfirst.frc.team2521.robot.commands.PIDShoot;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Shooter extends Subsystem {
-
 	private CANTalon left;
 	private CANTalon right;
 
@@ -30,5 +29,4 @@ public class Shooter extends Subsystem {
 	public void initDefaultCommand() {
 		setDefaultCommand(new PIDShoot());
 	}
-
 }

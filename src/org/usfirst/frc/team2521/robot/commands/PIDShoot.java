@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class PIDShoot extends PIDCommand {
-
 	private static final double P = 0.00005;
 	private static final double I = 0.000001;
 	private static final double D = 0.0000005;
@@ -41,5 +40,4 @@ public class PIDShoot extends PIDCommand {
 	protected void usePIDOutput(double output) {
 		Robot.shooter.setMotor(output);
 	}
-
 }
