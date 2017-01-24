@@ -4,14 +4,14 @@ import org.usfirst.frc.team2521.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class TeleopDrivetrain extends Command {
-	public TeleopDrivetrain() {
-		requires(Robot.drivetrain);
+public class DisplaySensors extends Command {
+	public DisplaySensors() {
+		requires(Robot.sensors);
 	}
 
 	@Override
 	protected void execute() {
-		Robot.drivetrain.teleoperatedDrive();
+		Robot.sensors.display();
 	}
 
 	@Override
