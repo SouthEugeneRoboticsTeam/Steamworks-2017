@@ -16,7 +16,6 @@ public class Robot extends IterativeRobot {
 	public static Sensors sensors;
 	public static Shooter shooter;
 
-
 	@Override
 	public void robotInit() {
 		drivetrain = new Drivetrain();
