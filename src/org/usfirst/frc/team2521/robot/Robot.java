@@ -33,11 +33,6 @@ public class Robot extends IterativeRobot {
 	}
 
 	@Override
-	public void teleopInit() {
-		SmartDashboard.putNumber("Shooter Speed", 0.0);
-	}
-
-	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 	}
