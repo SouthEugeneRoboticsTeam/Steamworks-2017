@@ -3,7 +3,6 @@ package org.usfirst.frc.team2521.robot;
 import org.usfirst.frc.team2521.robot.commands.AutoAlign;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
@@ -12,8 +11,6 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 	private static OI instance;
-
-	public Preferences prefs;
 
 	private final Joystick left;
 	private final Joystick right;
