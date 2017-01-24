@@ -41,6 +41,8 @@ public class Sensors extends Subsystem {
 		if (Robot.DEBUG) {
 			SmartDashboard.putNumber("Left lidar", getLeftLidarInches());
 			SmartDashboard.putNumber("Right lidar", getRightLidarInches());
+			SmartDashboard.putNumber("Left lidar raw", getLeftLidar());
+			SmartDashboard.putNumber("Right lidar raw", getRightLidar());
 			
 			SmartDashboard.putNumber("Current angle", ahrs.getAngle());
 			SmartDashboard.putNumber("NT x offset",  getCVOffsetX());
