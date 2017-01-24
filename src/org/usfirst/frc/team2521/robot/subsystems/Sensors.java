@@ -18,12 +18,14 @@ public class Sensors extends Subsystem {
 	private NetworkTable table;
 	private AHRS ahrs;
 	
-	private double initAngle;
-	
 	private final double CAMERA_PROJ_PLANE_DISTANCE = 216.226;
 	/* Distance in pixels to imaginary camera projection plane
 	Calculated from camera FOV (61.39) and half image width (380 pixels): (380/2)/tan(61.39/2) */
 	private final double LIDAR_WIDTH = 25.6; //in
+	
+	// Lidar equation form:  distance = m/lidarValue + b
+	private double LONG_LIDAR_M = 226423.53; // Propertional term of long lidar equation
+	private double LONG_LIDAR_B = -77.11; // Offset term of long lidar equation
 
 	public Sensors() {
 		leftLidar = new AnalogInput(RobotMap.LEFT_LIDAR_PORT);
@@ -54,11 +56,11 @@ public class Sensors extends Subsystem {
 	}
 
 	public double getLeftLidarInches() {
-		return (226423.53/getLeftLidar()-77.11); // Measured
+		return LONG_LIDAR_M/getLeftLidar()+LONG_LIDAR_B;
 	}
 	
 	public double getRightLidarInches() {
-		return (226423.53/getRightLidar()-77.11); // Measured
+		return LONG_LIDAR_M/getRightLidar()+LONG_LIDAR_B;
 	}
 	
 	public double getCVOffsetX() {
