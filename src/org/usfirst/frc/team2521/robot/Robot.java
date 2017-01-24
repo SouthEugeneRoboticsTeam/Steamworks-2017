@@ -16,14 +16,11 @@ public class Robot extends IterativeRobot {
 	public static Sensors sensors;
 	public static Shooter shooter;
 
-	public static OI oi;
 
 	@Override
 	public void robotInit() {
 		drivetrain = new Drivetrain();
 		sensors = new Sensors();
-
-		oi = OI.getInstance();
 	}
 
 	@Override
