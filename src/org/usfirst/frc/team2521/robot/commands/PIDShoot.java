@@ -9,8 +9,7 @@ public class PIDShoot extends PIDCommand {
 	private static final double P = 0.00005;
 	private static final double I = 0.000001;
 	private static final double D = 0.0000005;
-
-	private static final int setpoint = 27500;
+	private static final int SET_POINT = 27500;
 
 	public PIDShoot() {
 		super(P, I, D);
@@ -20,10 +19,10 @@ public class PIDShoot extends PIDCommand {
 
 	@Override
 	public void execute() {
-		setSetpoint(setpoint);
+		setSetpoint(SET_POINT);
 
 		SmartDashboard.putNumber("Encoder Value", Robot.shooter.getEncVelocity());
-		SmartDashboard.putNumber("Error", setpoint - Robot.shooter.getEncVelocity());
+		SmartDashboard.putNumber("Error", SET_POINT - Robot.shooter.getEncVelocity());
 	}
 
 	@Override
