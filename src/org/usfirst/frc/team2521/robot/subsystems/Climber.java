@@ -12,14 +12,14 @@ public class Climber extends Subsystem {
 	private CANTalon wheel;
 	
 	public Climber() {
-		wheel = new CANTalon(RobotMap.CLIMBER_WHEEL_MOTER);
+		wheel = new CANTalon(RobotMap.CLIMBER_WHEEL_MOTOR);
 	}
 	
 	public void teleoperatedClimb() {
-		double gunner = OI.getInstance().getGunnerStick().getY();
+		double speed = OI.getInstance().getSecondaryStick().getY();
 		
 		wheel.changeControlMode(TalonControlMode.PercentVbus);
-		wheel.set(gunner);
+		wheel.set(speed);
 	}
 	
 	public void initDefaultCommand() {
