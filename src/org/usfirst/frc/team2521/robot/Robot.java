@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2521.robot;
 
+import org.usfirst.frc.team2521.robot.subsystems.Climber;
 import org.usfirst.frc.team2521.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2521.robot.subsystems.Sensors;
 import org.usfirst.frc.team2521.robot.subsystems.Shooter;
@@ -15,11 +16,13 @@ public class Robot extends IterativeRobot {
 	public static Drivetrain drivetrain;
 	public static Sensors sensors;
 	public static Shooter shooter;
+	public static Climber climber;
 
 	@Override
 	public void robotInit() {
 		drivetrain = new Drivetrain();
 		sensors = new Sensors();
+		climber = new Climber();
 	}
 
 	@Override
