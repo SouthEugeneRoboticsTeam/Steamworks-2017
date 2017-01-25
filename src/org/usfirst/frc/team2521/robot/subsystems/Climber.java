@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Climber extends Subsystem {
 	private CANTalon wheel;
-
+	
 	public Climber() {
 		wheel = new CANTalon(RobotMap.CLIMBER_WHEEL_MOTER);
 	}
@@ -22,8 +22,7 @@ public class Climber extends Subsystem {
 		wheel.set(gunner);
 	}
 	
-    public void initDefaultCommand() {
-        setDefaultCommand(new TeleopClimber());
-    }
+	public void initDefaultCommand() {
+		setDefaultCommand(new TeleopClimber());
+	}
 }
-
