@@ -18,15 +18,11 @@ public class Robot extends IterativeRobot {
 	public static Shooter shooter;
 	public static Climber climber;
 
-	public static OI oi;
-
 	@Override
 	public void robotInit() {
 		drivetrain = new Drivetrain();
 		sensors = new Sensors();
 		climber = new Climber();
-
-		oi = OI.getInstance();
 	}
 
 	@Override
