@@ -23,15 +23,18 @@ public class Sensors extends Subsystem {
 	Calculated from camera FOV (61.39) and half image width (380 pixels): (380/2)/tan(61.39/2) */
 	private final double LIDAR_WIDTH = 25.6; //in
 	
-	// Lidar equation form:  distance = m/lidarValue + b
+	// Lidar equation form:  distance = m/lidarValue^2 + b
 	private double LONG_LIDAR_M = 226423.53; // Propertional term of long lidar equation
 	private double LONG_LIDAR_B = -77.11; // Offset term of long lidar equation
+
+	private double MED_LIDAR_M = 1.964 * Math.pow(10, 7);
+	private double MED_LIDAR_B = -1.045;
 
 	public Sensors() {
 		leftLidar = new AnalogInput(RobotMap.LEFT_LIDAR_PORT);
 		rightLidar = new AnalogInput(RobotMap.RIGHT_LIDAR_PORT);
-		leftLidar.setAverageBits(3);
-		rightLidar.setAverageBits(3);
+		leftLidar.setAverageBits(5);
+		rightLidar.setAverageBits(5);
 		table = NetworkTable.getTable("Vision");
 		ahrs = new AHRS(SPI.Port.kMXP);
 		ahrs.reset();
@@ -41,8 +44,6 @@ public class Sensors extends Subsystem {
 		if (Robot.DEBUG) {
 			SmartDashboard.putNumber("Left lidar", getLeftLidarInches());
 			SmartDashboard.putNumber("Right lidar", getRightLidarInches());
-			SmartDashboard.putNumber("Left lidar raw", getLeftLidar());
-			SmartDashboard.putNumber("Right lidar raw", getRightLidar());
 			
 			SmartDashboard.putNumber("Current angle", ahrs.getAngle());
 			SmartDashboard.putNumber("NT x offset",  getCVOffsetX());
@@ -58,11 +59,11 @@ public class Sensors extends Subsystem {
 	}
 
 	public double getLeftLidarInches() {
-		return LONG_LIDAR_M/getLeftLidar()+LONG_LIDAR_B;
+		return MED_LIDAR_M/Math.pow(getLeftLidar(), 2) + MED_LIDAR_B;
 	}
 	
 	public double getRightLidarInches() {
-		return LONG_LIDAR_M/getRightLidar()+LONG_LIDAR_B;
+		return MED_LIDAR_M/Math.pow(getRightLidar(), 2) + MED_LIDAR_B;
 	}
 	
 	public double getCVOffsetX() {
