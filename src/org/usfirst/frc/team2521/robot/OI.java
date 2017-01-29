@@ -46,7 +46,7 @@ public class OI {
 	public Joystick getRightStick() {
 		return right;
 	}
-	
+
 	public Joystick getSecondaryStick() {
 		return secondary;
 	}
