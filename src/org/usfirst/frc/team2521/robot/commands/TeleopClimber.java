@@ -8,11 +8,11 @@ public class TeleopClimber extends Command {
 	public TeleopClimber() {
 		requires(Robot.climber);
 	}
-	
+
 	protected void execute() {
 		Robot.climber.teleoperatedClimb();
 	}
-	
+
 	protected boolean isFinished() {
 		return false;
 	}

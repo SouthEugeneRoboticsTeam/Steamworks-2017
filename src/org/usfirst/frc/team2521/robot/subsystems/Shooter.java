@@ -1,9 +1,9 @@
 package org.usfirst.frc.team2521.robot.subsystems;
 
+import com.ctre.CANTalon;
+
 import org.usfirst.frc.team2521.robot.RobotMap;
 import org.usfirst.frc.team2521.robot.commands.PIDShoot;
-
-import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
