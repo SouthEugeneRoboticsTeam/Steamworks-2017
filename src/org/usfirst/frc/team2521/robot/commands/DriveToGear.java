@@ -16,7 +16,7 @@ public class DriveToGear extends Command {
 	/* Distance in pixels to imaginary camera projection plane
 	Calculated from camera FOV (61.39) and half image width (380 pixels): (380/2)/tan(61.39/2) */
 	
-	private final double LIDAR_WIDTH = 25.6; //in
+	private final double LIDAR_WIDTH = 30.5; //in
 	
 	public DriveToGear() {
 		requires(Robot.drivetrain);
@@ -34,7 +34,8 @@ public class DriveToGear extends Command {
 		double beta = Math.toDegrees(Math.atan(Robot.sensors.getCVOffsetX()/CAMERA_PROJ_PLANE_DISTANCE));
 		// Angle between the line of sight of the camera and the vision target
 		
-		targetAngle = 0.5*alpha + beta;
+		targetAngle = initAngle + alpha + 0.5*(beta-alpha);
+		// Add alpha brings us to the plane parallel to the wall, then half beta-alpha brings it to the setpoint
 		
 		if(Robot.DEBUG) {
 			SmartDashboard.putNumber("Init angle", initAngle);
@@ -47,12 +48,5 @@ public class DriveToGear extends Command {
 
 	protected boolean isFinished() {
 		return false;
-	}
-
-	protected void end() {
-		SmartDashboard.putNumber("Target angle", targetAngle);
-	}
-
-	protected void interrupted() {
 	}
 }
