@@ -4,6 +4,9 @@ import org.usfirst.frc.team2521.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
+/**
+ * Displays sensor information on the SmartDashboard
+ */
 public class DisplaySensors extends Command {
 	public DisplaySensors() {
 		requires(Robot.sensors);

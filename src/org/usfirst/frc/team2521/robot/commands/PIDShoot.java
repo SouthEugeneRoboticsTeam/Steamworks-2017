@@ -5,10 +5,14 @@ import org.usfirst.frc.team2521.robot.Robot;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+/**
+ * Spins up the flywheel and attempts to maintain a constant speed
+ */
 public class PIDShoot extends PIDCommand {
 	private static final double P = 0.00005;
 	private static final double I = 0.000001;
 	private static final double D = 0.0000005;
+
 	private static final int SETPOINT = 27500;
 
 	public PIDShoot() {
