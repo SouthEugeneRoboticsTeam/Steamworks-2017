@@ -9,44 +9,55 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * Command for driving to the gear automatically
  */
 public class DriveToGear extends Command {
-	double targetAngle;
-	double initAngle;
-
-	private final double CAMERA_PROJ_PLANE_DISTANCE = 216.226;
-	/* Distance in pixels to imaginary camera projection plane
-	Calculated from camera FOV (61.39) and half image width (380 pixels): (380/2)/tan(61.39/2) */
-	
-	private final double LIDAR_WIDTH = 30.5; //in
+	private static final double P = 0.002;
+	private static final double I = 0;
+	private static final double D = 0;
 	
 	public DriveToGear() {
+		//super(P, I, D);
 		requires(Robot.drivetrain);
 	}
-
-	protected void initialize() {
-		initAngle =  Robot.sensors.getNaxAngle();
-	}
-
+	
+	@Override
 	protected void execute() {
+		if (Math.abs(Robot.sensors.getCVOffsetX()) < 20) {
+			Robot.drivetrain.setLeft(-.3);
+			Robot.drivetrain.setRight(.3);
+		}
 		
-		double alpha = Math.toDegrees(Math.atan((LIDAR_WIDTH/(Robot.sensors.getRightLidarInches() - Robot.sensors.getLeftLidarInches()))));
-		// Gets the angle between camera's line of sight and a plane parallel to the wall
-		
-		double beta = Math.toDegrees(Math.atan(Robot.sensors.getCVOffsetX()/CAMERA_PROJ_PLANE_DISTANCE));
-		// Angle between the line of sight of the camera and the vision target
-		
-		targetAngle = initAngle + alpha + 0.5*(beta-alpha);
-		// Add alpha brings us to the plane parallel to the wall, then half beta-alpha brings it to the setpoint
-		
-		if(Robot.DEBUG) {
-			SmartDashboard.putNumber("Init angle", initAngle);
-			SmartDashboard.putNumber("Delta angle", Robot.sensors.getNaxAngle() - initAngle);
-			SmartDashboard.putNumber("Alpha", alpha);
-			SmartDashboard.putNumber("Beta", beta);
-			SmartDashboard.putNumber("Target angle", targetAngle);
+		if (Robot.sensors.getCVOffsetX() < 0) {
+			Robot.drivetrain.setLeft(-.2);
+		} else {
+			Robot.drivetrain.setRight(.2);
 		}
 	}
 
+	@Override
 	protected boolean isFinished() {
 		return false;
 	}
+	/*
+	@Override
+	protected double returnPIDInput() {
+		return Robot.sensors.getCVOffsetX();
+	}
+
+	@Override
+	protected void usePIDOutput(double output) {
+		if (Robot.DEBUG) SmartDashboard.putNumber("Drive to gear output", output);
+
+		if (Math.abs(Robot.sensors.getCVOffsetX()) < 10) {
+			Robot.drivetrain.setLeft(.5);
+			Robot.drivetrain.setRight(.5);
+		}
+		
+		// If CV offset is positive, we're too far left. If it's negative, we're too far right
+		// This way we also are always moving forward
+		if (Robot.sensors.getCVOffsetX() > 0) {
+			Robot.drivetrain.setLeft(output);
+		} else {
+			Robot.drivetrain.setRight(output);
+		}
+	}
+	*/
 }
