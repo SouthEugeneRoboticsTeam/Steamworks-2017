@@ -21,8 +21,10 @@ public class PIDShoot extends PIDCommand {
 	public void execute() {
 		setSetpoint(SETPOINT);
 
-		SmartDashboard.putNumber("Encoder Value", Robot.shooter.getEncVelocity());
-		SmartDashboard.putNumber("Error", SETPOINT - Robot.shooter.getEncVelocity());
+		if (Robot.DEBUG) {
+			SmartDashboard.putNumber("Encoder Value", Robot.shooter.getEncVelocity());
+			SmartDashboard.putNumber("Error", SETPOINT - Robot.shooter.getEncVelocity());
+		}
 	}
 
 	@Override

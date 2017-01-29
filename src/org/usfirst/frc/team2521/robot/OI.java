@@ -14,12 +14,14 @@ public class OI {
 
 	private final Joystick left;
 	private final Joystick right;
+	private final Joystick secondary;
 
 	private JoystickButton autoAlignButton;
 
 	private OI() {
 		left = new Joystick(RobotMap.LEFT_STICK_PORT);
 		right = new Joystick(RobotMap.RIGHT_STICK_PORT);
+		secondary = new Joystick(RobotMap.SECONDARY_STICK_PORT);
 
 		autoAlignButton = new JoystickButton(right, RobotMap.AUTO_ALIGN_BUTTON_PORT);
 
@@ -43,6 +45,10 @@ public class OI {
 
 	public Joystick getRightStick() {
 		return right;
+	}
+
+	public Joystick getSecondaryStick() {
+		return secondary;
 	}
 
 	private void setButtonListeners() {
