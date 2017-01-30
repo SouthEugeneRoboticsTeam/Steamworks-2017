@@ -3,7 +3,6 @@ package org.usfirst.frc.team2521.robot.commands;
 import org.usfirst.frc.team2521.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.PIDCommand;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Command for driving to the gear automatically
@@ -46,7 +45,7 @@ public class DriveToGear extends PIDCommand {
 		if (Math.abs(output) > MAX_TURN_SPEED) {
 			output = MAX_TURN_SPEED * Math.signum(output);
 		}
-		SmartDashboard.putBoolean("On targ", Math.abs(Robot.sensors.getCVOffsetX()) < OFFSET_CUTOFF);
+		
 		if (Math.abs(Robot.sensors.getCVOffsetX()) < OFFSET_CUTOFF) {
 			Robot.drivetrain.setLeft(-STRAIGHT_SPEED);
 			Robot.drivetrain.setRight(STRAIGHT_SPEED);
