@@ -9,9 +9,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * Command for driving to the gear automatically
  */
 public class DriveToGear extends PIDCommand {
-	private static final double P = 0.005;
+	private static final double P = 0.003;
 	private static final double I = 0;
-	private static final double D = 0;
+	private static final double D = 0.001;
 	
 	private static final double STRAIGHT_SPEED = 0.3;
 	/**
