@@ -42,10 +42,6 @@ public class Sensors extends Subsystem {
 
 	public void display() {
 		if (Robot.DEBUG) {
-			SmartDashboard.putNumber("Left lidar", getLeftLidarInches());
-			SmartDashboard.putNumber("Right lidar", getRightLidarInches());
-			
-			SmartDashboard.putNumber("Current angle", ahrs.getAngle());
 			SmartDashboard.putNumber("NT x offset",  getCVOffsetX());
 		}
 	}
