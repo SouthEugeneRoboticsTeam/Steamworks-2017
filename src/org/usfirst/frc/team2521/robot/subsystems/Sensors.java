@@ -24,9 +24,6 @@ public class Sensors extends Subsystem {
 	private final double LIDAR_WIDTH = 25.6; //in
 	
 	// Lidar equation form:  distance = m/lidarValue^2 + b
-	private double LONG_LIDAR_M = 226423.53; // Propertional term of long lidar equation
-	private double LONG_LIDAR_B = -77.11; // Offset term of long lidar equation
-
 	private double MED_LIDAR_M = 1.964 * Math.pow(10, 7);
 	private double MED_LIDAR_B = -1.045;
 
