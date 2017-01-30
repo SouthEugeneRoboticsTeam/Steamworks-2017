@@ -9,13 +9,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * Command for driving to the gear automatically
  */
 public class DriveToGear extends PIDCommand {
-	private static final double P = 0.003;
+	private static final double P = 0.005;
 	private static final double I = 0;
 	private static final double D = 0.001;
 	
-	private static final double STRAIGHT_SPEED = 0.3;
+	private static final double STRAIGHT_SPEED = 0.7;
 	/**
 	 * Speed to go at once we're centered on the target
+	 */
+	
+	private static final double MAX_TURN_SPEED = 0.3;
+	/**
+	 * Maximum speed to go while still turning toward the target
 	 */
 	
 	private static final double OFFSET_CUTOFF = 20;
@@ -38,10 +43,10 @@ public class DriveToGear extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double output) {
-		SmartDashboard.putNumber("Drive to gear output", output);
-		if (Math.abs(output) > .3) {
-			output = .3 * Math.signum(output);
+		if (Math.abs(output) > MAX_TURN_SPEED) {
+			output = MAX_TURN_SPEED * Math.signum(output);
 		}
+		SmartDashboard.putBoolean("On targ", Math.abs(Robot.sensors.getCVOffsetX()) < OFFSET_CUTOFF);
 		if (Math.abs(Robot.sensors.getCVOffsetX()) < OFFSET_CUTOFF) {
 			Robot.drivetrain.setLeft(-STRAIGHT_SPEED);
 			Robot.drivetrain.setRight(STRAIGHT_SPEED);
@@ -51,10 +56,10 @@ public class DriveToGear extends PIDCommand {
 		// This way we also are always moving forward
 		if (Robot.sensors.getCVOffsetX() < 0) {
 			Robot.drivetrain.setLeft(-output);
-			SmartDashboard.putNumber("Left", -output);
+			Robot.drivetrain.setRight(0.5*output);
 		} else {
+			Robot.drivetrain.setLeft(0.5*output);
 			Robot.drivetrain.setRight(-output);
-			SmartDashboard.putNumber("Right", -output);
 		}
 	}
 
