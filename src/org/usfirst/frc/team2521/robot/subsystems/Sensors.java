@@ -39,7 +39,8 @@ public class Sensors extends Subsystem {
 
 	public void display() {
 		if (Robot.DEBUG) {
-			SmartDashboard.putNumber("NT x offset",  getCVOffsetX());
+			SmartDashboard.putNumber("NT x offset", getCVOffsetX());
+			SmartDashboard.putNumber("Navx angle", getNavxAngle());
 		}
 	}
 
