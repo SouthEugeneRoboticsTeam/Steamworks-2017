@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2521.robot;
 
 import org.usfirst.frc.team2521.robot.commands.AutoAlign;
+import org.usfirst.frc.team2521.robot.commands.DriveToGear;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -17,6 +18,7 @@ public class OI {
 	private final Joystick secondary;
 
 	private JoystickButton autoAlignButton;
+	private JoystickButton driveToGearButton;
 
 	private OI() {
 		left = new Joystick(RobotMap.LEFT_STICK_PORT);
@@ -47,11 +49,20 @@ public class OI {
 		return right;
 	}
 
+<<<<<<< e5db6ff3ae0ece47ec16f147b92a2e06a27ae1b7
 	public Joystick getSecondaryStick() {
 		return secondary;
+=======
+	public void initButtons() {
+		autoAlignButton = new JoystickButton(right, RobotMap.AUTO_ALIGN_BUTTON_PORT);
+		driveToGearButton = new JoystickButton(right, RobotMap.DRIVE_TO_GEAR_PORT);
+		
+		tieButtons();
+>>>>>>> Move drive to gear to a button
 	}
 
 	private void setButtonListeners() {
 		autoAlignButton.whenPressed(new AutoAlign());
+		driveToGearButton.whenPressed(new DriveToGear());
 	}
 }

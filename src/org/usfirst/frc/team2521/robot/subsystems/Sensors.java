@@ -76,7 +76,7 @@ public class Sensors extends Subsystem {
 		return Math.toDegrees(Math.atan((LIDAR_WIDTH / (getRightLidarInches() - getLeftLidarInches()))));
 	}
 	
-	public double getNaxAngle() {
+	public double getNavxAngle() {
 		return ahrs.getAngle();
 	}
 	
