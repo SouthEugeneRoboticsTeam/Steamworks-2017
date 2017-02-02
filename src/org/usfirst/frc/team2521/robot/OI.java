@@ -56,6 +56,6 @@ public class OI {
 
 	private void setButtonListeners() {
 		autoAlignButton.whenPressed(new AutoAlign());
-		driveToGearButton.whenPressed(new DriveToGear());
+		driveToGearButton.toggleWhenActive(new DriveToGear());
 	}
 }

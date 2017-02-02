@@ -12,31 +12,31 @@ public class DriveToGear extends PIDCommand {
 	private static final double P = 0.008;
 	private static final double I = 0;
 	private static final double D = 0;
-	
+
 	private static final double CAMERA_PROJ_PLANE_DISTANCE = 216.226;
 
 	private boolean oriented = false;
 	// True if the robot is facing the gear straight
-	
+
 	public DriveToGear() {
 		super(P, I, D);
 		requires(Robot.drivetrain);
 	}
-	
+
 	@Override
 	protected void execute() {
-		double targetAngle = Math.atan(Robot.sensors.getCVOffsetX()/CAMERA_PROJ_PLANE_DISTANCE);
+		double targetAngle = Math.atan(Robot.sensors.getCVOffsetX() / CAMERA_PROJ_PLANE_DISTANCE);
 		// Should be angle between camera line of sight and target
-		
-		targetAngle *= 180/Math.PI; // Convert to degrees
-		
+
+		targetAngle *= 180 / Math.PI; // Convert to degrees
+
 		oriented = Math.abs(targetAngle) < 10;
 		// We're considered oriented when our angle error is less than 10
-		
+
 		targetAngle += Robot.sensors.getNavxAngle();
 		setSetpoint(targetAngle);
-		
-		if(Robot.DEBUG) {
+
+		if (Robot.DEBUG) {
 			SmartDashboard.putNumber("Drive to gear setpoint", targetAngle);
 			SmartDashboard.putBoolean("Oriented", oriented);
 		}
@@ -46,7 +46,7 @@ public class DriveToGear extends PIDCommand {
 	protected boolean isFinished() {
 		return false;
 	}
-	
+
 	@Override
 	protected double returnPIDInput() {
 		return Robot.sensors.getNavxAngle();
@@ -57,7 +57,7 @@ public class DriveToGear extends PIDCommand {
 		// If we are already oriented, we just drive straight
 		if (oriented) {
 			Robot.drivetrain.setLeft(-.2);
-			Robot.drivetrain.setRight(0.2);
+			Robot.drivetrain.setRight(.2);
 		} else if (output < 0) {
 			Robot.drivetrain.setLeft(output);
 		} else {
