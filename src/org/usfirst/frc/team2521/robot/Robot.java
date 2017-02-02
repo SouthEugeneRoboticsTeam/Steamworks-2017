@@ -1,10 +1,7 @@
 package org.usfirst.frc.team2521.robot;
 
-<<<<<<< e5db6ff3ae0ece47ec16f147b92a2e06a27ae1b7
 import org.usfirst.frc.team2521.robot.commands.DriveToGear;
 import org.usfirst.frc.team2521.robot.subsystems.Climber;
-=======
->>>>>>> Move drive to gear to a button
 import org.usfirst.frc.team2521.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2521.robot.subsystems.Sensors;
 import org.usfirst.frc.team2521.robot.subsystems.Shooter;
@@ -29,12 +26,8 @@ public class Robot extends IterativeRobot {
 		drivetrain = new Drivetrain();
 		sensors = new Sensors();
 		climber = new Climber();
-
-<<<<<<< e5db6ff3ae0ece47ec16f147b92a2e06a27ae1b7
+		
 		auto = new DriveToGear();
-=======
-		oi = OI.getInstance();
->>>>>>> Move drive to gear to a button
 	}
 
 	@Override

@@ -39,8 +39,10 @@ public class Sensors extends Subsystem {
 
 	public void display() {
 		if (Robot.DEBUG) {
+			System.out.println(getCVOffsetX());
 			SmartDashboard.putNumber("NT x offset", getCVOffsetX());
 			SmartDashboard.putNumber("Navx angle", getNavxAngle());
+			SmartDashboard.putBoolean("Blob found?", getBlobFound());
 		}
 	}
 
@@ -70,10 +72,8 @@ public class Sensors extends Subsystem {
 		return Math.toDegrees(Math.atan(getCVOffsetX() / CAMERA_PROJ_PLANE_DISTANCE));
 	}
 	
-	public double getAngleFromCamToWallPlane() {
-		// Gets the angle between camera's line of sight and a plane parallel to the wall
-		// Alpha in whiteboard drawings
-		return Math.toDegrees(Math.atan((LIDAR_WIDTH / (getRightLidarInches() - getLeftLidarInches()))));
+	public boolean getBlobFound() {
+		return table.getBoolean("blob_found", false);
 	}
 	
 	public double getNavxAngle() {

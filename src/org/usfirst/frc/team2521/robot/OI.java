@@ -26,6 +26,7 @@ public class OI {
 		secondary = new Joystick(RobotMap.SECONDARY_STICK_PORT);
 
 		autoAlignButton = new JoystickButton(right, RobotMap.AUTO_ALIGN_BUTTON_PORT);
+		driveToGearButton = new JoystickButton(right, RobotMap.DRIVE_TO_GEAR_PORT);
 
 		setButtonListeners();
 	}
@@ -49,16 +50,8 @@ public class OI {
 		return right;
 	}
 
-<<<<<<< e5db6ff3ae0ece47ec16f147b92a2e06a27ae1b7
 	public Joystick getSecondaryStick() {
 		return secondary;
-=======
-	public void initButtons() {
-		autoAlignButton = new JoystickButton(right, RobotMap.AUTO_ALIGN_BUTTON_PORT);
-		driveToGearButton = new JoystickButton(right, RobotMap.DRIVE_TO_GEAR_PORT);
-		
-		tieButtons();
->>>>>>> Move drive to gear to a button
 	}
 
 	private void setButtonListeners() {
