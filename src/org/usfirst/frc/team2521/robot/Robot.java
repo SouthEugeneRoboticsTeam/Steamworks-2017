@@ -27,7 +27,7 @@ public class Robot extends IterativeRobot {
 		sensors = new Sensors();
 		climber = new Climber();
 		
-		auto = new DriveToGear();
+		auto = new DriveToGear(false);
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 	}
-
+	
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();

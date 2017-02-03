@@ -8,8 +8,9 @@ public class RobotMap {
 	public static final int RIGHT_STICK_PORT = 1;
 	public static final int SECONDARY_STICK_PORT = 2;
 
-	public static final int DRIVE_TO_GEAR_PORT = 2; // On right stick
 	public static final int AUTO_ALIGN_BUTTON_PORT = 3; // On right stick
+	public static final int DRIVE_TO_GEAR_LEFT_PORT = 4; // On right stick
+	public static final int DRIVE_TO_GEAR_RIGHT_PORT = 5; // On right stick
 
 	public static final int FRONT_RIGHT_MOTOR = 42;
 	public static final int FRONT_LEFT_MOTOR = 41;

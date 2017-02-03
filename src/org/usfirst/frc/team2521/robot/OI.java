@@ -18,7 +18,8 @@ public class OI {
 	private final Joystick secondary;
 
 	private JoystickButton autoAlignButton;
-	private JoystickButton driveToGearButton;
+	private JoystickButton driveToGearLeftButton;
+	private JoystickButton driveToGearRightButton;
 
 	private OI() {
 		left = new Joystick(RobotMap.LEFT_STICK_PORT);
@@ -26,7 +27,8 @@ public class OI {
 		secondary = new Joystick(RobotMap.SECONDARY_STICK_PORT);
 
 		autoAlignButton = new JoystickButton(right, RobotMap.AUTO_ALIGN_BUTTON_PORT);
-		driveToGearButton = new JoystickButton(right, RobotMap.DRIVE_TO_GEAR_PORT);
+		driveToGearLeftButton = new JoystickButton(right, RobotMap.DRIVE_TO_GEAR_LEFT_PORT);
+		driveToGearRightButton = new JoystickButton(right, RobotMap.DRIVE_TO_GEAR_RIGHT_PORT);
 
 		setButtonListeners();
 	}
@@ -56,6 +58,7 @@ public class OI {
 
 	private void setButtonListeners() {
 		autoAlignButton.whenPressed(new AutoAlign());
-		driveToGearButton.toggleWhenActive(new DriveToGear());
+		driveToGearLeftButton.toggleWhenActive(new DriveToGear(true));
+		driveToGearRightButton.toggleWhenActive(new DriveToGear(false));
 	}
 }

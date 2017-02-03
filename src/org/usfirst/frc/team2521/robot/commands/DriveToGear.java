@@ -17,10 +17,15 @@ public class DriveToGear extends PIDCommand {
 
 	private boolean oriented = false;
 	// True if the robot is facing the gear straight
+	
+	private boolean onLeftSide;
+	// Parameter to see if we're too far to the left; otherwise, we
+	// assume that we're too fare to the right
 
-	public DriveToGear() {
+	public DriveToGear(boolean onLeftSide) {
 		super(P, I, D);
 		requires(Robot.drivetrain);
+		this.onLeftSide = onLeftSide;
 	}
 
 	@Override
@@ -65,8 +70,13 @@ public class DriveToGear extends PIDCommand {
 				Robot.drivetrain.setRight(output);
 			}
 		} else {
-			Robot.drivetrain.setLeft(.2);
-			Robot.drivetrain.setRight(.2);
+			if (onLeftSide) {
+				Robot.drivetrain.setLeft(.2);
+				Robot.drivetrain.setRight(.2);
+			} else {
+				Robot.drivetrain.setLeft(-.2);
+				Robot.drivetrain.setRight(-.2);
+			}
 		}
 	}
 
