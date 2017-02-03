@@ -30,7 +30,7 @@ public class DriveToGear extends PIDCommand {
 
 		targetAngle *= 180 / Math.PI; // Convert to degrees
 
-		oriented = Math.abs(targetAngle) < 10;
+		oriented = Math.abs(targetAngle) < 20;
 		// We're considered oriented when our angle error is less than 10
 
 		targetAngle += Robot.sensors.getNavxAngle();
@@ -54,14 +54,19 @@ public class DriveToGear extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double output) {
-		// If we are already oriented, we just drive straight
-		if (oriented) {
-			Robot.drivetrain.setLeft(-.2);
-			Robot.drivetrain.setRight(.2);
-		} else if (output < 0) {
-			Robot.drivetrain.setLeft(output);
+		if(Robot.sensors.getBlobFound()) {
+			// If we are already oriented, we just drive straight
+			if (oriented) {
+				Robot.drivetrain.setLeft(-.2);
+				Robot.drivetrain.setRight(.2);
+			} else if (output < 0) {
+				Robot.drivetrain.setLeft(output);
+			} else {
+				Robot.drivetrain.setRight(output);
+			}
 		} else {
-			Robot.drivetrain.setRight(output);
+			Robot.drivetrain.setLeft(.2);
+			Robot.drivetrain.setRight(.2);
 		}
 	}
 
