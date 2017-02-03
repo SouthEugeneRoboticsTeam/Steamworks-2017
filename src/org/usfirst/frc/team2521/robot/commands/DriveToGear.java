@@ -70,14 +70,9 @@ public class DriveToGear extends PIDCommand {
 				Robot.drivetrain.setRight(output);
 			}
 		} else {
-			if (onLeftSide) {
-				Robot.drivetrain.setLeft(.2);
-				Robot.drivetrain.setRight(.2);
-			} else {
-				Robot.drivetrain.setLeft(-.2);
-				Robot.drivetrain.setRight(-.2);
-			}
+			// Turn clockwise if we're too far left, counterclockwise if we're too far right
+			Robot.drivetrain.setLeft(onLeftSide ? .2 : -.2);
+			Robot.drivetrain.setRight(onLeftSide ? .2 : -.2);
 		}
 	}
-
 }
