@@ -9,6 +9,7 @@ public class RobotMap {
 	public static final int SECONDARY_STICK_PORT = 2;
 
 	public static final int AUTO_ALIGN_BUTTON_PORT = 3; // On right stick
+	public static final int FEEDER_BUTTON_PORT = 4 ;
 
 	public static final int FRONT_RIGHT_MOTOR = 42;
 	public static final int FRONT_LEFT_MOTOR = 41;
@@ -16,6 +17,7 @@ public class RobotMap {
 	public static final int REAR_LEFT_MOTOR = 47;
 	
 	public static final int CLIMBER_WHEEL_MOTOR = 45;
+	public static final int FEEDER_WHEEL_MOTOR = 49 ;
 
 	public static final int LEFT_LIDAR_PORT = 1;
 	public static final int RIGHT_LIDAR_PORT = 0;

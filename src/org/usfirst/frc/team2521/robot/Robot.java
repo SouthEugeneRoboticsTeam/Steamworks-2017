@@ -4,6 +4,7 @@ import org.usfirst.frc.team2521.robot.subsystems.Climber;
 import org.usfirst.frc.team2521.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2521.robot.subsystems.Sensors;
 import org.usfirst.frc.team2521.robot.subsystems.Shooter;
+import org.usfirst.frc.team2521.robot.subsystems.Feeder;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -16,6 +17,7 @@ public class Robot extends IterativeRobot {
 	public static Sensors sensors;
 	public static Shooter shooter;
 	public static Climber climber;
+	public static Feeder feeder;
 
 	@Override
 	public void robotInit() {

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2521.robot;
 
 import org.usfirst.frc.team2521.robot.commands.AutoAlign;
+import org.usfirst.frc.team2521.robot.commands.TeleopFeeder;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -17,14 +18,16 @@ public class OI {
 	private final Joystick secondary;
 
 	private JoystickButton autoAlignButton;
+	private JoystickButton feederButton;
 
 	private OI() {
 		left = new Joystick(RobotMap.LEFT_STICK_PORT);
 		right = new Joystick(RobotMap.RIGHT_STICK_PORT);
 		secondary = new Joystick(RobotMap.SECONDARY_STICK_PORT);
-
+		
+		feederButton = new JoystickButton(left, RobotMap.FEEDER_BUTTON_PORT);
 		autoAlignButton = new JoystickButton(right, RobotMap.AUTO_ALIGN_BUTTON_PORT);
-
+		
 		setButtonListeners();
 	}
 
@@ -53,5 +56,6 @@ public class OI {
 
 	private void setButtonListeners() {
 		autoAlignButton.whenPressed(new AutoAlign());
+		feederButton.whileHeld(new TeleopFeeder());
 	}
 }
