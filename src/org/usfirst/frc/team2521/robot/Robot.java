@@ -11,6 +11,10 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
+/**
+ * This is the main robot class which calls various methods depending on the
+ * current game stage.
+ */
 public class Robot extends IterativeRobot {
 	public static final boolean DEBUG = false;
 
@@ -43,6 +47,11 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+	}
+
+	@Override
+	public void teleopInit() {
+		auto.cancel();
 	}
 
 	@Override
