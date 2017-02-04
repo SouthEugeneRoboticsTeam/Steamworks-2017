@@ -12,10 +12,12 @@ public class TeleopClimber extends Command {
 		requires(Robot.climber);
 	}
 
+	@Override
 	protected void execute() {
 		Robot.climber.teleoperatedClimb();
 	}
 
+	@Override
 	protected boolean isFinished() {
 		return false;
 	}

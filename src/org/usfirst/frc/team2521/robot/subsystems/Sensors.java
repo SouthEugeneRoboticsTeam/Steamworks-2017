@@ -13,15 +13,14 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Sensors extends Subsystem {
-	private final double CAMERA_PROJ_PLANE_DISTANCE = 216.226;
-	/* Distance in pixels to imaginary camera projection plane
-	Calculated from camera FOV (61.39) and half image width (380 pixels): (380/2)/tan(61.39/2) */
-	private final double LIDAR_WIDTH = 25.6; //in
 	private AnalogInput leftLidar;
 	private AnalogInput rightLidar;
+	
 	private NetworkTable table;
+	
 	private AHRS ahrs;
-	// Lidar equation form:  distance = m/lidarValue^2 + b
+
+	// Lidar distance equation: `distance = m/lidar^2 + b`
 	private double MED_LIDAR_M = 1.964 * Math.pow(10, 7);
 	private double MED_LIDAR_B = -1.045;
 
@@ -30,14 +29,15 @@ public class Sensors extends Subsystem {
 		rightLidar = new AnalogInput(RobotMap.RIGHT_LIDAR_PORT);
 		leftLidar.setAverageBits(5);
 		rightLidar.setAverageBits(5);
+		
 		table = NetworkTable.getTable("Vision");
+		
 		ahrs = new AHRS(SPI.Port.kMXP);
 		ahrs.reset();
 	}
 
 	public void display() {
 		if (Robot.DEBUG) {
-			System.out.println(getCVOffsetX());
 			SmartDashboard.putNumber("NT x offset", getCVOffsetX());
 			SmartDashboard.putNumber("Navx angle", getNavxAngle());
 			SmartDashboard.putBoolean("Blob found?", getBlobFound());
