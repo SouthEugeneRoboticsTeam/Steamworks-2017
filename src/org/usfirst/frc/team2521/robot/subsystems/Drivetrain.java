@@ -10,12 +10,20 @@ import org.usfirst.frc.team2521.robot.commands.TeleopDrivetrain;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
+/**
+ * Drivetrain is the subsystem for everything that relates to the robot's
+ * drivetrain. It consists of various methods to set the speed of certain
+ * motors and control the drivetrain with operator input.
+ */
 public class Drivetrain extends Subsystem {
 	private RobotDrive frontDrive;
 	private RobotDrive rearDrive;
 
 	private CANTalon frontLeft, frontRight, rearLeft, rearRight;
 
+	/**
+	 * Constructor.
+	 */
 	public Drivetrain() {
 		frontLeft = new CANTalon(RobotMap.FRONT_LEFT_MOTOR);
 		frontRight = new CANTalon(RobotMap.FRONT_RIGHT_MOTOR);
@@ -26,6 +34,12 @@ public class Drivetrain extends Subsystem {
 		rearDrive = new RobotDrive(rearLeft, rearRight);
 	}
 
+	/**
+	 * Enables tank driving using the left and right joysticks.
+	 * 
+	 * @see OI#getLeftStick()
+	 * @see OI#getRightStick()
+	 */
 	public void tankDrive() {
 		double left = OI.getInstance().getLeftStick().getY();
 		double right = OI.getInstance().getRightStick().getY();
@@ -34,6 +48,11 @@ public class Drivetrain extends Subsystem {
 		rearDrive.tankDrive(right, left);
 	}
 
+	/**
+	 * Changes all talon control modes to PercentVbus, then enables tank drive.
+	 * 
+	 * @see Drivetrain#tankDrive()
+	 */
 	public void teleoperatedDrive() {
 		frontLeft.changeControlMode(TalonControlMode.PercentVbus);
 		frontRight.changeControlMode(TalonControlMode.PercentVbus);
@@ -43,6 +62,11 @@ public class Drivetrain extends Subsystem {
 		tankDrive();
 	}
 
+	/**
+	 * Sets the left-side motors to a certain speed.
+	 * 
+	 * @param value  set the left-side motors to speed
+	 */
 	public void setLeft(double value) {
 		frontLeft.set(value);
 
@@ -50,6 +74,11 @@ public class Drivetrain extends Subsystem {
 		rearLeft.set(RobotMap.FRONT_LEFT_MOTOR);
 	}
 
+	/**
+	 * Sets the right-side motors to a certain speed.
+	 * 
+	 * @param value  set the right-side motors to speed
+	 */
 	public void setRight(double value) {
 		frontRight.set(value);
 

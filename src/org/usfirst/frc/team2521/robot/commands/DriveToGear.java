@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * Drive to the gear automatically
+ * This command drives to the gear drop-off automatically.
  */
 public class DriveToGear extends PIDCommand {
 	private static final double P = 0.008;
@@ -21,6 +21,11 @@ public class DriveToGear extends PIDCommand {
 	// `true` if we're on the left side of the target
 	private boolean onLeftSide;
 
+	/**
+	 * Constructor.
+	 * 
+	 * @param onLeftSide  whether we're on the left side of the target
+	 */
 	public DriveToGear(boolean onLeftSide) {
 		super(P, I, D);
 		

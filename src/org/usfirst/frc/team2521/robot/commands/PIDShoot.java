@@ -6,7 +6,8 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * Spins up the flywheel and attempts to maintain a constant speed
+ * This command spins up the flywheel and attempts to maintain a constant
+ * speed.
  */
 public class PIDShoot extends PIDCommand {
 	private static final double P = 0.00005;
@@ -15,6 +16,9 @@ public class PIDShoot extends PIDCommand {
 
 	private static final int SETPOINT = 27500;
 
+	/**
+	 * Constructor.
+	 */
 	public PIDShoot() {
 		super(P, I, D);
 

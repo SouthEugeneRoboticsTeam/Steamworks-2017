@@ -7,20 +7,37 @@ import org.usfirst.frc.team2521.robot.commands.PIDShoot;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
+/**
+ * Shooter is the Subsystem dedicated to the high-goal shooter. It does not
+ * include the feeder.
+ */
 public class Shooter extends Subsystem {
 	private CANTalon left;
 	private CANTalon right;
 
+	/**
+	 * Constructor.
+	 */
 	public Shooter() {
 		left = new CANTalon(RobotMap.LEFT_SHOOT_MOTOR);
 		right = new CANTalon(RobotMap.RIGHT_SHOOT_MOTOR);
 	}
 
+	/**
+	 * Sets the Shooter flywheel to a certain value.
+	 *
+	 * @param value  an absolute URL giving the base location of the image
+	 */
 	public void setMotor(double value) {
 		left.set(value);
 		right.set(-value);
 	}
 
+	/**
+	 * Returns the encoder velocity of the Shooter flywheel.
+	 *
+	 * @return the current encoder velocity
+	 */
 	public double getEncVelocity() {
 		return left.getEncVelocity();
 	}
