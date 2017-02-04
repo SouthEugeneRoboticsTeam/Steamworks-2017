@@ -62,7 +62,7 @@ public class OI {
 	/**
 	 * Returns the right joystick.
 	 * 
-	 * @return the left joystick
+	 * @return the right joystick
 	 */
 	public Joystick getRightStick() {
 		return right;
