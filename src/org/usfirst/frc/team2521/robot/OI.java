@@ -7,8 +7,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
- * This class is the glue that binds the controls on the physical operator
- * interface to the commands and command groups that allow control of the robot.
+ * This class binds the operator controls to commands and command groups on the
+ * robot, allowing the driver to control the robot.
  */
 public class OI {
 	private static OI instance;
@@ -33,6 +33,11 @@ public class OI {
 		setButtonListeners();
 	}
 
+	/**
+	 * Returns an instance of the operator interface.
+	 * 
+	 * @return an instance of the OI
+	 */
 	public static OI getInstance() {
 		if (instance == null) {
 			synchronized (OI.class) {
@@ -41,17 +46,33 @@ public class OI {
 				}
 			}
 		}
+		
 		return instance;
 	}
 
+	/**
+	 * Returns the left joystick.
+	 * 
+	 * @return the left joystick
+	 */
 	public Joystick getLeftStick() {
 		return left;
 	}
 
+	/**
+	 * Returns the right joystick.
+	 * 
+	 * @return the left joystick
+	 */
 	public Joystick getRightStick() {
 		return right;
 	}
 
+	/**
+	 * Returns the secondary joystick.
+	 * 
+	 * @return the secondary joystick
+	 */
 	public Joystick getSecondaryStick() {
 		return secondary;
 	}
