@@ -48,6 +48,9 @@ public class Sensors extends Subsystem {
 			SmartDashboard.putNumber("NT x offset", getCVOffsetX());
 			SmartDashboard.putNumber("Navx angle", getNavxAngle());
 			SmartDashboard.putBoolean("Blob found?", getBlobFound());
+			
+			SmartDashboard.putNumber("Left enc val", Robot.drivetrain.getLeftEnc());
+			SmartDashboard.putNumber("Right enc val", Robot.drivetrain.getRightEnc());
 		}
 	}
 
