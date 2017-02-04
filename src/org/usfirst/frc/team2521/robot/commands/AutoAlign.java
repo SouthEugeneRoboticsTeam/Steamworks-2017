@@ -6,8 +6,8 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * Automatically aligns the drivetrain to be straight relative to a wall using
- * lidar
+ * This command automatically aligns the drivetrain to be straight relative to
+ * a wall using lidar.
  */
 public class AutoAlign extends PIDCommand {
 	private static final double P = 0.005;
