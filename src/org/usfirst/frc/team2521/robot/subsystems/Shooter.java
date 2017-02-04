@@ -21,7 +21,7 @@ public class Shooter extends Subsystem {
 	}
 
 	/**
-	 * Sets the Shooter flywheel to a certain value.
+	 * Sets the shooter flywheel to a certain value.
 	 *
 	 * @param value  an absolute URL giving the base location of the image
 	 */

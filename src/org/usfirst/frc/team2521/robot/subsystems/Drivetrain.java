@@ -62,7 +62,7 @@ public class Drivetrain extends Subsystem {
 	/**
 	 * Sets the left-side motors to a certain speed.
 	 * 
-	 * @param value  set the left-side motors to speed
+	 * @param value  speed to set the left-side motors to
 	 */
 	public void setLeft(double value) {
 		frontLeft.set(value);
@@ -74,7 +74,7 @@ public class Drivetrain extends Subsystem {
 	/**
 	 * Sets the right-side motors to a certain speed.
 	 * 
-	 * @param value  set the right-side motors to speed
+	 * @param value  speed to set the right-side motors to
 	 */
 	public void setRight(double value) {
 		frontRight.set(value);

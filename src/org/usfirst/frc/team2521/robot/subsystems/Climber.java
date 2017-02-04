@@ -29,6 +29,7 @@ public class Climber extends Subsystem {
 		wheel.set(speed);
 	}
 
+	@Override
 	public void initDefaultCommand() {
 		setDefaultCommand(new TeleopClimber());
 	}
