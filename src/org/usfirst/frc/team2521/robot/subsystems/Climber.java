@@ -10,7 +10,7 @@ import org.usfirst.frc.team2521.robot.commands.TeleopClimber;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- * Climber is the Subsystem dedicated to the robot's rope climber.
+ * Climber is the subsystem dedicated to the robot's rope climber.
  */
 public class Climber extends Subsystem {
 	private CANTalon wheel;

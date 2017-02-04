@@ -21,9 +21,6 @@ public class Drivetrain extends Subsystem {
 
 	private CANTalon frontLeft, frontRight, rearLeft, rearRight;
 
-	/**
-	 * Constructor.
-	 */
 	public Drivetrain() {
 		frontLeft = new CANTalon(RobotMap.FRONT_LEFT_MOTOR);
 		frontRight = new CANTalon(RobotMap.FRONT_RIGHT_MOTOR);

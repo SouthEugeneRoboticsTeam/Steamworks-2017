@@ -8,9 +8,6 @@ import edu.wpi.first.wpilibj.command.Command;
  * This command allows a driver to control the climber during teleop.
  */
 public class TeleopClimber extends Command {
-	/**
-	 * Constructor.
-	 */
 	public TeleopClimber() {
 		requires(Robot.climber);
 	}

@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * Sensors is the Subsystem for easily managing all sensor values. In addition,
+ * Sensors is the subsystem for easily managing all sensor values. In addition,
  * it provides simple methods to show sensor data on the SmartDashboard.
  */
 public class Sensors extends Subsystem {
@@ -28,9 +28,6 @@ public class Sensors extends Subsystem {
 	private double MED_LIDAR_M = 1.964 * Math.pow(10, 7);
 	private double MED_LIDAR_B = -1.045;
 
-	/**
-	 * Constructor.
-	 */
 	public Sensors() {
 		leftLidar = new AnalogInput(RobotMap.LEFT_LIDAR_PORT);
 		rightLidar = new AnalogInput(RobotMap.RIGHT_LIDAR_PORT);

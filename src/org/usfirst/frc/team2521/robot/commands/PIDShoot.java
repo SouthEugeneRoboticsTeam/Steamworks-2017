@@ -16,9 +16,6 @@ public class PIDShoot extends PIDCommand {
 
 	private static final int SETPOINT = 27500;
 
-	/**
-	 * Constructor.
-	 */
 	public PIDShoot() {
 		super(P, I, D);
 

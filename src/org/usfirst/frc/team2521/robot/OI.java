@@ -21,9 +21,6 @@ public class OI {
 	private JoystickButton driveToGearLeftButton;
 	private JoystickButton driveToGearRightButton;
 
-	/**
-	 * Constructor.
-	 */
 	private OI() {
 		left = new Joystick(RobotMap.LEFT_STICK_PORT);
 		right = new Joystick(RobotMap.RIGHT_STICK_PORT);

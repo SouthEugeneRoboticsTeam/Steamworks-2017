@@ -19,9 +19,6 @@ public class AutoAlign extends PIDCommand {
 
 	private boolean overShot = false;
 
-	/**
-	 * Constructor.
-	 */
 	public AutoAlign() {
 		super(P, I, D);
 

@@ -8,9 +8,6 @@ import edu.wpi.first.wpilibj.command.Command;
  * This command allows a driver to control the drivetrain during teleop.
  */
 public class TeleopDrivetrain extends Command {
-	/**
-	 * Constructor.
-	 */
 	public TeleopDrivetrain() {
 		requires(Robot.drivetrain);
 	}

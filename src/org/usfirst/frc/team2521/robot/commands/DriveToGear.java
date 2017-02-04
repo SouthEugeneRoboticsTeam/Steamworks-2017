@@ -22,8 +22,6 @@ public class DriveToGear extends PIDCommand {
 	private boolean onLeftSide;
 
 	/**
-	 * Constructor.
-	 * 
 	 * @param onLeftSide  whether we're on the left side of the target
 	 */
 	public DriveToGear(boolean onLeftSide) {

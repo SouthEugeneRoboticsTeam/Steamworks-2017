@@ -8,16 +8,13 @@ import org.usfirst.frc.team2521.robot.commands.PIDShoot;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- * Shooter is the Subsystem dedicated to the high-goal shooter. It does not
+ * Shooter is the subsystem dedicated to the high-goal shooter. It does not
  * include the feeder.
  */
 public class Shooter extends Subsystem {
 	private CANTalon left;
 	private CANTalon right;
 
-	/**
-	 * Constructor.
-	 */
 	public Shooter() {
 		left = new CANTalon(RobotMap.LEFT_SHOOT_MOTOR);
 		right = new CANTalon(RobotMap.RIGHT_SHOOT_MOTOR);
