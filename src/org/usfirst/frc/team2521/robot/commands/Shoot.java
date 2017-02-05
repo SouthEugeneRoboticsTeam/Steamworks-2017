@@ -5,7 +5,7 @@ import org.usfirst.frc.team2521.robot.Robot;
 import edu.wpi.first.wpilibj.command.TimedCommand;
 
 /**
- *
+ * This command feeds the balls to the shooter.
  */
 public class Shoot extends TimedCommand {
 	public Shoot(double timeout) {
