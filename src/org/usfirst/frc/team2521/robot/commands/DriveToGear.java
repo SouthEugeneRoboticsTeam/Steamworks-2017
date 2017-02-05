@@ -68,17 +68,17 @@ public class DriveToGear extends PIDCommand {
 		if (Robot.sensors.getBlobFound()) {
 			// If we are already oriented, drive straight
 			if (oriented) {
-				Robot.drivetrain.setLeft(-0.2);
-				Robot.drivetrain.setRight(0.2);
+				Robot.drivetrain.setLeft(0.2);
+				Robot.drivetrain.setRight(-0.2);
 			} else if (output < 0) {
-				Robot.drivetrain.setLeft(output);
+				Robot.drivetrain.setLeft(-output);
 			} else {
-				Robot.drivetrain.setRight(output);
+				Robot.drivetrain.setRight(-output);
 			}
 		} else {
 			// Turn clockwise if we're too far left, counter-clockwise if we're too far right
-			Robot.drivetrain.setLeft(onLeftSide ? .2 : -0.2);
-			Robot.drivetrain.setRight(onLeftSide ? .2 : -0.2);
+			Robot.drivetrain.setLeft(onLeftSide ? 0.2 : 0.2);
+			Robot.drivetrain.setRight(onLeftSide ? 0.2 : -0.2);
 		}
 	}
 }
