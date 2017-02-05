@@ -26,9 +26,7 @@ public class DriveToGear extends PIDCommand {
 	 */
 	public DriveToGear(boolean onLeftSide) {
 		super(P, I, D);
-		
 		requires(Robot.drivetrain);
-		
 		this.onLeftSide = onLeftSide;
 	}
 
@@ -44,7 +42,6 @@ public class DriveToGear extends PIDCommand {
 		oriented = Math.abs(targetAngle) < 20;
 
 		targetAngle += Robot.sensors.getNavxAngle();
-
 		setSetpoint(targetAngle);
 
 		if (Robot.DEBUG) {
@@ -68,17 +65,17 @@ public class DriveToGear extends PIDCommand {
 		if (Robot.sensors.getBlobFound()) {
 			// If we are already oriented, drive straight
 			if (oriented) {
-				Robot.drivetrain.setLeft(0.2);
-				Robot.drivetrain.setRight(-0.2);
+				Robot.drivetrain.setLeft(.2);
+				Robot.drivetrain.setRight(-.2);
 			} else if (output < 0) {
-				Robot.drivetrain.setLeft(-output);
+				Robot.drivetrain.setLeft(output);
 			} else {
-				Robot.drivetrain.setRight(-output);
+				Robot.drivetrain.setRight(output);
 			}
 		} else {
 			// Turn clockwise if we're too far left, counter-clockwise if we're too far right
-			Robot.drivetrain.setLeft(onLeftSide ? 0.2 : 0.2);
-			Robot.drivetrain.setRight(onLeftSide ? 0.2 : -0.2);
+			Robot.drivetrain.setLeft(onLeftSide ? -.2 : .2);
+			Robot.drivetrain.setRight(onLeftSide ? -.2 : .2);
 		}
 	}
 }
