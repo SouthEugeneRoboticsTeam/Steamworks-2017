@@ -13,16 +13,14 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Sensors extends Subsystem {
-	private AnalogInput leftLidar;
-	private AnalogInput rightLidar;
+	private AnalogInput frontUltra;
+	private AnalogInput sideUltra;
 	private NetworkTable table;
 	private AHRS ahrs;
 
 	public Sensors() {
-		leftLidar = new AnalogInput(RobotMap.LEFT_LIDAR_PORT);
-		rightLidar = new AnalogInput(RobotMap.RIGHT_LIDAR_PORT);
-		leftLidar.setAverageBits(5);
-		rightLidar.setAverageBits(5);
+		frontUltra = new AnalogInput(RobotMap.FRONT_ULTRA_PORT);
+		sideUltra = new AnalogInput(RobotMap.SIDE_ULTRA_PORT);
 		table = NetworkTable.getTable("Vision");
 		ahrs = new AHRS(SPI.Port.kMXP);
 		ahrs.reset();
@@ -30,13 +28,27 @@ public class Sensors extends Subsystem {
 
 	public void display() {
 		if (Robot.DEBUG) {
-			System.out.println(getCVOffsetX());
-			SmartDashboard.putNumber("NT x offset", getCVOffsetX());
-			SmartDashboard.putNumber("Navx angle", getNavxAngle());
-			SmartDashboard.putBoolean("Blob found?", getBlobFound());
-			
-			
+			SmartDashboard.putNumber("Side raw", getSideUltraRaw());
+			SmartDashboard.putNumber("Front raw", getFrontUltraRaw());
+			SmartDashboard.putNumber("Side inches", getSideUltraInches());
+			SmartDashboard.putNumber("Front inches", getFrontUltraInches());
 		}
+	}
+	
+	public double getSideUltraRaw() {
+		return sideUltra.getVoltage();
+	}
+	
+	public double getSideUltraInches() {
+		return sideUltra.getVoltage() * 1000 / 9.8;
+	}
+	
+	public double getFrontUltraRaw() {
+		return frontUltra.getVoltage();
+	}
+	
+	public double getFrontUltraInches() {
+		return frontUltra.getVoltage() * 1000 / 9.8;
 	}
 
 	public double getCVOffsetX() {
