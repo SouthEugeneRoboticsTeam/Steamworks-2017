@@ -33,14 +33,14 @@ public class AutoAlign extends PIDCommand {
 	@Override
 	protected boolean isFinished() {
 		// Check if we're too far away
-		if (Robot.sensors.getLeftLidar() < LIDAR_MAX_DISTANCE || Robot.sensors.getRightLidar() < LIDAR_MAX_DISTANCE) {
+		/*if (Robot.sensors.getLeftLidar() < LIDAR_MAX_DISTANCE || Robot.sensors.getRightLidar() < LIDAR_MAX_DISTANCE) {
 			SmartDashboard.putString("Auto align status", "Error: Lidar pointing off too far");
 			overShot = true;
 			return true;
-		}
+		}*/
 
 		// Finish the command if we're within our error threshold
-		return Math.abs(Robot.sensors.getLeftLidar() - Robot.sensors.getRightLidar()) < ERROR_THRESHOLD;
+		return false; //return Math.abs(Robot.sensors.getLeftLidar() - Robot.sensors.getRightLidar()) < ERROR_THRESHOLD;
 	}
 
 	@Override
@@ -51,7 +51,7 @@ public class AutoAlign extends PIDCommand {
 
 	@Override
 	protected double returnPIDInput() {
-		return Robot.sensors.getLeftLidar() - Robot.sensors.getRightLidar();
+		return 0; //Robot.sensors.getLeftLidar() - Robot.sensors.getRightLidar();
 	}
 
 	@Override
