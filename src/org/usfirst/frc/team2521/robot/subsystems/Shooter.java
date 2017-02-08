@@ -26,7 +26,7 @@ public class Shooter extends Subsystem {
 	 * @param value  an absolute URL giving the base location of the image
 	 */
 	public void setMotor(double value) {
-		flyWheel.set(value);
+		flyWheel.set(-value);
 	}
 
 	/**

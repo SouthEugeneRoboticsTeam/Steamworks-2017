@@ -20,6 +20,6 @@ public class Feeder extends Subsystem {
 
 	@Override
 	public void initDefaultCommand() {
-		setDefaultCommand(new SpinShooter());
+		//setDefaultCommand(new SpinShooter());
 	}
 }
