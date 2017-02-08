@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Sensors extends Subsystem {
 	private AnalogInput frontUltra;
 	private AnalogInput sideUltra;
-	
+
 	private NetworkTable table;
 	
 	private AHRS ahrs;
@@ -64,7 +64,6 @@ public class Sensors extends Subsystem {
 	
 	public double getFrontUltraInches() {
 		return frontUltra.getVoltage() * 1000 / 9.8;
-
 	}
 
 	/**
