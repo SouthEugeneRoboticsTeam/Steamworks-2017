@@ -32,6 +32,8 @@ public class Robot extends IterativeRobot {
 		drivetrain = new Drivetrain();
 		sensors = new Sensors();
 		climber = new Climber();
+		shooter = new Shooter();
+		feeder = new Feeder();
 
 		auto = new DriveToGear(false);
 	}
