@@ -88,6 +88,6 @@ public class OI {
 		driveToGearLeftButton.toggleWhenActive(new DriveToGear(true));
 		driveToGearRightButton.toggleWhenActive(new DriveToGear(false));
 		spinButton.toggleWhenActive(new SpinShooter());
-		shootButton.whenPressed(new Shoot(0.15));
+		shootButton.whenPressed(new Shoot(1));
 	}
 }

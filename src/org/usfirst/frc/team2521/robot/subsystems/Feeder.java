@@ -1,9 +1,8 @@
 package org.usfirst.frc.team2521.robot.subsystems;
 
-import com.ctre.CANTalon;
-
 import org.usfirst.frc.team2521.robot.RobotMap;
-import org.usfirst.frc.team2521.robot.commands.SpinShooter;
+
+import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -15,11 +14,12 @@ public class Feeder extends Subsystem {
 	}
 
 	public void setMotor(double value) {
-		feeder.set(value);
+		feeder.set(-value);
+		
+		System.out.println(feeder.getEncVelocity());
 	}
 
 	@Override
 	public void initDefaultCommand() {
-		//setDefaultCommand(new SpinShooter());
 	}
 }

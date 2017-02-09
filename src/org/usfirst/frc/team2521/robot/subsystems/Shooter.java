@@ -5,6 +5,7 @@ import com.ctre.CANTalon;
 import org.usfirst.frc.team2521.robot.RobotMap;
 import org.usfirst.frc.team2521.robot.commands.SpinShooter;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -13,11 +14,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Shooter extends Subsystem {
 	private CANTalon flyWheel;
+	private Encoder enc;
 
 	public Shooter() {
 		flyWheel = new CANTalon(RobotMap.FLY_WHEEL_MOTOR);
-		
-		flyWheel.setStatusFrameRateMs(CANTalon.StatusFrameRate.Feedback, 20);
+		enc = new Encoder(0, 1);
 	}
 
 	/**
@@ -35,11 +36,10 @@ public class Shooter extends Subsystem {
 	 * @return the current encoder velocity
 	 */
 	public double getEncVelocity() {
-		return flyWheel.getEncVelocity();
+		return enc.getRate();
 	}
 
 	@Override
 	public void initDefaultCommand() {
-		setDefaultCommand(new SpinShooter());
 	}
 }

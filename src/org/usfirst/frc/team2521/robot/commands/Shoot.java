@@ -16,6 +16,7 @@ public class Shoot extends TimedCommand {
 
 	@Override
 	protected void execute() {
+		System.out.println("Exec");
 		Robot.feeder.setMotor(0.7);
 	}
 
