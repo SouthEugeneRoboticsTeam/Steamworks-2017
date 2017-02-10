@@ -1,7 +1,6 @@
 package org.usfirst.frc.team2521.robot.subsystems;
 
 import com.ctre.CANTalon;
-import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
 
 import org.usfirst.frc.team2521.robot.OI;
@@ -10,7 +9,6 @@ import org.usfirst.frc.team2521.robot.commands.TeleopDrivetrain;
 
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Drivetrain is the subsystem for everything that relates to the robot's
@@ -22,18 +20,6 @@ public class Drivetrain extends Subsystem {
 	private RobotDrive rearDrive;
 
 	private CANTalon frontLeft, frontRight, rearLeft, rearRight;
-	
-	private final double LEFT_P = 0;
-	private final double LEFT_I = 0;
-	private final double LEFT_D = 0;
-	
-	private final double RIGHT_P = 0;
-	private final double RIGHT_I = 0;
-	private final double RIGHT_D = 0;
-	
-	private final double ENC_TICKS_PER_ROTATION = 256;
-	
-	private final double WHEEL_CIRCUMFERENCE = 6*Math.PI; // inches
 
 	public Drivetrain() {
 		frontLeft = new CANTalon(RobotMap.FRONT_LEFT_MOTOR);
@@ -43,30 +29,7 @@ public class Drivetrain extends Subsystem {
 		
 		frontDrive = new RobotDrive(frontLeft, frontRight);
 		rearDrive = new RobotDrive(rearLeft, rearRight);
-		
-		frontLeft.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		rearRight.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 	}
-	
-	public void driveToDistanceInches(double distance) {
-		distance *= (ENC_TICKS_PER_ROTATION)/WHEEL_CIRCUMFERENCE;
-		
-		driveToDistanceRaw(distance);
-	}
-	
-	public void driveToDistanceRaw(double position) {
-		frontLeft.changeControlMode(TalonControlMode.Position);
-		rearLeft.changeControlMode(TalonControlMode.Follower);
-		frontRight.changeControlMode(TalonControlMode.Follower);
-		rearRight.changeControlMode(TalonControlMode.Position);
-		
-		frontLeft.setPID(LEFT_P, LEFT_I, LEFT_D);
-		rearRight.setPID(RIGHT_P, RIGHT_I, RIGHT_D);
-		
-		frontLeft.set(position);
-		rearRight.set(position);
-	}
-	
 
 	/**
 	 * Enables tank driving using the left and right joysticks.
@@ -88,7 +51,6 @@ public class Drivetrain extends Subsystem {
 	 * @see Drivetrain#tankDrive()
 	 */
 	public void teleoperatedDrive() {
-		SmartDashboard.putString("Teleop drive", "teleop drive");
 		frontLeft.changeControlMode(TalonControlMode.PercentVbus);
 		frontRight.changeControlMode(TalonControlMode.PercentVbus);
 		rearLeft.changeControlMode(TalonControlMode.PercentVbus);
@@ -119,14 +81,6 @@ public class Drivetrain extends Subsystem {
 
 		rearRight.changeControlMode(TalonControlMode.Follower);
 		rearRight.set(RobotMap.FRONT_RIGHT_MOTOR);
-	}
-	
-	public double getLeftEnc() {
-		return rearLeft.getEncPosition();
-	}
-
-	public double getRightEnc() {
-		return rearRight.getEncPosition();
 	}
 	
 	@Override
