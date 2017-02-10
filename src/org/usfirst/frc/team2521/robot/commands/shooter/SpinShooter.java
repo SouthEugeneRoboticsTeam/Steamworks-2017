@@ -46,7 +46,7 @@ public class SpinShooter extends PIDCommand {
 
 	@Override
 	protected void interrupted() {
-		Robot.shooter.setMotor(0);
+		end();
 	}
 
 	@Override
