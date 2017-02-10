@@ -2,6 +2,7 @@ package org.usfirst.frc.team2521.robot.commands.shooter;
 
 import org.usfirst.frc.team2521.robot.Robot;
 
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -14,7 +15,7 @@ public class RunFeeder extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.feeder.setMotor(0.7);
+		Robot.feeder.setMotor(Preferences.getInstance().getDouble("feeder_speed", 0.75));
 	}
 
 	@Override
