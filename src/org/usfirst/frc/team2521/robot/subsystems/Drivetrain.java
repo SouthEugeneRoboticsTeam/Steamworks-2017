@@ -26,7 +26,7 @@ public class Drivetrain extends Subsystem {
 		frontRight = new CANTalon(RobotMap.FRONT_RIGHT_MOTOR);
 		rearLeft = new CANTalon(RobotMap.REAR_LEFT_MOTOR);
 		rearRight = new CANTalon(RobotMap.REAR_RIGHT_MOTOR);
-		
+
 		frontDrive = new RobotDrive(frontLeft, frontRight);
 		rearDrive = new RobotDrive(rearLeft, rearRight);
 	}
@@ -82,7 +82,7 @@ public class Drivetrain extends Subsystem {
 		rearRight.changeControlMode(TalonControlMode.Follower);
 		rearRight.set(RobotMap.FRONT_RIGHT_MOTOR);
 	}
-	
+
 	@Override
 	public void initDefaultCommand() {
 		setDefaultCommand(new TeleopDrivetrain());

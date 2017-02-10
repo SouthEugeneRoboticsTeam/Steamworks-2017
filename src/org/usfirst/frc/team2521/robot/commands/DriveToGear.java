@@ -26,7 +26,9 @@ public class DriveToGear extends PIDCommand {
 	 */
 	public DriveToGear(boolean onLeftSide) {
 		super(P, I, D);
+
 		requires(Robot.drivetrain);
+
 		this.onLeftSide = onLeftSide;
 	}
 
