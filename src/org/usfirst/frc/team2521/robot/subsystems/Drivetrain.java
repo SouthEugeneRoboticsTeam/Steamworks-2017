@@ -38,11 +38,11 @@ public class Drivetrain extends Subsystem {
 	 * @see OI#getRightStick()
 	 */
 	public void tankDrive() {
-		double left = OI.getInstance().getLeftStick().getY();
-		double right = OI.getInstance().getRightStick().getY();
+		double left = -OI.getInstance().getLeftStick().getY();
+		double right = -OI.getInstance().getRightStick().getY();
 
-		frontDrive.tankDrive(right, left);
-		rearDrive.tankDrive(right, left);
+		frontDrive.tankDrive(left, right);
+		rearDrive.tankDrive(left, right);
 	}
 
 	/**
