@@ -51,13 +51,11 @@ public class SpinShooter extends PIDCommand {
 
 	@Override
 	protected double returnPIDInput() {
-		System.out.println(Robot.shooter.getEncVelocity());
 		return Robot.shooter.getEncVelocity();
 	}
 
 	@Override
 	protected void usePIDOutput(double output) {
-		System.out.println(-output);
 		Robot.shooter.setMotor(-output);
 	}
 }
