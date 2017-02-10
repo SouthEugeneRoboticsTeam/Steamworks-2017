@@ -9,11 +9,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * This command spins up the flywheel and attempts to maintain a constant speed.
  */
 public class SpinShooter extends PIDCommand {
-	private static final double P = 0.00005;
-	private static final double I = 0.000001;
-	private static final double D = 0.0000005;
+	private static final double P = 0.01;
+	private static final double I = 0;
+	private static final double D = 0;
 
-	private static final int SETPOINT = 27500;
+	private static final int SETPOINT = -150;
 
 	public SpinShooter() {
 		super(P, I, D);
@@ -22,12 +22,15 @@ public class SpinShooter extends PIDCommand {
 	}
 
 	@Override
-	public void execute() {
+	public void initialize() {
 		setSetpoint(SETPOINT);
+	}
 
+	@Override
+	public void execute() {
 		if (Robot.DEBUG) {
 			SmartDashboard.putNumber("Encoder Value", -Robot.shooter.getEncVelocity());
-			SmartDashboard.putNumber("Error", SETPOINT - -Robot.shooter.getEncVelocity());
+			SmartDashboard.putNumber("Error", SETPOINT + Robot.shooter.getEncVelocity());
 		}
 	}
 
@@ -49,11 +52,12 @@ public class SpinShooter extends PIDCommand {
 	@Override
 	protected double returnPIDInput() {
 		System.out.println(Robot.shooter.getEncVelocity());
-		return -Robot.shooter.getEncVelocity();
+		return Robot.shooter.getEncVelocity();
 	}
 
 	@Override
 	protected void usePIDOutput(double output) {
-		Robot.shooter.setMotor(0.7);
+		System.out.println(-output);
+		Robot.shooter.setMotor(-output);
 	}
 }
