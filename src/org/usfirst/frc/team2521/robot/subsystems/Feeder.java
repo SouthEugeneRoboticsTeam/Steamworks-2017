@@ -15,8 +15,6 @@ public class Feeder extends Subsystem {
 
 	public void setMotor(double value) {
 		feeder.set(-value);
-		
-		System.out.println(feeder.getEncVelocity());
 	}
 
 	@Override

@@ -2,8 +2,8 @@ package org.usfirst.frc.team2521.robot;
 
 import org.usfirst.frc.team2521.robot.commands.AutoAlign;
 import org.usfirst.frc.team2521.robot.commands.DriveToGear;
-import org.usfirst.frc.team2521.robot.commands.Shoot;
-import org.usfirst.frc.team2521.robot.commands.SpinShooter;
+import org.usfirst.frc.team2521.robot.commands.shooter.RunFeeder;
+import org.usfirst.frc.team2521.robot.commands.shooter.SpinShooter;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -88,6 +88,6 @@ public class OI {
 		driveToGearLeftButton.toggleWhenActive(new DriveToGear(true));
 		driveToGearRightButton.toggleWhenActive(new DriveToGear(false));
 		spinButton.toggleWhenActive(new SpinShooter());
-		shootButton.whenPressed(new Shoot(1));
+		shootButton.whenPressed(new RunFeeder(1));
 	}
 }

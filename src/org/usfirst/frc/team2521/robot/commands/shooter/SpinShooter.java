@@ -1,22 +1,19 @@
-package org.usfirst.frc.team2521.robot.commands;
+package org.usfirst.frc.team2521.robot.commands.shooter;
 
 import org.usfirst.frc.team2521.robot.Robot;
 
-import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * This command spins up the flywheel and attempts to maintain a constant
- * speed.
+ * This command spins up the flywheel and attempts to maintain a constant speed.
  */
 public class SpinShooter extends PIDCommand {
 	private static final double P = 0.00005;
 	private static final double I = 0.000001;
 	private static final double D = 0.0000005;
 
-	//private static final int SETPOINT = 27500;
-	private int SETPOINT = 27500;
+	private static final int SETPOINT = 27500;
 
 	public SpinShooter() {
 		super(P, I, D);
@@ -26,7 +23,6 @@ public class SpinShooter extends PIDCommand {
 
 	@Override
 	public void execute() {
-		SETPOINT = Preferences.getInstance().getInt("setpoint", 0);
 		setSetpoint(SETPOINT);
 
 		if (Robot.DEBUG) {
@@ -41,7 +37,18 @@ public class SpinShooter extends PIDCommand {
 	}
 
 	@Override
+	protected void end() {
+		Robot.shooter.setMotor(0);
+	}
+
+	@Override
+	protected void interrupted() {
+		Robot.shooter.setMotor(0);
+	}
+
+	@Override
 	protected double returnPIDInput() {
+		System.out.println(Robot.shooter.getEncVelocity());
 		return -Robot.shooter.getEncVelocity();
 	}
 
