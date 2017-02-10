@@ -23,7 +23,7 @@ public class Shooter extends Subsystem {
 	/**
 	 * Sets the shooter flywheel to a certain value.
 	 *
-	 * @param value  an absolute URL giving the base location of the image
+	 * @param value the speed of the motor (between -1 and 1)
 	 */
 	public void setMotor(double value) {
 		left.set(value);
