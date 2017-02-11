@@ -1,6 +1,8 @@
 package org.usfirst.frc.team2521.robot;
 
+import org.usfirst.frc.team2521.robot.commands.AlignShooter;
 import org.usfirst.frc.team2521.robot.commands.DriveToGear;
+import org.usfirst.frc.team2521.robot.commands.TurnToAngle;
 import org.usfirst.frc.team2521.robot.subsystems.Climber;
 import org.usfirst.frc.team2521.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2521.robot.subsystems.Sensors;
@@ -31,7 +33,7 @@ public class Robot extends IterativeRobot {
 		sensors = new Sensors();
 		climber = new Climber();
 
-		auto = new DriveToGear(false);
+		auto = new AlignShooter();
 	}
 
 	@Override

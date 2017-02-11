@@ -14,7 +14,7 @@ public class TurnToAngle extends PIDCommand {
 	private static final double I = 0;
 	private static final double D = 0;
 	
-	private final static double ERROR_THRESHOLD = 20;
+	private final static double ERROR_THRESHOLD = 5;
 	
 	private double targetAngle;
 
@@ -26,6 +26,7 @@ public class TurnToAngle extends PIDCommand {
 
 	@Override
 	protected void initialize() {
+		Robot.sensors.resetNavxAngle();
 		targetAngle += Robot.sensors.getNavxAngle();
 	}
 	
@@ -49,8 +50,10 @@ public class TurnToAngle extends PIDCommand {
 	protected void usePIDOutput(double output) {
 		if (output < 0) {
 			Robot.drivetrain.setLeft(output);
-		} else {
 			Robot.drivetrain.setRight(output);
+		} else {
+			Robot.drivetrain.setLeft(-output);
+			Robot.drivetrain.setRight(-output);
 		}
 	}
 }

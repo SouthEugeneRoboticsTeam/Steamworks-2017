@@ -47,6 +47,8 @@ public class Sensors extends Subsystem {
 			SmartDashboard.putNumber("Front raw", getFrontUltraRaw());
 			SmartDashboard.putNumber("Side inches", getSideUltraInches());
 			SmartDashboard.putNumber("Front inches", getFrontUltraInches());
+			
+			SmartDashboard.putNumber("Angle", getNavxAngle());
 		}
 	}
 	
@@ -94,6 +96,10 @@ public class Sensors extends Subsystem {
 	 */
 	public double getNavxAngle() {
 		return ahrs.getAngle();
+	}
+	
+	public void resetNavxAngle() {
+		ahrs.reset();
 	}
 
 	@Override
