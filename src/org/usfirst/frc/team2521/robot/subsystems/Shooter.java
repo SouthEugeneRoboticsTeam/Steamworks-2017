@@ -1,9 +1,8 @@
 package org.usfirst.frc.team2521.robot.subsystems;
 
-import com.ctre.CANTalon;
-
 import org.usfirst.frc.team2521.robot.RobotMap;
-import org.usfirst.frc.team2521.robot.commands.PIDShoot;
+
+import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -12,12 +11,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * include the feeder.
  */
 public class Shooter extends Subsystem {
-	private CANTalon left;
-	private CANTalon right;
+	private CANTalon shooter;
 
 	public Shooter() {
-		left = new CANTalon(RobotMap.LEFT_SHOOT_MOTOR);
-		right = new CANTalon(RobotMap.RIGHT_SHOOT_MOTOR);
+		shooter = new CANTalon(RobotMap.SHOOTER_MOTOR);
 	}
 
 	/**
@@ -26,8 +23,7 @@ public class Shooter extends Subsystem {
 	 * @param value the speed of the motor (between -1 and 1)
 	 */
 	public void setMotor(double value) {
-		left.set(value);
-		right.set(-value);
+		shooter.set(value);
 	}
 
 	/**
@@ -36,11 +32,9 @@ public class Shooter extends Subsystem {
 	 * @return the current encoder velocity
 	 */
 	public double getEncVelocity() {
-		return left.getEncVelocity();
+		return shooter.getEncVelocity();
 	}
 
 	@Override
-	public void initDefaultCommand() {
-		setDefaultCommand(new PIDShoot());
-	}
+	public void initDefaultCommand() {}
 }
