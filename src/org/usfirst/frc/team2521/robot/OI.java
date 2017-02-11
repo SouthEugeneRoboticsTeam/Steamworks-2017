@@ -33,8 +33,8 @@ public class OI {
 		autoAlignButton = new JoystickButton(right, RobotMap.AUTO_ALIGN_BUTTON_PORT);
 		driveToGearLeftButton = new JoystickButton(right, RobotMap.DRIVE_TO_GEAR_LEFT_PORT);
 		driveToGearRightButton = new JoystickButton(right, RobotMap.DRIVE_TO_GEAR_RIGHT_PORT);
-		spinButton = new JoystickButton(right, 2);
-		shootButton = new JoystickButton(right, 1);
+		spinButton = new JoystickButton(right, RobotMap.SPIN_FLYWHEEL_BUTTON_PORT);
+		shootButton = new JoystickButton(right, RobotMap.SPIN_FEEDER_BUTTON_PORT);
 
 		setButtonListeners();
 	}
