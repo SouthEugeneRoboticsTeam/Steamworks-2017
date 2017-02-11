@@ -45,11 +45,6 @@ public class SpinShooter extends PIDCommand {
 	}
 
 	@Override
-	protected void interrupted() {
-		end();
-	}
-
-	@Override
 	protected double returnPIDInput() {
 		return Robot.shooter.getEncVelocity();
 	}

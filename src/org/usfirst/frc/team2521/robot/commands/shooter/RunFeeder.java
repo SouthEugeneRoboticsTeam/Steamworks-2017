@@ -27,9 +27,4 @@ public class RunFeeder extends Command {
 	protected void end() {
 		Robot.feeder.setMotor(0);
 	}
-	
-	@Override
-	protected void interrupted() {
-		end();
-	}
 }
