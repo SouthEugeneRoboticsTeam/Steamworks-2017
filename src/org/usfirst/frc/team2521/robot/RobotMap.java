@@ -20,10 +20,10 @@ public class RobotMap {
 	public static final int REAR_LEFT_MOTOR = 48;
 
 	public static final int CLIMBER_WHEEL_MOTOR = 45;
+	
+	public static final int SHOOTER_MOTOR = 43;
+	public static final int FEEDER_MOTOR = 31;
 
 	public static final int LEFT_LIDAR_PORT = 1;
 	public static final int RIGHT_LIDAR_PORT = 0;
-
-	public static final int FLY_WHEEL_MOTOR = 43;
-	public static final int FEEDER_MOTOR = 31;
 }
