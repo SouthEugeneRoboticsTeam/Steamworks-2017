@@ -22,8 +22,8 @@ public class OI {
 	private JoystickButton autoAlignButton;
 	private JoystickButton driveToGearLeftButton;
 	private JoystickButton driveToGearRightButton;
-	private JoystickButton spinButton;
-	private JoystickButton shootButton;
+	private JoystickButton spinFlywheelButton;
+	private JoystickButton spinFeederButton;
 
 	private OI() {
 		left = new Joystick(RobotMap.LEFT_STICK_PORT);
@@ -33,8 +33,8 @@ public class OI {
 		autoAlignButton = new JoystickButton(right, RobotMap.AUTO_ALIGN_BUTTON_PORT);
 		driveToGearLeftButton = new JoystickButton(right, RobotMap.DRIVE_TO_GEAR_LEFT_PORT);
 		driveToGearRightButton = new JoystickButton(right, RobotMap.DRIVE_TO_GEAR_RIGHT_PORT);
-		spinButton = new JoystickButton(right, RobotMap.SPIN_FLYWHEEL_BUTTON_PORT);
-		shootButton = new JoystickButton(right, RobotMap.SPIN_FEEDER_BUTTON_PORT);
+		spinFlywheelButton = new JoystickButton(right, RobotMap.SPIN_FLYWHEEL_BUTTON_PORT);
+		spinFeederButton = new JoystickButton(right, RobotMap.SPIN_FEEDER_BUTTON_PORT);
 
 		setButtonListeners();
 	}
@@ -87,7 +87,7 @@ public class OI {
 		autoAlignButton.whenPressed(new AutoAlign());
 		driveToGearLeftButton.toggleWhenActive(new DriveToGear(true));
 		driveToGearRightButton.toggleWhenActive(new DriveToGear(false));
-		spinButton.toggleWhenActive(new SpinShooter());
-		shootButton.whileActive(new RunFeeder());
+		spinFlywheelButton.toggleWhenActive(new SpinShooter());
+		spinFeederButton.whileActive(new RunFeeder());
 	}
 }
