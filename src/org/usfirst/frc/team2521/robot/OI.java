@@ -2,8 +2,8 @@ package org.usfirst.frc.team2521.robot;
 
 import org.usfirst.frc.team2521.robot.commands.AutoAlign;
 import org.usfirst.frc.team2521.robot.commands.DriveToGear;
-import org.usfirst.frc.team2521.robot.commands.shooter.RunFeeder;
-import org.usfirst.frc.team2521.robot.commands.shooter.SpinShooter;
+import org.usfirst.frc.team2521.robot.commands.RunFeeder;
+import org.usfirst.frc.team2521.robot.commands.SpinShooter;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
