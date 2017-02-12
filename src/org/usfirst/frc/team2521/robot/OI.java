@@ -1,6 +1,6 @@
 package org.usfirst.frc.team2521.robot;
 
-import org.usfirst.frc.team2521.robot.commands.AutoAlign;
+import org.usfirst.frc.team2521.robot.commands.AlignShooter;
 import org.usfirst.frc.team2521.robot.commands.DriveToGear;
 import org.usfirst.frc.team2521.robot.commands.RunFeeder;
 import org.usfirst.frc.team2521.robot.commands.SpinShooter;
@@ -19,7 +19,7 @@ public class OI {
 	private final Joystick right;
 	private final Joystick secondary;
 
-	private JoystickButton autoAlignButton;
+	private JoystickButton shooterAlign;
 	private JoystickButton driveToGearLeftButton;
 	private JoystickButton driveToGearRightButton;
 	private JoystickButton spinFlywheelButton;
@@ -30,7 +30,7 @@ public class OI {
 		right = new Joystick(RobotMap.RIGHT_STICK_PORT);
 		secondary = new Joystick(RobotMap.SECONDARY_STICK_PORT);
 
-		autoAlignButton = new JoystickButton(right, RobotMap.AUTO_ALIGN_BUTTON_PORT);
+		shooterAlign = new JoystickButton(right, RobotMap.ALIGN_SHOOTER_BUTTON);
 		driveToGearLeftButton = new JoystickButton(right, RobotMap.DRIVE_TO_GEAR_LEFT_PORT);
 		driveToGearRightButton = new JoystickButton(right, RobotMap.DRIVE_TO_GEAR_RIGHT_PORT);
 		spinFlywheelButton = new JoystickButton(right, RobotMap.SPIN_FLYWHEEL_BUTTON_PORT);
@@ -84,7 +84,7 @@ public class OI {
 	}
 
 	private void setButtonListeners() {
-		autoAlignButton.whenPressed(new AutoAlign());
+		shooterAlign.toggleWhenActive(new AlignShooter());
 		driveToGearLeftButton.toggleWhenActive(new DriveToGear(true));
 		driveToGearRightButton.toggleWhenActive(new DriveToGear(false));
 		spinFlywheelButton.toggleWhenActive(new SpinShooter());

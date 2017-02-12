@@ -17,9 +17,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * it provides simple methods to show sensor data on the SmartDashboard.
  */
 public class Sensors extends Subsystem {
-	private AnalogInput leftLidar;
-	private AnalogInput rightLidar;
-	
+	private AnalogInput backUltra;
+	private AnalogInput sideLidar;
+
 	private NetworkTable table;
 	
 	private AHRS ahrs;
@@ -29,11 +29,10 @@ public class Sensors extends Subsystem {
 	private double MED_LIDAR_B = -1.045;
 
 	public Sensors() {
-		leftLidar = new AnalogInput(RobotMap.LEFT_LIDAR_PORT);
-		rightLidar = new AnalogInput(RobotMap.RIGHT_LIDAR_PORT);
-		leftLidar.setAverageBits(5);
-		rightLidar.setAverageBits(5);
-		
+		backUltra = new AnalogInput(RobotMap.BACK_ULTRA_PORT);
+
+		sideLidar =  new AnalogInput(RobotMap.SIDE_LIDAR_PORT);
+
 		table = NetworkTable.getTable("Vision");
 		
 		ahrs = new AHRS(SPI.Port.kMXP);
@@ -45,58 +44,29 @@ public class Sensors extends Subsystem {
 	 */
 	public void display() {
 		if (Robot.DEBUG) {
-			SmartDashboard.putNumber("NT x offset", getCVOffsetX());
-			SmartDashboard.putNumber("Navx angle", getNavxAngle());
-			SmartDashboard.putBoolean("Blob found?", getBlobFound());
+			SmartDashboard.putNumber("Side raw", getSideLidarRaw());
+			SmartDashboard.putNumber("Front raw", getFrontUltraRaw());
+			SmartDashboard.putNumber("Side inches", getSideLidarInches());
+			SmartDashboard.putNumber("Front inches", getFrontUltraInches());
+
+			SmartDashboard.putNumber("Angle", getNavxAngle());
 		}
 	}
-
-	/**
-	 * Returns the average value of the left lidar.
-	 * 
-	 * @return the average value of the left lidar
-	 * @see Sensors#getRightLidar() getRightLidar
-	 * @see Sensors#getLeftLidarInches() getLeftLidarInches
-	 * @see Sensors#getRightLidarInches() getRightLidarInches
-	 */
-	public double getLeftLidar() {
-		return leftLidar.getAverageValue();
+	
+	public double getFrontUltraRaw() {
+		return backUltra.getVoltage();
+	}
+	
+	public double getFrontUltraInches() {
+		return backUltra.getVoltage() * 1000 / 9.8;
+	}
+	
+	public double getSideLidarRaw() {
+		return sideLidar.getValue();
 	}
 
-	/**
-	 * Returns the average value of the right lidar.
-	 * 
-	 * @return the average value of the right lidar
-	 * @see Sensors#getLeftLidar()
-	 * @see Sensors#getLeftLidarInches()
-	 * @see Sensors#getRightLidarInches()
-	 */
-	public double getRightLidar() {
-		return rightLidar.getAverageValue();
-	}
-
-	/**
-	 * Returns the value (in inches) of the left lidar.
-	 * 
-	 * @return the value (in inches) of the left lidar
-	 * @see Sensors#getLeftLidar()
-	 * @see Sensors#getRightLidar()
-	 * @see Sensors#getRightLidarInches()
-	 */
-	public double getLeftLidarInches() {
-		return MED_LIDAR_M / Math.pow(getLeftLidar(), 2) + MED_LIDAR_B;
-	}
-
-	/**
-	 * Returns the value (in inches) of the right lidar.
-	 * 
-	 * @return the value (in inches) of the right lidar
-	 * @see Sensors#getLeftLidar()
-	 * @see Sensors#getRightLidar()
-	 * @see Sensors#getLeftLidarInches()
-	 */
-	public double getRightLidarInches() {
-		return MED_LIDAR_M / Math.pow(getRightLidar(), 2) + MED_LIDAR_B;
+	public double getSideLidarInches() {
+		return MED_LIDAR_M / Math.pow(getSideLidarRaw(), 2) + MED_LIDAR_B;
 	}
 
 	/**
@@ -127,6 +97,10 @@ public class Sensors extends Subsystem {
 	 */
 	public double getNavxAngle() {
 		return ahrs.getAngle();
+	}
+	
+	public void resetNavxAngle() {
+		ahrs.reset();
 	}
 
 	@Override
