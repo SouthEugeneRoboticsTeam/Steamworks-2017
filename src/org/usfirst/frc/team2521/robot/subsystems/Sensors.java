@@ -32,7 +32,7 @@ public class Sensors extends Subsystem {
 	public Sensors() {
 		backUltra = new AnalogInput(RobotMap.BACK_ULTRA_PORT);
 
-		sideLidar =  new AnalogInput(2);
+		sideLidar =  new AnalogInput(RobotMap.SIDE_LIDAR_PORT);
 
 		table = NetworkTable.getTable("Vision");
 		
