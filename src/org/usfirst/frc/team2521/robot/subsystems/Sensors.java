@@ -18,13 +18,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Sensors extends Subsystem {
 	private AnalogInput backUltra;
-	
 	private AnalogInput sideLidar;
 
 	private NetworkTable table;
 	
 	private AHRS ahrs;
-	
+
 	// Lidar distance equation: `distance = m/lidar^2 + b`
 	private double MED_LIDAR_M = 1.964 * Math.pow(10, 7);
 	private double MED_LIDAR_B = -1.045;
