@@ -15,7 +15,7 @@ public class AlignShooter extends CommandGroup {
 	private static final double ROBOT_LENGTH = 26;
 
 	public AlignShooter() {
-		double dist = Robot.sensors.getSideUltraInches();
+		double dist = Robot.sensors.getSideLidarInches();
 		SmartDashboard.putNumber("Raw distance",dist);
 		dist = X_SETPOINT*Math.sqrt(2) + dist + ROBOT_HALF_WIDTH - SIDE_ULTRA_OFFSET - 0.5*ROBOT_LENGTH;
 		SmartDashboard.putNumber("Setpoint",dist);

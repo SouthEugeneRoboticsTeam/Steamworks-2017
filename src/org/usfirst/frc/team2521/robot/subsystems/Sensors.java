@@ -19,6 +19,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Sensors extends Subsystem {
 	private AnalogInput frontUltra;
 	private AnalogInput sideUltra;
+	
+	private AnalogInput sideLidar;
 
 	private NetworkTable table;
 	
@@ -30,7 +32,9 @@ public class Sensors extends Subsystem {
 
 	public Sensors() {
 		frontUltra = new AnalogInput(RobotMap.FRONT_ULTRA_PORT);
-		sideUltra = new AnalogInput(RobotMap.SIDE_ULTRA_PORT);
+		//sideUltra = new AnalogInput(RobotMap.SIDE_ULTRA_PORT);
+
+		sideLidar =  new AnalogInput(2);
 
 		table = NetworkTable.getTable("Vision");
 		
@@ -43,9 +47,9 @@ public class Sensors extends Subsystem {
 	 */
 	public void display() {
 		if (Robot.DEBUG) {
-			SmartDashboard.putNumber("Side raw", getSideUltraRaw());
+			SmartDashboard.putNumber("Side raw", getSideLidarRaw());
 			SmartDashboard.putNumber("Front raw", getFrontUltraRaw());
-			SmartDashboard.putNumber("Side inches", getSideUltraInches());
+			SmartDashboard.putNumber("Side inches", getSideLidarInches());
 			SmartDashboard.putNumber("Front inches", getFrontUltraInches());
 			
 			SmartDashboard.putNumber("Angle", getNavxAngle());
@@ -53,11 +57,11 @@ public class Sensors extends Subsystem {
 	}
 	
 	public double getSideUltraRaw() {
-		return sideUltra.getVoltage();
+		return 0; //return sideUltra.getVoltage();
 	}
 	
 	public double getSideUltraInches() {
-		return sideUltra.getVoltage() * 1000 / 9.8;
+		return 0;//return sideUltra.getVoltage() * 1000 / 9.8;
 	}
 	
 	public double getFrontUltraRaw() {
@@ -66,6 +70,14 @@ public class Sensors extends Subsystem {
 	
 	public double getFrontUltraInches() {
 		return frontUltra.getVoltage() * 1000 / 9.8;
+	}
+	
+	public double getSideLidarRaw() {
+		return sideLidar.getValue();
+	}
+
+	public double getSideLidarInches() {
+		return MED_LIDAR_M / Math.pow(getSideLidarRaw(), 2) + MED_LIDAR_B;
 	}
 
 	/**
