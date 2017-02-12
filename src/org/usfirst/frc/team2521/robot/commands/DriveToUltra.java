@@ -22,14 +22,18 @@ public class DriveToUltra extends Command {
 	private static final double ROBOT_LENGTH = 26;
 	
 	private double setpoint;
+	
+	private boolean isAlignShooter;
 
-	public DriveToUltra(double setpoint) {
+	public DriveToUltra(double setpoint, boolean isAlignShooter) {
 		this.setpoint = setpoint;
+		this.isAlignShooter = isAlignShooter;
 	}
-
-	// If we have no setpoint, assume it's supposed to be calculated for shooter align
-	public DriveToUltra() {
-		setpoint = Robot.sensors.getSideLidarInches() + X_SETPOINT*Math.sqrt(2) + ROBOT_HALF_WIDTH - SIDE_ULTRA_OFFSET - 0.5*ROBOT_LENGTH;
+	
+	protected void initialize() {
+		if (isAlignShooter) {
+			setpoint = Robot.sensors.getSideLidarInches() + X_SETPOINT*Math.sqrt(2) + ROBOT_HALF_WIDTH - SIDE_ULTRA_OFFSET - 0.5*ROBOT_LENGTH;
+		}
 	}
 
 	protected void execute() {
@@ -39,6 +43,7 @@ public class DriveToUltra extends Command {
 
 	protected boolean isFinished() {
 		if (Robot.DEBUG) {
+			SmartDashboard.putNumber("Drive to ultra setpoint", setpoint);
 			SmartDashboard.putNumber("Drive to ultra error", setpoint - Robot.sensors.getFrontUltraInches());
 		}
 		return Math.abs(setpoint - Robot.sensors.getFrontUltraInches()) < ERROR_THRESHOLD;
