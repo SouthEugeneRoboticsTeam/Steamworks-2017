@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class AlignShooter extends CommandGroup {
-
 	public AlignShooter() {
 		addSequential(new DriveToUltra(0, true));
 		addSequential(new TurnToAngle(-45));
