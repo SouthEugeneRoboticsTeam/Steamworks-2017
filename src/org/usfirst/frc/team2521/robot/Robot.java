@@ -37,7 +37,7 @@ public class Robot extends IterativeRobot {
 		shooter = new Shooter();
 		feeder = new Feeder();
 
-		auto = new AlignShooter();
+		auto = new DriveToGear(false);
 	}
 
 	@Override

@@ -49,7 +49,7 @@ public class Sensors extends Subsystem {
 			SmartDashboard.putNumber("Front raw", getFrontUltraRaw());
 			SmartDashboard.putNumber("Side inches", getSideLidarInches());
 			SmartDashboard.putNumber("Front inches", getFrontUltraInches());
-			
+
 			SmartDashboard.putNumber("Angle", getNavxAngle());
 		}
 	}
