@@ -23,6 +23,7 @@ public class DriveToUltra extends Command {
 	
 	private double setpoint;
 	
+	// `true` if we should calculate setpoint using align shooter formula
 	private boolean isAlignShooter;
 
 	public DriveToUltra(double setpoint, boolean isAlignShooter) {
