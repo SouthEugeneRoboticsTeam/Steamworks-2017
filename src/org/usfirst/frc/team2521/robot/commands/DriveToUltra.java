@@ -30,15 +30,12 @@ public class DriveToUltra extends Command {
 	// `true` if we should use the front ultrasonic
 	private boolean useRearUltra = false;
 
-	public DriveToUltra(double setpoint, boolean isAlignShooter) {
+	public DriveToUltra(double setpoint, boolean useRearUltra) {
 		this.setpoint = setpoint;
-		this.isAlignShooter = isAlignShooter;
-	}
-
-	public DriveToUltra(double setpoint, boolean isAlignShooter, boolean useRearUltra) {
-		this.setpoint = setpoint;
-		this.isAlignShooter = isAlignShooter;
 		this.useRearUltra = useRearUltra;
+
+		String[] stack = new Exception().getStackTrace()[1].getClassName().split(".");
+		this.isAlignShooter = stack[stack.length - 1] == "AlignShooter";
 	}
 
 	protected void initialize() {
