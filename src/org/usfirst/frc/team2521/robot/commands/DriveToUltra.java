@@ -55,8 +55,15 @@ public class DriveToUltra extends Command {
 			ultrasonicValue = Robot.sensors.getFrontUltraInches();
 		}
 
-		Robot.drivetrain.setLeft((setpoint - ultrasonicValue > 0) ? .2 : -.2);
-		Robot.drivetrain.setRight((setpoint - ultrasonicValue > 0) ? -.2 : .2);
+		if (useRearUltra) {
+			Robot.drivetrain.setLeft((setpoint - ultrasonicValue > 0) ? .2 : -.2);
+			Robot.drivetrain.setRight((setpoint - ultrasonicValue > 0) ? -.2 : .2);
+		} else {
+			Robot.drivetrain.setLeft((setpoint - ultrasonicValue > 0) ? -.2 : .2);
+			Robot.drivetrain.setRight((setpoint - ultrasonicValue > 0) ? .2 : -.2);
+		}
+		
+		
 	}
 
 	protected boolean isFinished() {
