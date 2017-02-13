@@ -11,21 +11,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class DriveToUltra extends Command {
 	private final static double ERROR_THRESHOLD = 1;
 
-	// How far from the right side of the boiler the robot's center should be
-	private static final double X_SETPOINT = 21;
-
-	private static final double ROBOT_HALF_WIDTH = 15.75;
-
-	// How far the side ultrasonic is from front of the robot
-	private static final double SIDE_ULTRA_OFFSET = 19.5;
-
-	private static final double ROBOT_LENGTH = 26;
-
 	private double ultrasonicValue;
-	private double setpoint;
-
-	// `true` if we should calculate setpoint using align shooter formula
-	private boolean isAlignShooter;
+	double setpoint;
 
 	// `true` if we should use the front ultrasonic
 	private boolean useRearUltra = false;
@@ -33,16 +20,6 @@ public class DriveToUltra extends Command {
 	public DriveToUltra(double setpoint, boolean useRearUltra) {
 		this.setpoint = setpoint;
 		this.useRearUltra = useRearUltra;
-
-		String[] stack = new Exception().getStackTrace()[1].getClassName().split(".");
-		this.isAlignShooter = stack[stack.length - 1] == "AlignShooter";
-	}
-
-	protected void initialize() {
-		if (isAlignShooter) {
-			setpoint = Robot.sensors.getSideLidarInches() + X_SETPOINT * Math.sqrt(2) + ROBOT_HALF_WIDTH
-					- SIDE_ULTRA_OFFSET - 0.5 * ROBOT_LENGTH;
-		}
 	}
 
 	protected void execute() {
@@ -55,8 +32,6 @@ public class DriveToUltra extends Command {
 			Robot.drivetrain.setLeft((setpoint - ultrasonicValue > 0) ? -.2 : .2);
 			Robot.drivetrain.setRight((setpoint - ultrasonicValue > 0) ? .2 : -.2);
 		}
-		
-		
 	}
 
 	protected boolean isFinished() {
