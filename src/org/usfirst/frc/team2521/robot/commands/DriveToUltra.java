@@ -49,11 +49,7 @@ public class DriveToUltra extends Command {
 	}
 
 	protected void execute() {
-		if (useRearUltra) {
-			ultrasonicValue = Robot.sensors.getRearUltraInches();
-		} else {
-			ultrasonicValue = Robot.sensors.getFrontUltraInches();
-		}
+		ultrasonicValue = useRearUltra ? Robot.sensors.getRearUltraInches() : Robot.sensors.getFrontUltraInches();
 
 		if (useRearUltra) {
 			Robot.drivetrain.setLeft((setpoint - ultrasonicValue > 0) ? .2 : -.2);
