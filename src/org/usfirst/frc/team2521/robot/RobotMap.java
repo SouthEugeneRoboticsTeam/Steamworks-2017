@@ -25,6 +25,7 @@ public class RobotMap {
 	public static final int SHOOTER_MOTOR = 43;
 	public static final int FEEDER_MOTOR = 31;
 
-	public static final int BACK_ULTRA_PORT = 1;
+	public static final int FRONT_ULTRA_PORT = 0;
+	public static final int REAR_ULTRA_PORT = 1;
 	public static final int SIDE_LIDAR_PORT = 2;
 }

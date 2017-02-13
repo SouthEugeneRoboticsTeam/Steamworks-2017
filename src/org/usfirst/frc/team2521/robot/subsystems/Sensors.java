@@ -17,7 +17,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * it provides simple methods to show sensor data on the SmartDashboard.
  */
 public class Sensors extends Subsystem {
-	private AnalogInput backUltra;
+	private AnalogInput frontUltra;
+	private AnalogInput rearUltra;
 	private AnalogInput sideLidar;
 
 	private NetworkTable table;
@@ -29,7 +30,8 @@ public class Sensors extends Subsystem {
 	private double MED_LIDAR_B = -1.045;
 
 	public Sensors() {
-		backUltra = new AnalogInput(RobotMap.BACK_ULTRA_PORT);
+		frontUltra = new AnalogInput(RobotMap.FRONT_ULTRA_PORT);
+		rearUltra = new AnalogInput(RobotMap.REAR_ULTRA_PORT);
 
 		sideLidar =  new AnalogInput(RobotMap.SIDE_LIDAR_PORT);
 
@@ -54,11 +56,19 @@ public class Sensors extends Subsystem {
 	}
 	
 	public double getFrontUltraRaw() {
-		return backUltra.getVoltage();
+		return frontUltra.getVoltage();
+	}
+	
+	public double getRearUltraRaw() {
+		return rearUltra.getVoltage();
 	}
 	
 	public double getFrontUltraInches() {
-		return backUltra.getVoltage() * 1000 / 9.8;
+		return frontUltra.getVoltage() * 1000 / 9.8;
+	}
+	
+	public double getRearUltraInches() {
+		return rearUltra.getVoltage() * 1000 / 9.8;
 	}
 	
 	public double getSideLidarRaw() {
