@@ -2,16 +2,16 @@ package org.usfirst.frc.team2521.robot;
 
 import org.usfirst.frc.team2521.robot.commands.DriveToBoiler;
 import org.usfirst.frc.team2521.robot.commands.DriveToGear;
-import org.usfirst.frc.team2521.robot.commands.Spintake;
 import org.usfirst.frc.team2521.robot.commands.RunFeeder;
 import org.usfirst.frc.team2521.robot.commands.RunShooter;
+import org.usfirst.frc.team2521.robot.commands.Spintake;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
- * This class binds the operator controls to commands and command groups on the
- * robot, allowing the driver to control the robot.
+ * This class binds the operator controls to commands and command groups on the robot, allowing the
+ * driver to control the robot.
  */
 public class OI {
 	private static OI instance;
@@ -43,8 +43,6 @@ public class OI {
 	}
 
 	/**
-	 * Returns an instance of the operator interface.
-	 * 
 	 * @return an instance of the OI
 	 */
 	public static OI getInstance() {
@@ -60,8 +58,6 @@ public class OI {
 	}
 
 	/**
-	 * Returns the left joystick.
-	 * 
 	 * @return the left joystick
 	 */
 	public Joystick getLeftStick() {
@@ -69,8 +65,6 @@ public class OI {
 	}
 
 	/**
-	 * Returns the right joystick.
-	 * 
 	 * @return the right joystick
 	 */
 	public Joystick getRightStick() {
@@ -78,8 +72,6 @@ public class OI {
 	}
 
 	/**
-	 * Returns the secondary joystick.
-	 * 
 	 * @return the secondary joystick
 	 */
 	public Joystick getSecondaryStick() {

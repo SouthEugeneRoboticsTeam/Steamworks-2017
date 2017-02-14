@@ -13,8 +13,8 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * Sensors is the subsystem for easily managing all sensor values. In addition,
- * it provides simple methods to show sensor data on the SmartDashboard.
+ * Sensors is the subsystem for easily managing all sensor values. In addition, it provides simple
+ * methods to show sensor data on the SmartDashboard.
  */
 public class Sensors extends Subsystem {
 	private AnalogInput frontUltra;
@@ -22,10 +22,12 @@ public class Sensors extends Subsystem {
 	private AnalogInput sideLidar;
 
 	private NetworkTable table;
-	
+
 	private AHRS ahrs;
 
-	// Lidar distance equation: `distance = m/lidar^2 + b`
+	/**
+	 * Lidar distance equation: `distance = m/lidar^2 + b`
+	 */
 	private double MED_LIDAR_M = 1.964 * Math.pow(10, 7);
 	private double MED_LIDAR_B = -1.045;
 
@@ -33,10 +35,10 @@ public class Sensors extends Subsystem {
 		frontUltra = new AnalogInput(RobotMap.FRONT_ULTRA_PORT);
 		rearUltra = new AnalogInput(RobotMap.REAR_ULTRA_PORT);
 
-		sideLidar =  new AnalogInput(RobotMap.SIDE_LIDAR_PORT);
+		sideLidar = new AnalogInput(RobotMap.SIDE_LIDAR_PORT);
 
 		table = NetworkTable.getTable("Vision");
-		
+
 		ahrs = new AHRS(SPI.Port.kMXP);
 		ahrs.reset();
 	}
@@ -54,46 +56,36 @@ public class Sensors extends Subsystem {
 			SmartDashboard.putNumber("Angle", getNavxAngle());
 		}
 	}
-	
+
 	/**
-	 * Returns the raw voltage from the front (gear side) ultrasonic sensor.
-	 * 
 	 * @return the raw voltage from the front (gear side) ultrasonic sensor
 	 */
 	private double getFrontUltraRaw() {
 		return frontUltra.getVoltage();
 	}
-	
+
 	/**
-	 * Returns the raw voltage from the rear (shooter side) ultrasonic sensor.
-	 * 
 	 * @return the raw voltage from the rear (shooter side) ultrasonic sensor
 	 */
 	private double getRearUltraRaw() {
 		return rearUltra.getVoltage();
 	}
-	
+
 	/**
-	 * Returns the distance in inches from the front (gear side) ultrasonic sensor.
-	 * 
 	 * @return the distance in inches from the front (gear side) ultrasonic sensor
 	 */
 	public double getFrontUltraInches() {
 		return getFrontUltraRaw() * 1000 / 9.8;
 	}
-	
+
 	/**
-	 * Returns the distance in inches from the rear (shooter side) ultrasonic sensor.
-	 * 
 	 * @return the distance in inches from the rear (shooter side) ultrasonic sensor
 	 */
 	public double getRearUltraInches() {
 		return getRearUltraRaw() * 1000 / 9.8;
 	}
-	
+
 	/**
-	 * Returns the raw value from the side lidar.
-	 * 
 	 * @return the raw value from the side lidar
 	 */
 	private double getSideLidarRaw() {
@@ -101,8 +93,6 @@ public class Sensors extends Subsystem {
 	}
 
 	/**
-	 * Returns the distance in inches from the side lidar.
-	 * 
 	 * @return the distance in inches from the side lidar
 	 */
 	public double getSideLidarInches() {
@@ -110,9 +100,9 @@ public class Sensors extends Subsystem {
 	}
 
 	/**
-	 * Returns the target's offset (in pixels) from the center of the screen on
-	 * the X-axis. This value is only updated if getBlobFound() is `true`.
-	 * 
+	 * Returns the target's offset (in pixels) from the center of the screen on the X-axis. This
+	 * value is only updated if getBlobFound() is `true`.
+	 *
 	 * @return the target's offset (in pixels) from the center of the screen
 	 * @see Sensors#getBlobFound()
 	 */
@@ -121,8 +111,6 @@ public class Sensors extends Subsystem {
 	}
 
 	/**
-	 * Returns whether a blob is currently being tracked in computer vision.
-	 * 
 	 * @return whether a blob is currently being tracked in computer vision
 	 * @see Sensors#getCVOffsetX()
 	 */
@@ -131,14 +119,12 @@ public class Sensors extends Subsystem {
 	}
 
 	/**
-	 * Returns the Navx's current angle measurement.
-	 * 
 	 * @return the Navx's current angle measurement
 	 */
 	public double getNavxAngle() {
 		return ahrs.getAngle();
 	}
-	
+
 	/**
 	 * Resets the gyro for yaw, setting the navX angle to 0
 	 */

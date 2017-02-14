@@ -10,17 +10,19 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class Spintake extends CommandGroup {
 	public Spintake() {
-		addSequential(new DriveToUltra(10, false) {
-			@Override 
-			protected void initialize() {
-				useRearUltra = Robot.sensors.getFrontUltraInches() > Robot.sensors.getRearUltraInches();
-			}
-		});
+		addSequential(new RearDriveToUltra(10));
 		addSequential(new DriveToAngle(180));
-		addSequential(new DriveToUltra(0, false) {
-			protected void initialize() {
-				useRearUltra = Robot.sensors.getFrontUltraInches() > Robot.sensors.getRearUltraInches();
-			}
-		});
+		addSequential(new RearDriveToUltra(0));
+	}
+
+	private static class RearDriveToUltra extends DriveToUltra {
+		public RearDriveToUltra(double setpoint) {
+			super(setpoint, false);
+		}
+
+		@Override
+		protected void initialize() {
+			useRearUltra = Robot.sensors.getFrontUltraInches() > Robot.sensors.getRearUltraInches();
+		}
 	}
 }
