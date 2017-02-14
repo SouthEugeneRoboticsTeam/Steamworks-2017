@@ -32,12 +32,15 @@ public class OI {
 		right = new Joystick(RobotMap.RIGHT_STICK_PORT);
 		secondary = new Joystick(RobotMap.SECONDARY_STICK_PORT);
 
+		// Right joystick buttons
 		shooterAlign = new JoystickButton(right, RobotMap.ALIGN_SHOOTER_BUTTON);
 		driveToGearLeftButton = new JoystickButton(right, RobotMap.DRIVE_TO_GEAR_LEFT_PORT);
 		driveToGearRightButton = new JoystickButton(right, RobotMap.DRIVE_TO_GEAR_RIGHT_PORT);
-		spinFlywheelButton = new JoystickButton(right, RobotMap.SPIN_FLYWHEEL_BUTTON_PORT);
-		spinFeederButton = new JoystickButton(right, RobotMap.SPIN_FEEDER_BUTTON_PORT);
 		quickSpinButton = new JoystickButton(right, RobotMap.QUICK_SPIN_BUTTON_PORT);
+
+		// Secondary joystick buttons
+		spinFlywheelButton = new JoystickButton(secondary, RobotMap.SPIN_FLYWHEEL_BUTTON_PORT);
+		spinFeederButton = new JoystickButton(secondary, RobotMap.SPIN_FEEDER_BUTTON_PORT);
 
 		setButtonListeners();
 	}
