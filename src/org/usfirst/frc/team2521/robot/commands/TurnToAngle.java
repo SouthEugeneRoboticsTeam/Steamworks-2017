@@ -38,7 +38,6 @@ public class TurnToAngle extends PIDCommand {
 
 	@Override
 	protected boolean isFinished() {
-		SmartDashboard.putNumber("TurnToAngle", Math.abs(targetAngle - Robot.sensors.getNavxAngle()));
 		return Math.abs(targetAngle - Robot.sensors.getNavxAngle()) < ERROR_THRESHOLD;
 	}
 

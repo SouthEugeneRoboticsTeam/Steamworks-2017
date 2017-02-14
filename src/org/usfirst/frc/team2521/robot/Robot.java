@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  * current game stage.
  */
 public class Robot extends IterativeRobot {
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 
 	public static Drivetrain drivetrain;
 	public static Sensors sensors;
