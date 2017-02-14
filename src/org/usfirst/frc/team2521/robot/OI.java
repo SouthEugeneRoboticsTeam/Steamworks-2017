@@ -20,7 +20,7 @@ public class OI {
 	private final Joystick right;
 	private final Joystick secondary;
 
-	private JoystickButton shooterAlign;
+	private JoystickButton driveToBoilerButton;
 	private JoystickButton driveToGearLeftButton;
 	private JoystickButton driveToGearRightButton;
 	private JoystickButton spinFlywheelButton;
@@ -32,12 +32,15 @@ public class OI {
 		right = new Joystick(RobotMap.RIGHT_STICK_PORT);
 		secondary = new Joystick(RobotMap.SECONDARY_STICK_PORT);
 
-		shooterAlign = new JoystickButton(right, RobotMap.ALIGN_SHOOTER_BUTTON);
+		// Right joystick buttons
+		driveToBoilerButton = new JoystickButton(right, RobotMap.ALIGN_SHOOTER_BUTTON);
 		driveToGearLeftButton = new JoystickButton(right, RobotMap.DRIVE_TO_GEAR_LEFT_PORT);
 		driveToGearRightButton = new JoystickButton(right, RobotMap.DRIVE_TO_GEAR_RIGHT_PORT);
-		spinFlywheelButton = new JoystickButton(right, RobotMap.SPIN_FLYWHEEL_BUTTON_PORT);
-		spinFeederButton = new JoystickButton(right, RobotMap.SPIN_FEEDER_BUTTON_PORT);
 		quickSpinButton = new JoystickButton(right, RobotMap.QUICK_SPIN_BUTTON_PORT);
+
+		// Secondary joystick buttons
+		spinFlywheelButton = new JoystickButton(secondary, RobotMap.SPIN_FLYWHEEL_BUTTON_PORT);
+		spinFeederButton = new JoystickButton(secondary, RobotMap.SPIN_FEEDER_BUTTON_PORT);
 
 		setButtonListeners();
 	}
@@ -79,7 +82,7 @@ public class OI {
 	}
 
 	private void setButtonListeners() {
-		shooterAlign.toggleWhenActive(new DriveToBoiler());
+		driveToBoilerButton.toggleWhenActive(new DriveToBoiler());
 		driveToGearLeftButton.toggleWhenActive(new DriveToGear(true));
 		driveToGearRightButton.toggleWhenActive(new DriveToGear(false));
 		spinFlywheelButton.toggleWhenActive(new RunShooter());
