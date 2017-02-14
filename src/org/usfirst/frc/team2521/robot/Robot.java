@@ -13,8 +13,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
- * This is the main robot class which calls various methods depending on the
- * current game stage.
+ * This is the main robot class which calls various methods depending on the current game stage.
  */
 public class Robot extends IterativeRobot {
 	public static final boolean DEBUG = false;
@@ -25,7 +24,7 @@ public class Robot extends IterativeRobot {
 	public static Feeder feeder;
 	public static Climber climber;
 
-	public Command auto;
+	private Command auto;
 
 	@Override
 	public void robotInit() {
