@@ -2,6 +2,7 @@ package org.usfirst.frc.team2521.robot;
 
 import org.usfirst.frc.team2521.robot.commands.AlignShooter;
 import org.usfirst.frc.team2521.robot.commands.DriveToGear;
+import org.usfirst.frc.team2521.robot.commands.QuickSpin;
 import org.usfirst.frc.team2521.robot.commands.RunFeeder;
 import org.usfirst.frc.team2521.robot.commands.SpinShooter;
 
@@ -24,6 +25,7 @@ public class OI {
 	private JoystickButton driveToGearRightButton;
 	private JoystickButton spinFlywheelButton;
 	private JoystickButton spinFeederButton;
+	private JoystickButton quickSpinButton;
 
 	private OI() {
 		left = new Joystick(RobotMap.LEFT_STICK_PORT);
@@ -35,6 +37,7 @@ public class OI {
 		driveToGearRightButton = new JoystickButton(right, RobotMap.DRIVE_TO_GEAR_RIGHT_PORT);
 		spinFlywheelButton = new JoystickButton(right, RobotMap.SPIN_FLYWHEEL_BUTTON_PORT);
 		spinFeederButton = new JoystickButton(right, RobotMap.SPIN_FEEDER_BUTTON_PORT);
+		quickSpinButton = new JoystickButton(right, RobotMap.QUICK_SPIN_BUTTON_PORT);
 
 		setButtonListeners();
 	}
@@ -52,7 +55,7 @@ public class OI {
 				}
 			}
 		}
-		
+
 		return instance;
 	}
 
@@ -89,5 +92,6 @@ public class OI {
 		driveToGearRightButton.toggleWhenActive(new DriveToGear(false));
 		spinFlywheelButton.toggleWhenActive(new SpinShooter());
 		spinFeederButton.whileActive(new RunFeeder());
+		quickSpinButton.toggleWhenActive(new QuickSpin());
 	}
 }
