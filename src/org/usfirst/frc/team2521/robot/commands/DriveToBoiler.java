@@ -7,8 +7,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class AlignShooter extends CommandGroup {
-	public AlignShooter() {
+public class DriveToBoiler extends CommandGroup {
+	public DriveToBoiler() {
 		addSequential(new DriveToUltra(-1, true) {
 			/** How far from the right side of the boiler the robot's center */
 			private static final double X_SETPOINT = 21;
@@ -23,7 +23,7 @@ public class AlignShooter extends CommandGroup {
 						- SIDE_ULTRA_OFFSET - 0.5 * ROBOT_LENGTH;
 			}
 		});
-		addSequential(new TurnToAngle(-45));
+		addSequential(new DriveToAngle(-45));
 		addSequential(new DriveToUltra(0, true));
 	}
 }
