@@ -83,9 +83,16 @@ public class Drivetrain extends Subsystem {
 		rearRight.set(RobotMap.FRONT_RIGHT_MOTOR);
 	}
 
+	public int getLeftEnc() {
+		return frontLeft.getEncPosition();
+	}
+
+	public int getRightEnc() {
+		return frontRight.getEncPosition();
+	}
+
 	@Override
 	public void initDefaultCommand() {
 		setDefaultCommand(new TeleopDrivetrain());
 	}
 }
-
