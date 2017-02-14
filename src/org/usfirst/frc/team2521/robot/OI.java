@@ -1,10 +1,10 @@
 package org.usfirst.frc.team2521.robot;
 
-import org.usfirst.frc.team2521.robot.commands.AlignShooter;
+import org.usfirst.frc.team2521.robot.commands.DriveToBoiler;
 import org.usfirst.frc.team2521.robot.commands.DriveToGear;
-import org.usfirst.frc.team2521.robot.commands.QuickSpin;
+import org.usfirst.frc.team2521.robot.commands.Spintake;
 import org.usfirst.frc.team2521.robot.commands.RunFeeder;
-import org.usfirst.frc.team2521.robot.commands.SpinShooter;
+import org.usfirst.frc.team2521.robot.commands.RunShooter;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -87,11 +87,11 @@ public class OI {
 	}
 
 	private void setButtonListeners() {
-		shooterAlign.toggleWhenActive(new AlignShooter());
+		shooterAlign.toggleWhenActive(new DriveToBoiler());
 		driveToGearLeftButton.toggleWhenActive(new DriveToGear(true));
 		driveToGearRightButton.toggleWhenActive(new DriveToGear(false));
-		spinFlywheelButton.toggleWhenActive(new SpinShooter());
+		spinFlywheelButton.toggleWhenActive(new RunShooter());
 		spinFeederButton.whileActive(new RunFeeder());
-		quickSpinButton.toggleWhenActive(new QuickSpin());
+		quickSpinButton.toggleWhenActive(new Spintake());
 	}
 }
