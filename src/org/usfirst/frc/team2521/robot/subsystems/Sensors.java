@@ -55,26 +55,56 @@ public class Sensors extends Subsystem {
 		}
 	}
 	
-	public double getFrontUltraRaw() {
+	/**
+	 * Returns the raw voltage from the front (gear side) ultrasonic sensor.
+	 * 
+	 * @return the raw voltage from the front (gear side) ultrasonic sensor
+	 */
+	private double getFrontUltraRaw() {
 		return frontUltra.getVoltage();
 	}
 	
-	public double getRearUltraRaw() {
+	/**
+	 * Returns the raw voltage from the rear (shooter side) ultrasonic sensor.
+	 * 
+	 * @return the raw voltage from the rear (shooter side) ultrasonic sensor
+	 */
+	private double getRearUltraRaw() {
 		return rearUltra.getVoltage();
 	}
 	
+	/**
+	 * Returns the distance in inches from the front (gear side) ultrasonic sensor.
+	 * 
+	 * @return the distance in inches from the front (gear side) ultrasonic sensor
+	 */
 	public double getFrontUltraInches() {
-		return frontUltra.getVoltage() * 1000 / 9.8;
+		return getFrontUltraRaw() * 1000 / 9.8;
 	}
 	
+	/**
+	 * Returns the distance in inches from the rear (shooter side) ultrasonic sensor.
+	 * 
+	 * @return the distance in inches from the rear (shooter side) ultrasonic sensor
+	 */
 	public double getRearUltraInches() {
-		return rearUltra.getVoltage() * 1000 / 9.8;
+		return getRearUltraRaw() * 1000 / 9.8;
 	}
 	
-	public double getSideLidarRaw() {
+	/**
+	 * Returns the raw value from the side lidar.
+	 * 
+	 * @return the raw value from the side lidar
+	 */
+	private double getSideLidarRaw() {
 		return sideLidar.getValue();
 	}
 
+	/**
+	 * Returns the distance in inches from the side lidar.
+	 * 
+	 * @return the distance in inches from the side lidar
+	 */
 	public double getSideLidarInches() {
 		return MED_LIDAR_M / Math.pow(getSideLidarRaw(), 2) + MED_LIDAR_B;
 	}
@@ -109,6 +139,9 @@ public class Sensors extends Subsystem {
 		return ahrs.getAngle();
 	}
 	
+	/**
+	 * Resets the gyro for yaw, setting the navX angle to 0
+	 */
 	public void resetNavxAngle() {
 		ahrs.reset();
 	}

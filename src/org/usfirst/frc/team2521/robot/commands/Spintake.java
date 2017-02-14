@@ -5,7 +5,8 @@ import org.usfirst.frc.team2521.robot.Robot;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *
+ * This command backs away from the intake, spins the robot 180 degrees,
+ * and drives back.
  */
 public class Spintake extends CommandGroup {
 	public Spintake() {

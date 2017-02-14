@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ *  This command drives to a specified angle using the navX.
  */
 public class DriveToAngle extends PIDCommand {
 	private static final double P = 0.003;

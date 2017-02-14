@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ *  This command drives to a specified ultrasonic distance automatically.
  */
 public class DriveToUltra extends Command {
 	private final static double ERROR_THRESHOLD = 1;
