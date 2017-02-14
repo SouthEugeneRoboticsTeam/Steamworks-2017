@@ -12,64 +12,105 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+/**
+ * Sensors is the subsystem for easily managing all sensor values. In addition,
+ * it provides simple methods to show sensor data on the SmartDashboard.
+ */
 public class Sensors extends Subsystem {
-	private final double CAMERA_PROJ_PLANE_DISTANCE = 216.226;
-	/* Distance in pixels to imaginary camera projection plane
-	Calculated from camera FOV (61.39) and half image width (380 pixels): (380/2)/tan(61.39/2) */
-	private final double LIDAR_WIDTH = 25.6; //in
-	private AnalogInput leftLidar;
-	private AnalogInput rightLidar;
+	private AnalogInput frontUltra;
+	private AnalogInput rearUltra;
+	private AnalogInput sideLidar;
+
 	private NetworkTable table;
+	
 	private AHRS ahrs;
-	// Lidar equation form:  distance = m/lidarValue^2 + b
+
+	// Lidar distance equation: `distance = m/lidar^2 + b`
 	private double MED_LIDAR_M = 1.964 * Math.pow(10, 7);
 	private double MED_LIDAR_B = -1.045;
 
 	public Sensors() {
-		leftLidar = new AnalogInput(RobotMap.LEFT_LIDAR_PORT);
-		rightLidar = new AnalogInput(RobotMap.RIGHT_LIDAR_PORT);
-		leftLidar.setAverageBits(5);
-		rightLidar.setAverageBits(5);
+		frontUltra = new AnalogInput(RobotMap.FRONT_ULTRA_PORT);
+		rearUltra = new AnalogInput(RobotMap.REAR_ULTRA_PORT);
+
+		sideLidar =  new AnalogInput(RobotMap.SIDE_LIDAR_PORT);
+
 		table = NetworkTable.getTable("Vision");
+		
 		ahrs = new AHRS(SPI.Port.kMXP);
 		ahrs.reset();
 	}
 
+	/**
+	 * Displays sensor data on the SmartDashboard.
+	 */
 	public void display() {
 		if (Robot.DEBUG) {
-			System.out.println(getCVOffsetX());
-			SmartDashboard.putNumber("NT x offset", getCVOffsetX());
-			SmartDashboard.putNumber("Navx angle", getNavxAngle());
-			SmartDashboard.putBoolean("Blob found?", getBlobFound());
+			SmartDashboard.putNumber("Side raw", getSideLidarRaw());
+			SmartDashboard.putNumber("Front raw", getFrontUltraRaw());
+			SmartDashboard.putNumber("Side inches", getSideLidarInches());
+			SmartDashboard.putNumber("Front inches", getFrontUltraInches());
+
+			SmartDashboard.putNumber("Angle", getNavxAngle());
 		}
 	}
-
-	public double getLeftLidar() {
-		return leftLidar.getAverageValue();
+	
+	public double getFrontUltraRaw() {
+		return frontUltra.getVoltage();
+	}
+	
+	public double getRearUltraRaw() {
+		return rearUltra.getVoltage();
+	}
+	
+	public double getFrontUltraInches() {
+		return frontUltra.getVoltage() * 1000 / 9.8;
+	}
+	
+	public double getRearUltraInches() {
+		return rearUltra.getVoltage() * 1000 / 9.8;
+	}
+	
+	public double getSideLidarRaw() {
+		return sideLidar.getValue();
 	}
 
-	public double getRightLidar() {
-		return rightLidar.getAverageValue();
+	public double getSideLidarInches() {
+		return MED_LIDAR_M / Math.pow(getSideLidarRaw(), 2) + MED_LIDAR_B;
 	}
 
-	public double getLeftLidarInches() {
-		return MED_LIDAR_M / Math.pow(getLeftLidar(), 2) + MED_LIDAR_B;
-	}
-
-	public double getRightLidarInches() {
-		return MED_LIDAR_M / Math.pow(getRightLidar(), 2) + MED_LIDAR_B;
-	}
-
+	/**
+	 * Returns the target's offset (in pixels) from the center of the screen on
+	 * the X-axis. This value is only updated if getBlobFound() is `true`.
+	 * 
+	 * @return the target's offset (in pixels) from the center of the screen
+	 * @see Sensors#getBlobFound()
+	 */
 	public double getCVOffsetX() {
 		return table.getNumber("offset_x", 0.0);
 	}
 
+	/**
+	 * Returns whether a blob is currently being tracked in computer vision.
+	 * 
+	 * @return whether a blob is currently being tracked in computer vision
+	 * @see Sensors#getCVOffsetX()
+	 */
 	public boolean getBlobFound() {
 		return table.getBoolean("blob_found", false);
 	}
 
+	/**
+	 * Returns the Navx's current angle measurement.
+	 * 
+	 * @return the Navx's current angle measurement
+	 */
 	public double getNavxAngle() {
 		return ahrs.getAngle();
+	}
+	
+	public void resetNavxAngle() {
+		ahrs.reset();
 	}
 
 	@Override

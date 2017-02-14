@@ -9,6 +9,9 @@ import org.usfirst.frc.team2521.robot.commands.TeleopClimber;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
+/**
+ * Climber is the subsystem dedicated to the robot's rope climber.
+ */
 public class Climber extends Subsystem {
 	private CANTalon wheel;
 
@@ -16,6 +19,9 @@ public class Climber extends Subsystem {
 		wheel = new CANTalon(RobotMap.CLIMBER_WHEEL_MOTOR);
 	}
 
+	/**
+	 * Enables operation of the climber.
+	 */
 	public void teleoperatedClimb() {
 		double speed = OI.getInstance().getSecondaryStick().getY();
 
@@ -23,6 +29,7 @@ public class Climber extends Subsystem {
 		wheel.set(speed);
 	}
 
+	@Override
 	public void initDefaultCommand() {
 		setDefaultCommand(new TeleopClimber());
 	}

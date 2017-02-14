@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * Command for driving to the gear automatically
+ * This command drives to the gear drop-off automatically.
  */
 public class DriveToGear extends PIDCommand {
 	private static final double P = 0.008;
@@ -15,28 +15,33 @@ public class DriveToGear extends PIDCommand {
 
 	private static final double CAMERA_PROJ_PLANE_DISTANCE = 216.226;
 
+	// `true` if we're straight-on
 	private boolean oriented = false;
-	// True if the robot is facing the gear straight
-	
-	private boolean onLeftSide;
-	// Parameter to see if we're too far to the left; otherwise, we
-	// assume that we're too fare to the right
 
+	// `true` if we're on the left side of the target
+	private boolean onLeftSide;
+
+	/**
+	 * @param onLeftSide  whether we're on the left side of the target
+	 */
 	public DriveToGear(boolean onLeftSide) {
 		super(P, I, D);
+
 		requires(Robot.drivetrain);
+
 		this.onLeftSide = onLeftSide;
 	}
 
 	@Override
 	protected void execute() {
+		// Angle between camera line of sight and target
 		double targetAngle = Math.atan(Robot.sensors.getCVOffsetX() / CAMERA_PROJ_PLANE_DISTANCE);
-		// Should be angle between camera line of sight and target
 
-		targetAngle *= 180 / Math.PI; // Convert to degrees
+		// Convert angle to degrees
+		targetAngle *= 180 / Math.PI;
 
+		// Consider ourselves oriented when our angle error is less than 20
 		oriented = Math.abs(targetAngle) < 20;
-		// We're considered oriented when our angle error is less than 10
 
 		targetAngle += Robot.sensors.getNavxAngle();
 		setSetpoint(targetAngle);
@@ -59,20 +64,20 @@ public class DriveToGear extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double output) {
-		if(Robot.sensors.getBlobFound()) {
-			// If we are already oriented, we just drive straight
+		if (Robot.sensors.getBlobFound()) {
+			// If we are already oriented, drive straight
 			if (oriented) {
-				Robot.drivetrain.setLeft(-.2);
-				Robot.drivetrain.setRight(.2);
+				Robot.drivetrain.setLeft(.2);
+				Robot.drivetrain.setRight(-.2);
 			} else if (output < 0) {
 				Robot.drivetrain.setLeft(output);
 			} else {
 				Robot.drivetrain.setRight(output);
 			}
 		} else {
-			// Turn clockwise if we're too far left, counterclockwise if we're too far right
-			Robot.drivetrain.setLeft(onLeftSide ? .2 : -.2);
-			Robot.drivetrain.setRight(onLeftSide ? .2 : -.2);
+			// Turn clockwise if we're too far left, counter-clockwise if we're too far right
+			Robot.drivetrain.setLeft(onLeftSide ? -.2 : .2);
+			Robot.drivetrain.setRight(onLeftSide ? -.2 : .2);
 		}
 	}
 }
