@@ -3,6 +3,7 @@ package org.usfirst.frc.team2521.robot;
 import org.usfirst.frc.team2521.robot.commands.DriveToBoiler;
 import org.usfirst.frc.team2521.robot.commands.DriveToGear;
 import org.usfirst.frc.team2521.robot.commands.Spintake;
+import org.usfirst.frc.team2521.robot.commands.SwitchDriveMode;
 import org.usfirst.frc.team2521.robot.commands.RunFeeder;
 import org.usfirst.frc.team2521.robot.commands.RunShooter;
 
@@ -19,6 +20,8 @@ public class OI {
 	private final Joystick left;
 	private final Joystick right;
 	private final Joystick secondary;
+	
+	private JoystickButton switchDriveModeButton;
 
 	private JoystickButton shooterAlign;
 	private JoystickButton driveToGearLeftButton;
@@ -32,6 +35,8 @@ public class OI {
 		right = new Joystick(RobotMap.RIGHT_STICK_PORT);
 		secondary = new Joystick(RobotMap.SECONDARY_STICK_PORT);
 
+		switchDriveModeButton = new JoystickButton(left, RobotMap.SWITCH_DRIVE_MODE_BUTTON_PORT);
+		
 		shooterAlign = new JoystickButton(right, RobotMap.ALIGN_SHOOTER_BUTTON);
 		driveToGearLeftButton = new JoystickButton(right, RobotMap.DRIVE_TO_GEAR_LEFT_PORT);
 		driveToGearRightButton = new JoystickButton(right, RobotMap.DRIVE_TO_GEAR_RIGHT_PORT);
@@ -87,6 +92,7 @@ public class OI {
 	}
 
 	private void setButtonListeners() {
+		switchDriveModeButton.whenActive(new SwitchDriveMode());
 		shooterAlign.toggleWhenActive(new DriveToBoiler());
 		driveToGearLeftButton.toggleWhenActive(new DriveToGear(true));
 		driveToGearRightButton.toggleWhenActive(new DriveToGear(false));
