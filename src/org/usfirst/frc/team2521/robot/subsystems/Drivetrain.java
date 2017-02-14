@@ -20,6 +20,9 @@ public class Drivetrain extends Subsystem {
 	private RobotDrive rearDrive;
 
 	private CANTalon frontLeft, frontRight, rearLeft, rearRight;
+	
+	/** {@code true} if we're driving in arcade in teleop */
+	public boolean isArcade = false;
 
 	public Drivetrain() {
 		frontLeft = new CANTalon(RobotMap.FRONT_LEFT_MOTOR);
@@ -32,12 +35,25 @@ public class Drivetrain extends Subsystem {
 	}
 
 	/**
+	 * Enables arcade driving using the left joysticks.
+	 * 
+	 * @see OI#getLeftStick()
+	 */
+	private void arcadeDrive() {
+		double move = -OI.getInstance().getLeftStick().getY();
+		double rotate = -OI.getInstance().getLeftStick().getX();
+
+		frontDrive.arcadeDrive(move, rotate);
+		rearDrive.arcadeDrive(move, rotate);
+	}
+	
+	/**
 	 * Enables tank driving using the left and right joysticks.
 	 * 
 	 * @see OI#getLeftStick()
 	 * @see OI#getRightStick()
 	 */
-	public void tankDrive() {
+	private void tankDrive() {
 		double left = -OI.getInstance().getLeftStick().getY();
 		double right = -OI.getInstance().getRightStick().getY();
 
@@ -55,8 +71,13 @@ public class Drivetrain extends Subsystem {
 		frontRight.changeControlMode(TalonControlMode.PercentVbus);
 		rearLeft.changeControlMode(TalonControlMode.PercentVbus);
 		rearRight.changeControlMode(TalonControlMode.PercentVbus);
-
-		tankDrive();
+		
+		if (isArcade) {
+			arcadeDrive();
+		} else {
+			tankDrive();
+		}
+		
 	}
 
 	/**
