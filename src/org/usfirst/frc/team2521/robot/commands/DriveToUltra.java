@@ -16,6 +16,10 @@ public class DriveToUltra extends Command {
 	protected boolean useRearUltra = false;
 	private double ultrasonicValue;
 
+	/**
+	 * @param setpoint     the ultrasonic setpoint
+	 * @param useRearUltra whether we should use the rear ultrasonic
+	 */
 	public DriveToUltra(double setpoint, boolean useRearUltra) {
 		this.setpoint = setpoint;
 		this.useRearUltra = useRearUltra;

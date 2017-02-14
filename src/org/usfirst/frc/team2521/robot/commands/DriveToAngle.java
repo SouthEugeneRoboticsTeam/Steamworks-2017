@@ -18,10 +18,13 @@ public class DriveToAngle extends PIDCommand {
 
 	private double targetAngle;
 
-	public DriveToAngle(double deltaAngle) {
+	/**
+	 * @param targetAngle the angle we want to drive to
+	 */
+	public DriveToAngle(double targetAngle) {
 		super(P, I, D);
 		requires(Robot.drivetrain);
-		targetAngle = deltaAngle;
+		this.targetAngle = targetAngle;
 	}
 
 	@Override
