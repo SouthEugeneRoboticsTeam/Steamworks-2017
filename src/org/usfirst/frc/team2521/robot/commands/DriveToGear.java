@@ -15,21 +15,18 @@ public class DriveToGear extends PIDCommand {
 
 	private static final double CAMERA_PROJ_PLANE_DISTANCE = 216.226;
 
-	// `true` if we're straight-on
+	/** true if we're straight-on */
 	private boolean oriented = false;
-
-	// `true` if we're on the left side of the target
+	/** true if we're on the left side of the target */
 	private boolean onLeftSide;
 
 	/**
-	 * @param onLeftSide  whether we're on the left side of the target
+	 * @param onLeftSide whether we're on the left side of the target
 	 */
 	public DriveToGear(boolean onLeftSide) {
 		super(P, I, D);
-
-		requires(Robot.drivetrain);
-
 		this.onLeftSide = onLeftSide;
+		requires(Robot.drivetrain);
 	}
 
 	@Override

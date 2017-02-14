@@ -5,7 +5,8 @@ import org.usfirst.frc.team2521.robot.Robot;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *
+ * Starting from any point on the wall next to the boiler, this command drives to a specific point
+ * on the boiler wall from where we can shoot accurately.
  */
 public class DriveToBoiler extends CommandGroup {
 	public DriveToBoiler() {
