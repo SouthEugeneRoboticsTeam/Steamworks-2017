@@ -14,7 +14,7 @@ public class DriveToUltra extends Command {
 	protected double setpoint;
 	private double ultrasonicValue;
 	/** {@code true} if we should use the front ultrasonic */
-	private boolean useRearUltra = false;
+	protected boolean useRearUltra = false;
 
 	public DriveToUltra(double setpoint, boolean useRearUltra) {
 		this.setpoint = setpoint;
