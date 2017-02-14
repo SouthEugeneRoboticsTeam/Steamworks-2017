@@ -8,12 +8,15 @@ public class RobotMap {
 	public static final int RIGHT_STICK_PORT = 1;
 	public static final int SECONDARY_STICK_PORT = 2;
 
-	public static final int SPIN_FLYWHEEL_BUTTON_PORT = 1; // On right stick
-	public static final int SPIN_FEEDER_BUTTON_PORT = 2; // On right stick
+	// Right joystick buttons
 	public static final int ALIGN_SHOOTER_BUTTON = 3; // On right stick
 	public static final int DRIVE_TO_GEAR_LEFT_PORT = 4; // On right stick
 	public static final int DRIVE_TO_GEAR_RIGHT_PORT = 5; // On right stick
 	public static final int QUICK_SPIN_BUTTON_PORT = 6; // On right stick
+
+	// Secondary joystick buttons
+	public static final int SPIN_FLYWHEEL_BUTTON_PORT = 1; // On secondary stick
+	public static final int SPIN_FEEDER_BUTTON_PORT = 2; // On secondary stick
 
 	public static final int FRONT_RIGHT_MOTOR = 41;
 	public static final int FRONT_LEFT_MOTOR = 42;
