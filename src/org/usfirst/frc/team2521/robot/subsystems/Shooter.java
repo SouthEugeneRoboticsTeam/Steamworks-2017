@@ -1,14 +1,13 @@
 package org.usfirst.frc.team2521.robot.subsystems;
 
-import org.usfirst.frc.team2521.robot.RobotMap;
-
 import com.ctre.CANTalon;
+
+import org.usfirst.frc.team2521.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- * Shooter is the subsystem dedicated to the high-goal shooter. It does not
- * include the feeder.
+ * Shooter is the subsystem dedicated to the high-goal shooter. It does not include the feeder.
  */
 public class Shooter extends Subsystem {
 	private CANTalon shooter;
@@ -20,16 +19,14 @@ public class Shooter extends Subsystem {
 	/**
 	 * Sets the shooter flywheel to a certain value.
 	 *
-	 * @param value  an absolute URL giving the base location of the image
+	 * @param value the speed of the motor (between -1 and 1)
 	 */
 	public void setMotor(double value) {
 		shooter.set(value);
 	}
 
 	/**
-	 * Returns the encoder velocity of the Shooter flywheel.
-	 *
-	 * @return the current encoder velocity
+	 * @return the current encoder velocity of the Shooter flywheel
 	 */
 	public double getEncVelocity() {
 		return shooter.getEncVelocity();
