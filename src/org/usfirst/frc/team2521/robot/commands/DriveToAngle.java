@@ -3,10 +3,9 @@ package org.usfirst.frc.team2521.robot.commands;
 import org.usfirst.frc.team2521.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.PIDCommand;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ * This command drives to a specified angle using the navX.
  */
 public class DriveToAngle extends PIDCommand {
 	private static final double P = 0.003;
@@ -19,10 +18,13 @@ public class DriveToAngle extends PIDCommand {
 
 	private double targetAngle;
 
-	public DriveToAngle(double deltaAngle) {
+	/**
+	 * @param targetAngle the angle we want to drive to
+	 */
+	public DriveToAngle(double targetAngle) {
 		super(P, I, D);
 		requires(Robot.drivetrain);
-		targetAngle = deltaAngle;
+		this.targetAngle = targetAngle;
 	}
 
 	@Override
@@ -30,7 +32,7 @@ public class DriveToAngle extends PIDCommand {
 		Robot.sensors.resetNavxAngle();
 		targetAngle += Robot.sensors.getNavxAngle();
 	}
-	
+
 	@Override
 	protected void execute() {
 		setSetpoint(targetAngle);
@@ -49,7 +51,7 @@ public class DriveToAngle extends PIDCommand {
 	@Override
 	protected void usePIDOutput(double output) {
 		if (Math.abs(output) < MIN_OUTPUT) {
-			output = Math.signum(output)*MIN_OUTPUT;
+			output = Math.signum(output) * MIN_OUTPUT;
 		}
 		Robot.drivetrain.setLeft(output);
 		Robot.drivetrain.setRight(output);
