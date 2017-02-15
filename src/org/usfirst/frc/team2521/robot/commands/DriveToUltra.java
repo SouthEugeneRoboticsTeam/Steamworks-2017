@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2521.robot.commands;
 
 import org.usfirst.frc.team2521.robot.Robot;
+import org.usfirst.frc.team2521.robot.subsystems.Drivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -30,11 +31,11 @@ public class DriveToUltra extends Command {
 		ultrasonicValue = useRearUltra ? Robot.sensors.getRearUltraInches() : Robot.sensors.getFrontUltraInches();
 
 		if (useRearUltra) {
-			Robot.drivetrain.setLeft(setpoint - ultrasonicValue > 0 ? .2 : -.2);
-			Robot.drivetrain.setRight(setpoint - ultrasonicValue > 0 ? -.2 : .2);
+			Robot.drivetrain.setLeft(setpoint - ultrasonicValue > 0 ? Drivetrain.SLOW_SPEED : -Drivetrain.SLOW_SPEED);
+			Robot.drivetrain.setRight(setpoint - ultrasonicValue > 0 ? -Drivetrain.SLOW_SPEED : Drivetrain.SLOW_SPEED);
 		} else {
-			Robot.drivetrain.setLeft(setpoint - ultrasonicValue > 0 ? -.2 : .2);
-			Robot.drivetrain.setRight(setpoint - ultrasonicValue > 0 ? .2 : -.2);
+			Robot.drivetrain.setLeft(setpoint - ultrasonicValue > 0 ? -Drivetrain.SLOW_SPEED : Drivetrain.SLOW_SPEED);
+			Robot.drivetrain.setRight(setpoint - ultrasonicValue > 0 ? Drivetrain.SLOW_SPEED : -Drivetrain.SLOW_SPEED);
 		}
 	}
 
