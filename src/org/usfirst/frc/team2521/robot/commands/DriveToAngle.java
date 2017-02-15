@@ -25,6 +25,7 @@ public class DriveToAngle extends PIDCommand {
 		super(P, I, D);
 		requires(Robot.drivetrain);
 		this.targetAngle = targetAngle;
+		getPIDController().setAbsoluteTolerance(ERROR_THRESHOLD);
 	}
 
 	@Override
@@ -40,7 +41,7 @@ public class DriveToAngle extends PIDCommand {
 
 	@Override
 	protected boolean isFinished() {
-		return Math.abs(targetAngle - Robot.sensors.getNavxAngle()) < ERROR_THRESHOLD;
+		return getPIDController().onTarget();
 	}
 
 	@Override
