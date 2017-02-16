@@ -24,9 +24,9 @@ public class OI {
 	private JoystickButton driveToBoilerButton;
 	private JoystickButton driveToGearLeftButton;
 	private JoystickButton driveToGearRightButton;
-	private JoystickButton spinFlywheelButton;
-	private JoystickButton spinFeederButton;
-	private JoystickButton quickSpinButton;
+	private JoystickButton runShooterButton;
+	private JoystickButton runFeederButton;
+	private JoystickButton spintakeButton;
 	private JoystickButton runAgitatorButton;
 
 	private OI() {
@@ -38,11 +38,11 @@ public class OI {
 		driveToBoilerButton = new JoystickButton(right, RobotMap.DRIVE_TO_BOILER_BUTTON_PORT);
 		driveToGearLeftButton = new JoystickButton(right, RobotMap.DRIVE_TO_GEAR_LEFT_PORT);
 		driveToGearRightButton = new JoystickButton(right, RobotMap.DRIVE_TO_GEAR_RIGHT_PORT);
-		quickSpinButton = new JoystickButton(right, RobotMap.SPINTAKE_BUTTON_PORT);
+		spintakeButton = new JoystickButton(right, RobotMap.SPINTAKE_BUTTON_PORT);
 
 		// Secondary joystick buttons
-		spinFlywheelButton = new JoystickButton(secondary, RobotMap.RUN_SHOOTER_BUTTON_PORT);
-		spinFeederButton = new JoystickButton(secondary, RobotMap.RUN_FEEDER_BUTTON_PORT);
+		runShooterButton = new JoystickButton(secondary, RobotMap.RUN_SHOOTER_BUTTON_PORT);
+		runFeederButton = new JoystickButton(secondary, RobotMap.RUN_FEEDER_BUTTON_PORT);
 		runAgitatorButton = new JoystickButton(secondary, RobotMap.RUN_AGITATOR_BUTTON_PORT);
 
 		setButtonListeners();
@@ -88,9 +88,9 @@ public class OI {
 		driveToBoilerButton.toggleWhenActive(new DriveToBoiler());
 		driveToGearLeftButton.toggleWhenActive(new DriveToGear(true));
 		driveToGearRightButton.toggleWhenActive(new DriveToGear(false));
-		spinFlywheelButton.toggleWhenActive(new RunShooter());
-		spinFeederButton.whileActive(new RunFeeder());
-		quickSpinButton.toggleWhenActive(new Spintake());
+		runShooterButton.toggleWhenActive(new RunShooter());
+		runFeederButton.whileActive(new RunFeeder());
+		spintakeButton.toggleWhenActive(new Spintake());
 		runAgitatorButton.toggleWhenActive(new RunAgitator());
 	}
 }
