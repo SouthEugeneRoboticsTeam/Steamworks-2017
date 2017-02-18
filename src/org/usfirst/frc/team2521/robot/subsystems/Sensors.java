@@ -123,7 +123,7 @@ public class Sensors extends Subsystem {
 	 * @return the Navx's current angle measurement
 	 */
 	public double getNavxAngle() {
-		return ahrs.getRoll();
+		return ahrs.getYaw();
 	}
 
 	/**

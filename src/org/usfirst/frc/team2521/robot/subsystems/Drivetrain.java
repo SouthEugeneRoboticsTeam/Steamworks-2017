@@ -21,7 +21,7 @@ public class Drivetrain extends Subsystem {
 	private RobotDrive rearDrive;
 	private CANTalon frontLeft, frontRight, rearLeft, rearRight;
 	
-	private final double P = 0.1;
+	private final double P = 0.01;
 	private final double I = 0;
 	private final double D = 0;
 	
@@ -95,6 +95,7 @@ public class Drivetrain extends Subsystem {
 	 * @param value speed to set the left-side motors to
 	 */
 	public void setLeft(double value) {
+		frontLeft.changeControlMode(TalonControlMode.PercentVbus);
 		frontLeft.set(value);
 
 		rearLeft.changeControlMode(TalonControlMode.Follower);
@@ -107,6 +108,7 @@ public class Drivetrain extends Subsystem {
 	 * @param value speed to set the right-side motors to
 	 */
 	public void setRight(double value) {
+		frontRight.changeControlMode(TalonControlMode.PercentVbus);
 		frontRight.set(value);
 
 		rearRight.changeControlMode(TalonControlMode.Follower);
@@ -128,20 +130,42 @@ public class Drivetrain extends Subsystem {
 	}
 	
 	public void setPosition(double position) {
-		frontLeft.changeControlMode(TalonControlMode.Follower);
-		rearLeft.changeControlMode(TalonControlMode.Position);
-		rearLeft.setPID(P, I, D);
-		
-		rearLeft.set(position);
-		frontLeft.set(RobotMap.REAR_LEFT_MOTOR);
-		
-		rearRight.reverseOutput(true);
-		frontRight.reverseOutput(true);
-		rearRight.changeControlMode(TalonControlMode.Follower);
+		rearRight.reverseSensor(true);
 		frontRight.changeControlMode(TalonControlMode.Follower);
-		rearRight.set(RobotMap.REAR_LEFT_MOTOR);
-		frontRight.set(RobotMap.REAR_LEFT_MOTOR);
+		rearRight.changeControlMode(TalonControlMode.Position);
+		rearRight.setPID(P, I, D);
+		
+		rearRight.set(position);
+		frontRight.set(RobotMap.REAR_RIGHT_MOTOR);
+		
+		rearLeft.reverseOutput(true);
+		frontLeft.reverseOutput(true);
+		rearLeft.changeControlMode(TalonControlMode.Follower);
+		frontLeft.changeControlMode(TalonControlMode.Follower);
+		rearLeft.set(RobotMap.REAR_RIGHT_MOTOR);
+		frontLeft.set(RobotMap.REAR_RIGHT_MOTOR);
 	
+	}
+	
+	public void set() {
+		rearRight.reverseSensor(true);
+		frontRight.changeControlMode(TalonControlMode.Follower);
+		rearRight.changeControlMode(TalonControlMode.PercentVbus);
+		rearRight.setPID(P, I, D);
+		
+		rearRight.set(.2);
+		frontRight.set(RobotMap.REAR_RIGHT_MOTOR);
+		
+		rearLeft.reverseOutput(true);
+		frontLeft.reverseOutput(true);
+		rearLeft.changeControlMode(TalonControlMode.Follower);
+		frontLeft.changeControlMode(TalonControlMode.Follower);
+		rearLeft.set(RobotMap.REAR_RIGHT_MOTOR);
+		frontLeft.set(RobotMap.REAR_RIGHT_MOTOR);
+	}
+	
+	public double getError() {
+		return rearRight.getError();
 	}
 	
 	public void setLeftPosition(double position) {

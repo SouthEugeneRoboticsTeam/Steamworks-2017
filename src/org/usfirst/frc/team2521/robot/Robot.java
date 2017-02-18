@@ -38,7 +38,7 @@ public class Robot extends IterativeRobot {
 		feeder = new Feeder();
 		agitator = new Agitator();
 
-		auto = new DriveToEncoder(0);
+		auto = new DriveToGear(false);
 	}
 
 	@Override

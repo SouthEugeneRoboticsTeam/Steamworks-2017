@@ -27,7 +27,8 @@ public class OI {
 	private JoystickButton runShooterButton;
 	private JoystickButton runFeederButton;
 	private JoystickButton spintakeButton;
-	private JoystickButton runAgitatorButton;
+	private JoystickButton runAgitatorForwardButton;
+	private JoystickButton runAgitatorBackwardButton;
 
 	private OI() {
 		left = new Joystick(RobotMap.LEFT_STICK_PORT);
@@ -43,8 +44,9 @@ public class OI {
 		// Secondary joystick buttons
 		runShooterButton = new JoystickButton(secondary, RobotMap.RUN_SHOOTER_BUTTON_PORT);
 		runFeederButton = new JoystickButton(secondary, RobotMap.RUN_FEEDER_BUTTON_PORT);
-		runAgitatorButton = new JoystickButton(secondary, RobotMap.RUN_AGITATOR_BUTTON_PORT);
-
+		runAgitatorForwardButton = new JoystickButton(secondary, RobotMap.RUN_AGITATOR_FORWARD_BUTTON_PORT);
+		runAgitatorBackwardButton = new JoystickButton(secondary, RobotMap.RUN_AGITATOR_BACKWARD_BUTTON_PORT);
+		
 		setButtonListeners();
 	}
 
@@ -91,6 +93,7 @@ public class OI {
 		runShooterButton.toggleWhenActive(new RunShooter());
 		runFeederButton.whileActive(new RunFeeder());
 		spintakeButton.toggleWhenActive(new Spintake());
-		runAgitatorButton.toggleWhenActive(new RunAgitator());
+		runAgitatorForwardButton.toggleWhenActive(new RunAgitator(true));
+		runAgitatorBackwardButton.toggleWhenActive(new RunAgitator(false));
 	}
 }

@@ -26,12 +26,18 @@ public class DriveToEncoder extends Command {
 	}
 	
 	protected void execute() {
-		Robot.drivetrain.setPosition(leftDistance);
+		Robot.drivetrain.setPosition(rightDistance);
+	}
+	
+	@Override
+	protected void end() {
+		Robot.drivetrain.setLeft(0);
+		Robot.drivetrain.setRight(0);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return Math.abs(Robot.drivetrain.getError()) < 100;
 	}
 
 }
