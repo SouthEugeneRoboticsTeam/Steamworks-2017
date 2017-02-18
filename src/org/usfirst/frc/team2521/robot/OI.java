@@ -5,6 +5,7 @@ import org.usfirst.frc.team2521.robot.commands.DriveToGear;
 import org.usfirst.frc.team2521.robot.commands.RunAgitator;
 import org.usfirst.frc.team2521.robot.commands.RunFeeder;
 import org.usfirst.frc.team2521.robot.commands.RunShooter;
+import org.usfirst.frc.team2521.robot.commands.RunShooterAndAgitator;
 import org.usfirst.frc.team2521.robot.commands.Spintake;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -87,13 +88,12 @@ public class OI {
 	}
 
 	private void setButtonListeners() {
-		driveToBoilerButton.toggleWhenActive(new DriveToBoiler());
+		//driveToBoilerButton.toggleWhenActive(new DriveToBoiler());
 		driveToGearLeftButton.toggleWhenActive(new DriveToGear(true));
 		driveToGearRightButton.toggleWhenActive(new DriveToGear(false));
-		runShooterButton.toggleWhenActive(new RunShooter());
+		runShooterButton.toggleWhenActive(new RunShooterAndAgitator());
 		runFeederButton.whileActive(new RunFeeder());
-		spintakeButton.toggleWhenActive(new Spintake());
-		runAgitatorForwardButton.toggleWhenActive(new RunAgitator(true));
+		//spintakeButton.toggleWhenActive(new Spintake());
 		runAgitatorBackwardButton.toggleWhenActive(new RunAgitator(false));
 	}
 }
