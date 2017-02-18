@@ -48,11 +48,6 @@ public class Sensors extends Subsystem {
 	 */
 	public void display() {
 		if (Robot.DEBUG) {
-			SmartDashboard.putNumber("Side raw", getSideLidarRaw());
-			SmartDashboard.putNumber("Front raw", getFrontUltraRaw());
-			SmartDashboard.putNumber("Side inches", getSideLidarInches());
-			SmartDashboard.putNumber("Front inches", getFrontUltraInches());
-
 			SmartDashboard.putNumber("Angle", getNavxAngle());
 			SmartDashboard.putBoolean("Blob found", getBlobFound());
 		}

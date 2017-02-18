@@ -9,11 +9,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * This command spins up the flywheel and attempts to maintain a constant speed.
  */
 public class RunShooter extends PIDCommand {
-	private static final double P = 0.05;
-	private static final double I = 0.001;
+	private static final double P = 0.007;
+	private static final double I = 0;
 	private static final double D = 0;
 
-	private static final int SETPOINT = 375;
+	private static final int SETPOINT = -320;
 
 	public RunShooter() {
 		super(P, I, D);
@@ -51,6 +51,6 @@ public class RunShooter extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double output) {
-		Robot.shooter.setMotor(output);
+		Robot.shooter.setMotor(-output);
 	}
 }
