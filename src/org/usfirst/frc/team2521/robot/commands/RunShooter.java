@@ -13,7 +13,7 @@ public class RunShooter extends PIDCommand {
 	private static final double I = 0;
 	private static final double D = 0;
 
-	private static final int SETPOINT = -320;
+	private static final int SETPOINT = -380;
 
 	public RunShooter() {
 		super(P, I, D);

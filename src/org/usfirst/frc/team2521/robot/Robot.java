@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2521.robot;
 
+import org.usfirst.frc.team2521.robot.commands.Auto;
 import org.usfirst.frc.team2521.robot.commands.DriveToEncoder;
 import org.usfirst.frc.team2521.robot.commands.DriveToGear;
 import org.usfirst.frc.team2521.robot.subsystems.Agitator;
@@ -38,7 +39,7 @@ public class Robot extends IterativeRobot {
 		feeder = new Feeder();
 		agitator = new Agitator();
 
-		auto = new DriveToGear(false);
+		auto = new Auto();
 	}
 
 	@Override
