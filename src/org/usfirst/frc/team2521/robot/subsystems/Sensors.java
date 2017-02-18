@@ -54,6 +54,7 @@ public class Sensors extends Subsystem {
 			SmartDashboard.putNumber("Front inches", getFrontUltraInches());
 
 			SmartDashboard.putNumber("Angle", getNavxAngle());
+			SmartDashboard.putBoolean("Blob found", getBlobFound());
 		}
 	}
 
@@ -122,7 +123,7 @@ public class Sensors extends Subsystem {
 	 * @return the Navx's current angle measurement
 	 */
 	public double getNavxAngle() {
-		return ahrs.getAngle();
+		return ahrs.getRoll();
 	}
 
 	/**

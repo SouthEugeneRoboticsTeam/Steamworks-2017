@@ -21,6 +21,10 @@ public class Drivetrain extends Subsystem {
 	private RobotDrive rearDrive;
 	private CANTalon frontLeft, frontRight, rearLeft, rearRight;
 	
+	private final double P = 0.1;
+	private final double I = 0;
+	private final double D = 0;
+	
 	/** Speed to set drivetrain to when we want to move at a slow, constant speed */
 	public static final double SLOW_SPEED = 0.2;
 
@@ -29,6 +33,11 @@ public class Drivetrain extends Subsystem {
 		frontRight = new CANTalon(RobotMap.FRONT_RIGHT_MOTOR);
 		rearLeft = new CANTalon(RobotMap.REAR_LEFT_MOTOR);
 		rearRight = new CANTalon(RobotMap.REAR_RIGHT_MOTOR);
+		
+		frontLeft.enableBrakeMode(true);
+		frontRight.enableBrakeMode(true);
+		rearLeft.enableBrakeMode(true);
+		rearRight.enableBrakeMode(true);
 
 		frontDrive = new RobotDrive(frontLeft, frontRight);
 		rearDrive = new RobotDrive(rearLeft, rearRight);
@@ -103,7 +112,51 @@ public class Drivetrain extends Subsystem {
 		rearRight.changeControlMode(TalonControlMode.Follower);
 		rearRight.set(RobotMap.FRONT_RIGHT_MOTOR);
 	}
+	
+	public void setRightPosition(double position) {
+		frontRight.changeControlMode(TalonControlMode.Follower);
+		rearRight.changeControlMode(TalonControlMode.Position);
+		rearRight.setPID(P, I, D);
+		rearRight.reverseSensor(true);
+		
+		rearRight.set(position);
+		frontRight.set(RobotMap.REAR_RIGHT_MOTOR);
+	}
+	
+	public double getRightPosition() {
+		return rearRight.getEncPosition();
+	}
+	
+	public void setPosition(double position) {
+		frontLeft.changeControlMode(TalonControlMode.Follower);
+		rearLeft.changeControlMode(TalonControlMode.Position);
+		rearLeft.setPID(P, I, D);
+		
+		rearLeft.set(position);
+		frontLeft.set(RobotMap.REAR_LEFT_MOTOR);
+		
+		rearRight.reverseOutput(true);
+		frontRight.reverseOutput(true);
+		rearRight.changeControlMode(TalonControlMode.Follower);
+		frontRight.changeControlMode(TalonControlMode.Follower);
+		rearRight.set(RobotMap.REAR_LEFT_MOTOR);
+		frontRight.set(RobotMap.REAR_LEFT_MOTOR);
+	
+	}
+	
+	public void setLeftPosition(double position) {
+		frontLeft.changeControlMode(TalonControlMode.Follower);
+		rearLeft.changeControlMode(TalonControlMode.Position);
+		rearLeft.setPID(P, I, D);
+		
+		rearLeft.set(position);
+		frontLeft.set(RobotMap.REAR_LEFT_MOTOR);
+	}
 
+	public double getLeftPosition() {
+		return rearLeft.getEncPosition();
+	}
+	
 	@Override
 	public void initDefaultCommand() {
 		setDefaultCommand(new TeleopDrivetrain());
