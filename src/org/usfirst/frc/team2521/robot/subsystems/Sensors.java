@@ -19,7 +19,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Sensors extends Subsystem {
 	private AnalogInput frontUltra;
 	private AnalogInput rearUltra;
-	private AnalogInput sideLidar;
+	private AnalogInput leftLidar;
+	private AnalogInput rightLidar;
 
 	private NetworkTable table;
 
@@ -33,7 +34,8 @@ public class Sensors extends Subsystem {
 		frontUltra = new AnalogInput(RobotMap.FRONT_ULTRA_PORT);
 		rearUltra = new AnalogInput(RobotMap.REAR_ULTRA_PORT);
 
-		sideLidar = new AnalogInput(RobotMap.SIDE_LIDAR_PORT);
+		leftLidar = new AnalogInput(RobotMap.LEFT_LIDAR_PORT);
+		rightLidar = new AnalogInput(RobotMap.RIGHT_LIDAR_PORT);
 
 		table = NetworkTable.getTable("Vision");
 
@@ -46,7 +48,11 @@ public class Sensors extends Subsystem {
 	 */
 	public void display() {
 		if (Robot.DEBUG) {
-			SmartDashboard.putNumber("Angle", getNavxAngle());
+			SmartDashboard.putNumber("1", getRearUltraInches());
+			SmartDashboard.putNumber("0", getFrontUltraInches());
+			SmartDashboard.putNumber("2", getLeftLidarInches());
+			SmartDashboard.putNumber("3", getRightLidarInches());
+			SmartDashboard.putNumber("CV offset", getCVOffsetX());
 			SmartDashboard.putBoolean("Blob found", getBlobFound());
 		}
 	}
@@ -82,15 +88,29 @@ public class Sensors extends Subsystem {
 	/**
 	 * @return the raw value from the side lidar
 	 */
-	private double getSideLidarRaw() {
-		return sideLidar.getValue();
+	private double getLeftLidarRaw() {
+		return leftLidar.getValue();
 	}
 
 	/**
 	 * @return the distance in inches from the side lidar
 	 */
-	public double getSideLidarInches() {
-		return MED_LIDAR_M / Math.pow(getSideLidarRaw(), 2) + MED_LIDAR_B;
+	public double getLeftLidarInches() {
+		return MED_LIDAR_M / Math.pow(getLeftLidarRaw(), 2) + MED_LIDAR_B;
+	}
+	
+	/**
+	 * @return the raw value from the side lidar
+	 */
+	private double getRightLidarRaw() {
+		return rightLidar.getValue();
+	}
+
+	/**
+	 * @return the distance in inches from the side lidar
+	 */
+	public double getRightLidarInches() {
+		return MED_LIDAR_M / Math.pow(getRightLidarRaw(), 2) + MED_LIDAR_B;
 	}
 
 	/**
