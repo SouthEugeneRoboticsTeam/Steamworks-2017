@@ -29,7 +29,7 @@ public class RobotMap {
 	public static final int CLIMBER_WHEEL_MASTER_MOTOR = 16;
 
 	public static final int AGITATOR_MOTOR = 19;
-	
+
 	public static final int SHOOTER_MOTOR = 13;
 	public static final int FEEDER_MOTOR = 12;
 

@@ -1,12 +1,9 @@
 package org.usfirst.frc.team2521.robot;
 
-import org.usfirst.frc.team2521.robot.commands.DriveToBoiler;
 import org.usfirst.frc.team2521.robot.commands.DriveToGear;
 import org.usfirst.frc.team2521.robot.commands.RunAgitator;
 import org.usfirst.frc.team2521.robot.commands.RunFeeder;
-import org.usfirst.frc.team2521.robot.commands.RunShooter;
 import org.usfirst.frc.team2521.robot.commands.RunShooterAndAgitator;
-import org.usfirst.frc.team2521.robot.commands.Spintake;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -45,9 +42,11 @@ public class OI {
 		// Secondary joystick buttons
 		runShooterButton = new JoystickButton(secondary, RobotMap.RUN_SHOOTER_BUTTON_PORT);
 		runFeederButton = new JoystickButton(secondary, RobotMap.RUN_FEEDER_BUTTON_PORT);
-		runAgitatorForwardButton = new JoystickButton(secondary, RobotMap.RUN_AGITATOR_FORWARD_BUTTON_PORT);
-		runAgitatorBackwardButton = new JoystickButton(secondary, RobotMap.RUN_AGITATOR_BACKWARD_BUTTON_PORT);
-		
+		runAgitatorForwardButton = new JoystickButton(secondary,
+													  RobotMap.RUN_AGITATOR_FORWARD_BUTTON_PORT);
+		runAgitatorBackwardButton = new JoystickButton(secondary,
+													   RobotMap.RUN_AGITATOR_BACKWARD_BUTTON_PORT);
+
 		setButtonListeners();
 	}
 

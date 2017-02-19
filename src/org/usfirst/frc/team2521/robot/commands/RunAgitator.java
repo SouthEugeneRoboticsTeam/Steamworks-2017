@@ -11,7 +11,7 @@ public class RunAgitator extends Command {
 		requires(Robot.agitator);
 		this.forward = forward;
 	}
-		
+
 	@Override
 	protected void execute() {
 		if (forward) {
@@ -20,12 +20,12 @@ public class RunAgitator extends Command {
 			Robot.agitator.setMotor(1);
 		}
 	}
-	
+
 	@Override
 	protected void end() {
 		Robot.agitator.setMotor(0);
 	}
-		
+
 	@Override
 	protected boolean isFinished() {
 		return false;

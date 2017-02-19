@@ -8,13 +8,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class DriveToEncoder extends Command {
 	private final double ENC_PULSES_PER_REVOLUTION = 8129;
 	private final double WHEEL_DIAMETER = 6;
-	
+
 	private double leftDistance;
 	private double rightDistance;
 
 	public DriveToEncoder(double distance) {
 		requires(Robot.drivetrain);
-		
+
 		distance = (distance / (WHEEL_DIAMETER * Math.PI)) * ENC_PULSES_PER_REVOLUTION;
 		distance = 1000;
 		SmartDashboard.putNumber("Left initial", Robot.drivetrain.getLeftPosition());
@@ -24,11 +24,11 @@ public class DriveToEncoder extends Command {
 		rightDistance = distance + Robot.drivetrain.getRightPosition();
 		SmartDashboard.putNumber("Right setpoint", rightDistance);
 	}
-	
+
 	protected void execute() {
 		Robot.drivetrain.setPosition(rightDistance);
 	}
-	
+
 	@Override
 	protected void end() {
 		Robot.drivetrain.setLeft(0);

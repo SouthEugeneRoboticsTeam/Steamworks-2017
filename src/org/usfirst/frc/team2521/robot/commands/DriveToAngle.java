@@ -2,7 +2,6 @@ package org.usfirst.frc.team2521.robot.commands;
 
 import org.usfirst.frc.team2521.robot.Robot;
 
-import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 
 /**
