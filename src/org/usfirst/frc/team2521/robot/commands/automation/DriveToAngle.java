@@ -12,8 +12,7 @@ public class DriveToAngle extends PIDCommand {
 	private static final double I = 0;
 	private static final double D = 0;
 
-	private final static double ERROR_THRESHOLD = 1;
-
+	private static final double ERROR_THRESHOLD = 1;
 	private static final double MIN_OUTPUT = 0.1;
 
 	private double targetAngle;

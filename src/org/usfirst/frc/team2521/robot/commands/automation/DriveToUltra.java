@@ -10,11 +10,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * This command drives to a specified ultrasonic distance automatically.
  */
 public class DriveToUltra extends Command {
-	private final static double ERROR_THRESHOLD = 1;
-
-	protected double setpoint;
+	private static final double ERROR_THRESHOLD = 1;
 	/** {@code true} if we should use the front ultrasonic */
 	protected boolean useRearUltra = false;
+	private double setpoint;
 	private double ultrasonicValue;
 
 	/**
