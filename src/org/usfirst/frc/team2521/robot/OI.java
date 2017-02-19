@@ -35,9 +35,11 @@ public class OI {
 		driveToGearRightButton = new JoystickButton(right, RobotMap.DRIVE_TO_GEAR_RIGHT_PORT);
 
 		// Secondary joystick buttons
-		runShooterAndAgitatorButton = new JoystickButton(secondary, RobotMap.RUN_SHOOTER_AND_AGITATOR_BUTTON_PORT);
+		runShooterAndAgitatorButton =
+				new JoystickButton(secondary, RobotMap.RUN_SHOOTER_AND_AGITATOR_BUTTON_PORT);
 		runFeederButton = new JoystickButton(secondary, RobotMap.RUN_FEEDER_BUTTON_PORT);
-		runAgitatorBackwardButton = new JoystickButton(secondary, RobotMap.RUN_AGITATOR_BACKWARD_BUTTON_PORT);
+		runAgitatorBackwardButton =
+				new JoystickButton(secondary, RobotMap.RUN_AGITATOR_BACKWARD_BUTTON_PORT);
 
 		setButtonListeners();
 	}

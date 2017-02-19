@@ -30,5 +30,4 @@ public class RunAgitator extends Command {
 	protected boolean isFinished() {
 		return false;
 	}
-
 }

@@ -117,7 +117,7 @@ public class Drivetrain extends Subsystem {
 	/**
 	 * Sets the right rear motor using encoder position, and sets the
 	 * remaining motors to follow it.
-	 * 
+	 *
 	 * @param position target for encoder
 	 */
 	public void setPosition(double position) {
@@ -148,14 +148,10 @@ public class Drivetrain extends Subsystem {
 		return rearLeft.getEncPosition();
 	}
 
-	public double getRightPosition() {
-		return rearRight.getEncPosition();
-	}
-
 	/**
 	 * Sets the left rear motor using encoder position, and sets the
 	 * other motor to follow it.
-	 * 
+	 *
 	 * @param position target for encoder
 	 */
 	public void setLeftPosition(double position) {
@@ -167,10 +163,14 @@ public class Drivetrain extends Subsystem {
 		frontLeft.set(RobotMap.REAR_LEFT_MOTOR);
 	}
 
+	public double getRightPosition() {
+		return rearRight.getEncPosition();
+	}
+
 	/**
 	 * Sets the right rear motor using encoder position, and sets the
 	 * other motor to follow it.
-	 * 
+	 *
 	 * @param position target for encoder
 	 */
 	public void setRightPosition(double position) {
