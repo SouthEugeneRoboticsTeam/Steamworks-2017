@@ -3,7 +3,7 @@ package org.usfirst.frc.team2521.robot;
 import org.usfirst.frc.team2521.robot.commands.automation.DriveToGear;
 import org.usfirst.frc.team2521.robot.commands.base.RunAgitator;
 import org.usfirst.frc.team2521.robot.commands.base.RunFeeder;
-import org.usfirst.frc.team2521.robot.commands.groups.RunShooterAndAgitator;
+import org.usfirst.frc.team2521.robot.commands.groups.RunShooterSubsystems;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -83,7 +83,7 @@ public class OI {
 	private void setButtonListeners() {
 		driveToGearLeftButton.toggleWhenActive(new DriveToGear(true));
 		driveToGearRightButton.toggleWhenActive(new DriveToGear(false));
-		runShooterAndAgitatorButton.toggleWhenActive(new RunShooterAndAgitator());
+		runShooterAndAgitatorButton.toggleWhenActive(new RunShooterSubsystems());
 		runFeederButton.whileActive(new RunFeeder());
 		runAgitatorBackwardButton.toggleWhenActive(new RunAgitator(false));
 	}
