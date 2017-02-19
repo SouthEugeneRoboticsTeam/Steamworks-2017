@@ -115,6 +115,11 @@ public class Sensors extends Subsystem {
 	public void toggleCVCamera() {
 		table.putBoolean("front_camera", !table.getBoolean("front_camera", false));
 	}
+	
+	public void setCVCamera(boolean isFrontCamera) {
+		table.putBoolean("front_camera", isFrontCamera);
+	}
+	
 	/**
 	 * @return the Navx's current angle measurement
 	 */
