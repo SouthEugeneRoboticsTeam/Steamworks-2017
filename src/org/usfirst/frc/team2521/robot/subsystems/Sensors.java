@@ -4,7 +4,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 import org.usfirst.frc.team2521.robot.Robot;
 import org.usfirst.frc.team2521.robot.RobotMap;
-import org.usfirst.frc.team2521.robot.commands.DisplaySensors;
+import org.usfirst.frc.team2521.robot.commands.base.DisplaySensors;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.SPI;
@@ -25,9 +25,7 @@ public class Sensors extends Subsystem {
 
 	private AHRS ahrs;
 
-	/**
-	 * Lidar distance equation: `distance = m/lidar^2 + b`
-	 */
+	/** Lidar distance equation: `distance = m/lidar^2 + b` */
 	private double MED_LIDAR_M = 1.964 * Math.pow(10, 7);
 	private double MED_LIDAR_B = -1.045;
 
@@ -48,12 +46,8 @@ public class Sensors extends Subsystem {
 	 */
 	public void display() {
 		if (Robot.DEBUG) {
-			SmartDashboard.putNumber("Side raw", getSideLidarRaw());
-			SmartDashboard.putNumber("Front raw", getFrontUltraRaw());
-			SmartDashboard.putNumber("Side inches", getSideLidarInches());
-			SmartDashboard.putNumber("Front inches", getFrontUltraInches());
-
 			SmartDashboard.putNumber("Angle", getNavxAngle());
+			SmartDashboard.putBoolean("Blob found", getBlobFound());
 		}
 	}
 
@@ -122,7 +116,7 @@ public class Sensors extends Subsystem {
 	 * @return the Navx's current angle measurement
 	 */
 	public double getNavxAngle() {
-		return ahrs.getAngle();
+		return ahrs.getYaw();
 	}
 
 	/**
