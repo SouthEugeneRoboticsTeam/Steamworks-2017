@@ -1,11 +1,9 @@
 package org.usfirst.frc.team2521.robot;
 
-import org.usfirst.frc.team2521.robot.commands.DriveToBoiler;
-import org.usfirst.frc.team2521.robot.commands.DriveToGear;
-import org.usfirst.frc.team2521.robot.commands.RunAgitator;
-import org.usfirst.frc.team2521.robot.commands.RunFeeder;
-import org.usfirst.frc.team2521.robot.commands.RunShooter;
-import org.usfirst.frc.team2521.robot.commands.Spintake;
+import org.usfirst.frc.team2521.robot.commands.automation.DriveToGear;
+import org.usfirst.frc.team2521.robot.commands.base.RunAgitator;
+import org.usfirst.frc.team2521.robot.commands.base.RunFeeder;
+import org.usfirst.frc.team2521.robot.commands.groups.RunShooterAndAgitator;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -21,13 +19,11 @@ public class OI {
 	private final Joystick right;
 	private final Joystick secondary;
 
-	private JoystickButton driveToBoilerButton;
 	private JoystickButton driveToGearLeftButton;
 	private JoystickButton driveToGearRightButton;
-	private JoystickButton runShooterButton;
+	private JoystickButton runShooterAndAgitatorButton;
 	private JoystickButton runFeederButton;
-	private JoystickButton spintakeButton;
-	private JoystickButton runAgitatorButton;
+	private JoystickButton runAgitatorBackwardButton;
 
 	private OI() {
 		left = new Joystick(RobotMap.LEFT_STICK_PORT);
@@ -35,15 +31,15 @@ public class OI {
 		secondary = new Joystick(RobotMap.SECONDARY_STICK_PORT);
 
 		// Right joystick buttons
-		driveToBoilerButton = new JoystickButton(right, RobotMap.DRIVE_TO_BOILER_BUTTON_PORT);
 		driveToGearLeftButton = new JoystickButton(right, RobotMap.DRIVE_TO_GEAR_LEFT_PORT);
 		driveToGearRightButton = new JoystickButton(right, RobotMap.DRIVE_TO_GEAR_RIGHT_PORT);
-		spintakeButton = new JoystickButton(right, RobotMap.SPINTAKE_BUTTON_PORT);
 
 		// Secondary joystick buttons
-		runShooterButton = new JoystickButton(secondary, RobotMap.RUN_SHOOTER_BUTTON_PORT);
+		runShooterAndAgitatorButton =
+				new JoystickButton(secondary, RobotMap.RUN_SHOOTER_AND_AGITATOR_BUTTON_PORT);
 		runFeederButton = new JoystickButton(secondary, RobotMap.RUN_FEEDER_BUTTON_PORT);
-		runAgitatorButton = new JoystickButton(secondary, RobotMap.RUN_AGITATOR_BUTTON_PORT);
+		runAgitatorBackwardButton =
+				new JoystickButton(secondary, RobotMap.RUN_AGITATOR_BACKWARD_BUTTON_PORT);
 
 		setButtonListeners();
 	}
@@ -85,12 +81,10 @@ public class OI {
 	}
 
 	private void setButtonListeners() {
-		driveToBoilerButton.toggleWhenActive(new DriveToBoiler());
 		driveToGearLeftButton.toggleWhenActive(new DriveToGear(true));
 		driveToGearRightButton.toggleWhenActive(new DriveToGear(false));
-		runShooterButton.toggleWhenActive(new RunShooter());
+		runShooterAndAgitatorButton.toggleWhenActive(new RunShooterAndAgitator());
 		runFeederButton.whileActive(new RunFeeder());
-		spintakeButton.toggleWhenActive(new Spintake());
-		runAgitatorButton.toggleWhenActive(new RunAgitator());
+		runAgitatorBackwardButton.toggleWhenActive(new RunAgitator(false));
 	}
 }

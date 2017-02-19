@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2521.robot.commands;
+package org.usfirst.frc.team2521.robot.commands.automation;
 
 import org.usfirst.frc.team2521.robot.Robot;
 import org.usfirst.frc.team2521.robot.subsystems.Drivetrain;
@@ -20,6 +20,8 @@ public class DriveToGear extends PIDCommand {
 	private boolean oriented = false;
 	/** true if we're on the left side of the target */
 	private boolean onLeftSide;
+
+	private boolean hasFoundBlob = false;
 
 	/**
 	 * @param onLeftSide whether we're on the left side of the target
@@ -44,6 +46,10 @@ public class DriveToGear extends PIDCommand {
 		targetAngle += Robot.sensors.getNavxAngle();
 		setSetpoint(targetAngle);
 
+		if (Robot.sensors.getBlobFound()) {
+			hasFoundBlob = true;
+		}
+
 		if (Robot.DEBUG) {
 			SmartDashboard.putNumber("Drive to gear setpoint", targetAngle);
 			SmartDashboard.putBoolean("Oriented", oriented);
@@ -62,6 +68,9 @@ public class DriveToGear extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double output) {
+		if (Robot.DEBUG) {
+			SmartDashboard.putNumber("Drive to gear output", output);
+		}
 		if (Robot.sensors.getBlobFound()) {
 			// If we are already oriented, drive straight
 			if (oriented) {
@@ -73,9 +82,14 @@ public class DriveToGear extends PIDCommand {
 				Robot.drivetrain.setRight(output);
 			}
 		} else {
-			// Turn clockwise if we're too far left, counter-clockwise if we're too far right
-			Robot.drivetrain.setLeft(onLeftSide ? -Drivetrain.SLOW_SPEED : Drivetrain.SLOW_SPEED);
-			Robot.drivetrain.setRight(onLeftSide ? -Drivetrain.SLOW_SPEED : Drivetrain.SLOW_SPEED);
+			if (hasFoundBlob) {
+				Robot.drivetrain.setLeft(Drivetrain.SLOW_SPEED);
+				Robot.drivetrain.setRight(-Drivetrain.SLOW_SPEED);
+			} else {
+				// Turn clockwise if we're too far left, counter-clockwise if we're too far right
+				Robot.drivetrain.setLeft(onLeftSide ? -Drivetrain.SLOW_SPEED : Drivetrain.SLOW_SPEED);
+				Robot.drivetrain.setRight(onLeftSide ? -Drivetrain.SLOW_SPEED : Drivetrain.SLOW_SPEED);
+			}
 		}
 	}
 }
