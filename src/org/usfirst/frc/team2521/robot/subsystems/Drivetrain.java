@@ -19,16 +19,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Drivetrain extends Subsystem {
 	/** Speed to set drivetrain to when we want to move at a slow, constant speed */
 	public static final double SLOW_SPEED = 0.2;
-	private RobotDrive frontDrive;
-	private RobotDrive rearDrive;
-	private CANTalon frontLeft, frontRight, rearLeft, rearRight;
 
 	private final double P = 0.01;
 	private final double I = 0;
 	private final double D = 0;
 
-	/** Speed to set drivetrain to when we want to move at a slow, constant speed */
-	public static final double SLOW_SPEED = 0.2;
+	private RobotDrive frontDrive;
+	private RobotDrive rearDrive;
+	private CANTalon frontLeft, frontRight, rearLeft, rearRight;
 
 	public Drivetrain() {
 		frontLeft = new CANTalon(RobotMap.FRONT_LEFT_MOTOR);
@@ -116,6 +114,10 @@ public class Drivetrain extends Subsystem {
 		rearRight.set(RobotMap.FRONT_RIGHT_MOTOR);
 	}
 
+	public double getRightPosition() {
+		return rearRight.getEncPosition();
+	}
+
 	public void setRightPosition(double position) {
 		frontRight.changeControlMode(TalonControlMode.Follower);
 		rearRight.changeControlMode(TalonControlMode.Position);
@@ -124,10 +126,6 @@ public class Drivetrain extends Subsystem {
 
 		rearRight.set(position);
 		frontRight.set(RobotMap.REAR_RIGHT_MOTOR);
-	}
-
-	public double getRightPosition() {
-		return rearRight.getEncPosition();
 	}
 
 	public void setPosition(double position) {
@@ -169,6 +167,10 @@ public class Drivetrain extends Subsystem {
 		return rearRight.getError();
 	}
 
+	public double getLeftPosition() {
+		return rearLeft.getEncPosition();
+	}
+
 	public void setLeftPosition(double position) {
 		frontLeft.changeControlMode(TalonControlMode.Follower);
 		rearLeft.changeControlMode(TalonControlMode.Position);
@@ -176,10 +178,6 @@ public class Drivetrain extends Subsystem {
 
 		rearLeft.set(position);
 		frontLeft.set(RobotMap.REAR_LEFT_MOTOR);
-	}
-
-	public double getLeftPosition() {
-		return rearLeft.getEncPosition();
 	}
 
 	@Override
