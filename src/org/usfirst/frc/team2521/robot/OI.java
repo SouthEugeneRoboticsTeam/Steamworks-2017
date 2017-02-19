@@ -22,13 +22,10 @@ public class OI {
 	private final Joystick right;
 	private final Joystick secondary;
 
-	private JoystickButton driveToBoilerButton;
 	private JoystickButton driveToGearLeftButton;
 	private JoystickButton driveToGearRightButton;
-	private JoystickButton runShooterButton;
+	private JoystickButton runShooterAndAgitatorButton;
 	private JoystickButton runFeederButton;
-	private JoystickButton spintakeButton;
-	private JoystickButton runAgitatorForwardButton;
 	private JoystickButton runAgitatorBackwardButton;
 
 	private OI() {
@@ -37,15 +34,12 @@ public class OI {
 		secondary = new Joystick(RobotMap.SECONDARY_STICK_PORT);
 
 		// Right joystick buttons
-		driveToBoilerButton = new JoystickButton(right, RobotMap.DRIVE_TO_BOILER_BUTTON_PORT);
 		driveToGearLeftButton = new JoystickButton(right, RobotMap.DRIVE_TO_GEAR_LEFT_PORT);
 		driveToGearRightButton = new JoystickButton(right, RobotMap.DRIVE_TO_GEAR_RIGHT_PORT);
-		spintakeButton = new JoystickButton(right, RobotMap.SPINTAKE_BUTTON_PORT);
 
 		// Secondary joystick buttons
-		runShooterButton = new JoystickButton(secondary, RobotMap.RUN_SHOOTER_BUTTON_PORT);
+		runShooterAndAgitatorButton = new JoystickButton(secondary, RobotMap.RUN_SHOOTER_AND_AGITATOR_BUTTON_PORT);
 		runFeederButton = new JoystickButton(secondary, RobotMap.RUN_FEEDER_BUTTON_PORT);
-		runAgitatorForwardButton = new JoystickButton(secondary, RobotMap.RUN_AGITATOR_FORWARD_BUTTON_PORT);
 		runAgitatorBackwardButton = new JoystickButton(secondary, RobotMap.RUN_AGITATOR_BACKWARD_BUTTON_PORT);
 		
 		setButtonListeners();
@@ -88,12 +82,10 @@ public class OI {
 	}
 
 	private void setButtonListeners() {
-		//driveToBoilerButton.toggleWhenActive(new DriveToBoiler());
 		driveToGearLeftButton.toggleWhenActive(new DriveToGear(true));
 		driveToGearRightButton.toggleWhenActive(new DriveToGear(false));
-		runShooterButton.toggleWhenActive(new RunShooterAndAgitator());
+		runShooterAndAgitatorButton.toggleWhenActive(new RunShooterAndAgitator());
 		runFeederButton.whileActive(new RunFeeder());
-		//spintakeButton.toggleWhenActive(new Spintake());
 		runAgitatorBackwardButton.toggleWhenActive(new RunAgitator(false));
 	}
 }

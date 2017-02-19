@@ -9,15 +9,12 @@ public class RobotMap {
 	public static final int SECONDARY_STICK_PORT = 2;
 
 	// Right joystick buttons
-	public static final int SPINTAKE_BUTTON_PORT = 2; // On right stick
-	public static final int DRIVE_TO_BOILER_BUTTON_PORT = 3; // On right stick
 	public static final int DRIVE_TO_GEAR_LEFT_PORT = 4; // On right stick
 	public static final int DRIVE_TO_GEAR_RIGHT_PORT = 5; // On right stick
 
 	// Secondary joystick buttons
-	public static final int RUN_SHOOTER_BUTTON_PORT = 1; // On secondary stick
+	public static final int RUN_SHOOTER_AND_AGITATOR_BUTTON_PORT = 1; // On secondary stick
 	public static final int RUN_FEEDER_BUTTON_PORT = 2; // On secondary stick
-	public static final int RUN_AGITATOR_FORWARD_BUTTON_PORT = 3; // On secondary stick
 	public static final int RUN_AGITATOR_BACKWARD_BUTTON_PORT = 4; // On secondary stick
 
 	public static final int FRONT_RIGHT_MOTOR = 10;
