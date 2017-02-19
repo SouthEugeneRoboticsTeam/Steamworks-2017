@@ -1,9 +1,9 @@
 package org.usfirst.frc.team2521.robot;
 
-import org.usfirst.frc.team2521.robot.commands.DriveToGear;
-import org.usfirst.frc.team2521.robot.commands.RunAgitator;
-import org.usfirst.frc.team2521.robot.commands.RunFeeder;
-import org.usfirst.frc.team2521.robot.commands.RunShooterAndAgitator;
+import org.usfirst.frc.team2521.robot.commands.automation.DriveToGear;
+import org.usfirst.frc.team2521.robot.commands.base.RunAgitator;
+import org.usfirst.frc.team2521.robot.commands.base.RunFeeder;
+import org.usfirst.frc.team2521.robot.commands.groups.RunShooterAndAgitator;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;

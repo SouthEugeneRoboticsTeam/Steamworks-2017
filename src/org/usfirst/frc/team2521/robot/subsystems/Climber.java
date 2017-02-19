@@ -5,7 +5,7 @@ import com.ctre.CANTalon.TalonControlMode;
 
 import org.usfirst.frc.team2521.robot.OI;
 import org.usfirst.frc.team2521.robot.RobotMap;
-import org.usfirst.frc.team2521.robot.commands.TeleopClimber;
+import org.usfirst.frc.team2521.robot.commands.base.TeleopClimber;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 

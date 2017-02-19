@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2521.robot;
 
-import org.usfirst.frc.team2521.robot.commands.Auto;
+import org.usfirst.frc.team2521.robot.commands.groups.Auto;
+
 import org.usfirst.frc.team2521.robot.subsystems.Agitator;
 import org.usfirst.frc.team2521.robot.subsystems.Climber;
 import org.usfirst.frc.team2521.robot.subsystems.Drivetrain;
