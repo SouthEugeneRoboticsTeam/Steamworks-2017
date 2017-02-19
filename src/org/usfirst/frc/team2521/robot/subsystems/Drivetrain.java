@@ -114,20 +114,12 @@ public class Drivetrain extends Subsystem {
 		rearRight.set(RobotMap.FRONT_RIGHT_MOTOR);
 	}
 
-	public double getRightPosition() {
-		return rearRight.getEncPosition();
-	}
-
-	public void setRightPosition(double position) {
-		frontRight.changeControlMode(TalonControlMode.Follower);
-		rearRight.changeControlMode(TalonControlMode.Position);
-		rearRight.setPID(P, I, D);
-		rearRight.reverseSensor(true);
-
-		rearRight.set(position);
-		frontRight.set(RobotMap.REAR_RIGHT_MOTOR);
-	}
-
+	/**
+	 * Sets the right rear motor using encoder position, and sets the
+	 * remaining motors to follow it.
+	 * 
+	 * @param position target for encoder
+	 */
 	public void setPosition(double position) {
 		rearRight.reverseSensor(true);
 		frontRight.changeControlMode(TalonControlMode.Follower);
@@ -143,27 +135,12 @@ public class Drivetrain extends Subsystem {
 		frontLeft.changeControlMode(TalonControlMode.Follower);
 		rearLeft.set(RobotMap.REAR_RIGHT_MOTOR);
 		frontLeft.set(RobotMap.REAR_RIGHT_MOTOR);
-
 	}
 
-	public void set() {
-		rearRight.reverseSensor(true);
-		frontRight.changeControlMode(TalonControlMode.Follower);
-		rearRight.changeControlMode(TalonControlMode.PercentVbus);
-		rearRight.setPID(P, I, D);
-
-		rearRight.set(.2);
-		frontRight.set(RobotMap.REAR_RIGHT_MOTOR);
-
-		rearLeft.reverseOutput(true);
-		frontLeft.reverseOutput(true);
-		rearLeft.changeControlMode(TalonControlMode.Follower);
-		frontLeft.changeControlMode(TalonControlMode.Follower);
-		rearLeft.set(RobotMap.REAR_RIGHT_MOTOR);
-		frontLeft.set(RobotMap.REAR_RIGHT_MOTOR);
-	}
-
-	public double getError() {
+	/**
+	 * @return error from rear right encoder closed loop control
+	 */
+	public double getRightEncoderError() {
 		return rearRight.getError();
 	}
 
@@ -171,6 +148,16 @@ public class Drivetrain extends Subsystem {
 		return rearLeft.getEncPosition();
 	}
 
+	public double getRightPosition() {
+		return rearRight.getEncPosition();
+	}
+
+	/**
+	 * Sets the left rear motor using encoder position, and sets the
+	 * other motor to follow it.
+	 * 
+	 * @param position target for encoder
+	 */
 	public void setLeftPosition(double position) {
 		frontLeft.changeControlMode(TalonControlMode.Follower);
 		rearLeft.changeControlMode(TalonControlMode.Position);
@@ -178,6 +165,22 @@ public class Drivetrain extends Subsystem {
 
 		rearLeft.set(position);
 		frontLeft.set(RobotMap.REAR_LEFT_MOTOR);
+	}
+
+	/**
+	 * Sets the right rear motor using encoder position, and sets the
+	 * other motor to follow it.
+	 * 
+	 * @param position target for encoder
+	 */
+	public void setRightPosition(double position) {
+		frontRight.changeControlMode(TalonControlMode.Follower);
+		rearRight.changeControlMode(TalonControlMode.Position);
+		rearRight.setPID(P, I, D);
+		rearRight.reverseSensor(true);
+
+		rearRight.set(position);
+		frontRight.set(RobotMap.REAR_RIGHT_MOTOR);
 	}
 
 	@Override

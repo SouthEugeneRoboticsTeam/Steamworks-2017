@@ -37,7 +37,7 @@ public class DriveToEncoder extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return Math.abs(Robot.drivetrain.getError()) < 100;
+		return Math.abs(Robot.drivetrain.getRightEncoderError()) < 100;
 	}
 
 }
