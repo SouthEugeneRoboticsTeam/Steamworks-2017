@@ -21,8 +21,7 @@ public class OI {
 
 	private JoystickButton driveToGearLeftButton;
 	private JoystickButton driveToGearRightButton;
-	private JoystickButton runShooterAndAgitatorButton;
-	private JoystickButton runFeederButton;
+	private JoystickButton runShooterSubsystemsButton;
 	private JoystickButton runAgitatorBackwardButton;
 
 	private OI() {
@@ -35,9 +34,8 @@ public class OI {
 		driveToGearRightButton = new JoystickButton(right, RobotMap.DRIVE_TO_GEAR_RIGHT_PORT);
 
 		// Secondary joystick buttons
-		runShooterAndAgitatorButton =
-				new JoystickButton(secondary, RobotMap.RUN_SHOOTER_AND_AGITATOR_BUTTON_PORT);
-		runFeederButton = new JoystickButton(secondary, RobotMap.RUN_FEEDER_BUTTON_PORT);
+		runShooterSubsystemsButton =
+				new JoystickButton(secondary, RobotMap.RUN_SHOOTER_SUBSYSTEMS_BUTTON_PORT);
 		runAgitatorBackwardButton =
 				new JoystickButton(secondary, RobotMap.RUN_AGITATOR_BACKWARD_BUTTON_PORT);
 
@@ -83,8 +81,7 @@ public class OI {
 	private void setButtonListeners() {
 		driveToGearLeftButton.toggleWhenActive(new DriveToGear(true));
 		driveToGearRightButton.toggleWhenActive(new DriveToGear(false));
-		runShooterAndAgitatorButton.toggleWhenActive(new RunShooterSubsystems());
-		runFeederButton.whileActive(new RunFeeder());
+		runShooterSubsystemsButton.toggleWhenActive(new RunShooterSubsystems());
 		runAgitatorBackwardButton.toggleWhenActive(new RunAgitator(false));
 	}
 }
