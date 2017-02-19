@@ -3,6 +3,7 @@ package org.usfirst.frc.team2521.robot;
 import org.usfirst.frc.team2521.robot.commands.automation.DriveToGear;
 import org.usfirst.frc.team2521.robot.commands.base.RunAgitator;
 import org.usfirst.frc.team2521.robot.commands.base.RunFeeder;
+import org.usfirst.frc.team2521.robot.commands.base.ToggleCamera;
 import org.usfirst.frc.team2521.robot.commands.groups.RunShooterSubsystems;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -23,6 +24,7 @@ public class OI {
 	private JoystickButton driveToGearRightButton;
 	private JoystickButton runShooterSubsystemsButton;
 	private JoystickButton runAgitatorBackwardButton;
+	private JoystickButton ToggleCameraButton;
 
 	private OI() {
 		left = new Joystick(RobotMap.LEFT_STICK_PORT);
@@ -34,10 +36,9 @@ public class OI {
 		driveToGearRightButton = new JoystickButton(right, RobotMap.DRIVE_TO_GEAR_RIGHT_PORT);
 
 		// Secondary joystick buttons
-		runShooterSubsystemsButton =
-				new JoystickButton(secondary, RobotMap.RUN_SHOOTER_SUBSYSTEMS_BUTTON_PORT);
-		runAgitatorBackwardButton =
-				new JoystickButton(secondary, RobotMap.RUN_AGITATOR_BACKWARD_BUTTON_PORT);
+		ToggleCameraButton = new JoystickButton(secondary, RobotMap.TOGGLE_CAMERA_BUTTON_PORT);
+		runShooterSubsystemsButton = new JoystickButton(secondary, RobotMap.RUN_SHOOTER_SUBSYSTEMS_BUTTON_PORT);
+		runAgitatorBackwardButton = new JoystickButton(secondary, RobotMap.RUN_AGITATOR_BACKWARD_BUTTON_PORT);
 
 		setButtonListeners();
 	}
@@ -83,5 +84,6 @@ public class OI {
 		driveToGearRightButton.toggleWhenActive(new DriveToGear(false));
 		runShooterSubsystemsButton.toggleWhenActive(new RunShooterSubsystems());
 		runAgitatorBackwardButton.toggleWhenActive(new RunAgitator(false));
+		ToggleCameraButton.toggleWhenActive(new ToggleCamera());
 	}
 }

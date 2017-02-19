@@ -112,6 +112,9 @@ public class Sensors extends Subsystem {
 		return table.getBoolean("blob_found", false);
 	}
 
+	public void toggleCVCamera() {
+		table.putBoolean("front_camera", !table.getBoolean("front_camera", false));
+	}
 	/**
 	 * @return the Navx's current angle measurement
 	 */
