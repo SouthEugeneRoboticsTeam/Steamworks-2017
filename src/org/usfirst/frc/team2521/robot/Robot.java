@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2521.robot;
 
 import org.usfirst.frc.team2521.robot.commands.DriveToGear;
+import org.usfirst.frc.team2521.robot.subsystems.Agitator;
 import org.usfirst.frc.team2521.robot.subsystems.Climber;
 import org.usfirst.frc.team2521.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2521.robot.subsystems.Feeder;
@@ -23,6 +24,7 @@ public class Robot extends IterativeRobot {
 	public static Shooter shooter;
 	public static Feeder feeder;
 	public static Climber climber;
+	public static Agitator agitator;
 
 	private Command auto;
 
@@ -33,6 +35,7 @@ public class Robot extends IterativeRobot {
 		climber = new Climber();
 		shooter = new Shooter();
 		feeder = new Feeder();
+		agitator = new Agitator();
 
 		auto = new DriveToGear(false);
 	}

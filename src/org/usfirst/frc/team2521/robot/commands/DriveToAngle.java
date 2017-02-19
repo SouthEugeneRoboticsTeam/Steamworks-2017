@@ -2,6 +2,7 @@ package org.usfirst.frc.team2521.robot.commands;
 
 import org.usfirst.frc.team2521.robot.Robot;
 
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 
 /**
@@ -12,9 +13,9 @@ public class DriveToAngle extends PIDCommand {
 	private static final double I = 0;
 	private static final double D = 0;
 
-	private final static double ERROR_THRESHOLD = 1.5;
+	private final static double ERROR_THRESHOLD = 1;
 
-	private static final double MIN_OUTPUT = 0.15;
+	private static final double MIN_OUTPUT = 0.1;
 
 	private double targetAngle;
 
@@ -25,22 +26,19 @@ public class DriveToAngle extends PIDCommand {
 		super(P, I, D);
 		requires(Robot.drivetrain);
 		this.targetAngle = targetAngle;
+		getPIDController().setAbsoluteTolerance(ERROR_THRESHOLD);
 	}
 
 	@Override
 	protected void initialize() {
 		Robot.sensors.resetNavxAngle();
 		targetAngle += Robot.sensors.getNavxAngle();
-	}
-
-	@Override
-	protected void execute() {
 		setSetpoint(targetAngle);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return Math.abs(targetAngle - Robot.sensors.getNavxAngle()) < ERROR_THRESHOLD;
+		return getPIDController().onTarget();
 	}
 
 	@Override

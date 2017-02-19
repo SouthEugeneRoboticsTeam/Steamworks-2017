@@ -16,7 +16,7 @@ public class RunFeeder extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.feeder.setMotor(FEEDER_SPEED);
+		Robot.feeder.setMotor(-FEEDER_SPEED);
 	}
 
 	@Override

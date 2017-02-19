@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2521.robot.commands;
 
 import org.usfirst.frc.team2521.robot.Robot;
+import org.usfirst.frc.team2521.robot.subsystems.Drivetrain;
 
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -64,8 +65,8 @@ public class DriveToGear extends PIDCommand {
 		if (Robot.sensors.getBlobFound()) {
 			// If we are already oriented, drive straight
 			if (oriented) {
-				Robot.drivetrain.setLeft(.2);
-				Robot.drivetrain.setRight(-.2);
+				Robot.drivetrain.setLeft(Drivetrain.SLOW_SPEED);
+				Robot.drivetrain.setRight(-Drivetrain.SLOW_SPEED);
 			} else if (output < 0) {
 				Robot.drivetrain.setLeft(output);
 			} else {
@@ -73,8 +74,8 @@ public class DriveToGear extends PIDCommand {
 			}
 		} else {
 			// Turn clockwise if we're too far left, counter-clockwise if we're too far right
-			Robot.drivetrain.setLeft(onLeftSide ? -.2 : .2);
-			Robot.drivetrain.setRight(onLeftSide ? -.2 : .2);
+			Robot.drivetrain.setLeft(onLeftSide ? -Drivetrain.SLOW_SPEED : Drivetrain.SLOW_SPEED);
+			Robot.drivetrain.setRight(onLeftSide ? -Drivetrain.SLOW_SPEED : Drivetrain.SLOW_SPEED);
 		}
 	}
 }

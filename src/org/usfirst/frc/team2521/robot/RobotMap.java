@@ -9,24 +9,27 @@ public class RobotMap {
 	public static final int SECONDARY_STICK_PORT = 2;
 
 	// Right joystick buttons
-	public static final int ALIGN_SHOOTER_BUTTON = 3; // On right stick
+	public static final int SPINTAKE_BUTTON_PORT = 2; // On right stick
+	public static final int DRIVE_TO_BOILER_BUTTON_PORT = 3; // On right stick
 	public static final int DRIVE_TO_GEAR_LEFT_PORT = 4; // On right stick
 	public static final int DRIVE_TO_GEAR_RIGHT_PORT = 5; // On right stick
-	public static final int QUICK_SPIN_BUTTON_PORT = 6; // On right stick
 
 	// Secondary joystick buttons
-	public static final int SPIN_FLYWHEEL_BUTTON_PORT = 1; // On secondary stick
-	public static final int SPIN_FEEDER_BUTTON_PORT = 2; // On secondary stick
+	public static final int RUN_SHOOTER_BUTTON_PORT = 1; // On secondary stick
+	public static final int RUN_FEEDER_BUTTON_PORT = 2; // On secondary stick
+	public static final int RUN_AGITATOR_BUTTON_PORT = 3;
 
-	public static final int FRONT_RIGHT_MOTOR = 41;
-	public static final int FRONT_LEFT_MOTOR = 42;
-	public static final int REAR_RIGHT_MOTOR = 47;
-	public static final int REAR_LEFT_MOTOR = 48;
+	public static final int FRONT_RIGHT_MOTOR = 10;
+	public static final int FRONT_LEFT_MOTOR = 14;
+	public static final int REAR_RIGHT_MOTOR = 15;
+	public static final int REAR_LEFT_MOTOR = 16;
 
-	public static final int CLIMBER_WHEEL_MOTOR = 45;
+	public static final int CLIMBER_WHEEL_MOTOR = 17;
 
-	public static final int SHOOTER_MOTOR = 43;
-	public static final int FEEDER_MOTOR = 31;
+	public static final int AGITATOR_MOTOR = 19;
+	
+	public static final int SHOOTER_MOTOR = 13;
+	public static final int FEEDER_MOTOR = 12;
 
 	public static final int FRONT_ULTRA_PORT = 0;
 	public static final int REAR_ULTRA_PORT = 1;

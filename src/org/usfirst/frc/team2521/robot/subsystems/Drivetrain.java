@@ -17,6 +17,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * input.
  */
 public class Drivetrain extends Subsystem {
+	/** Speed to set drivetrain to when we want to move at a slow, constant speed */
+	public static final double SLOW_SPEED = 0.2;
 	private RobotDrive frontDrive;
 	private RobotDrive rearDrive;
 	private CANTalon frontLeft, frontRight, rearLeft, rearRight;
@@ -69,12 +71,11 @@ public class Drivetrain extends Subsystem {
 		rearLeft.changeControlMode(TalonControlMode.PercentVbus);
 		rearRight.changeControlMode(TalonControlMode.PercentVbus);
 
-		if (Preferences.getInstance().getBoolean("is_tank_mode", true)) {
-			tankDrive();
-		} else {
+		if (Preferences.getInstance().getBoolean("is_arcade_mode", true)) {
 			arcadeDrive();
+		} else {
+			tankDrive();
 		}
-
 	}
 
 	/**
