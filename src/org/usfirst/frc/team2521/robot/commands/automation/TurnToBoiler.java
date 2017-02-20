@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TurnToBoiler extends PIDCommand {
-	private static final double P = 0.0025;
-	private static final double I = 0.00015;
+	private static final double P = 0.004;
+	private static final double I = 0;//0.00015;
 	private static final double D = 0;
 	
 	public TurnToBoiler() {
@@ -19,6 +19,7 @@ public class TurnToBoiler extends PIDCommand {
 	
 	@Override
 	protected void initialize() {
+		SmartDashboard.putBoolean("Done", false);
 		Robot.sensors.setCVCamera(Sensors.Camera.REAR);
 	}
 
@@ -31,13 +32,15 @@ public class TurnToBoiler extends PIDCommand {
 	protected double returnPIDInput() {
 		return Robot.sensors.getCVOffsetX();
 	}
+	
+	@Override
+	protected void end() {
+		SmartDashboard.putBoolean("Done", true);
+	}
 
 	@Override
 	protected void usePIDOutput(double output) {
 		if (Robot.sensors.getBlobFound()) {
-			if (Math.abs(output) > 0.4) {
-				output = Math.signum(output) * 0.4;
-			}
 			SmartDashboard.putNumber("Turn to boiler output", output);
 			Robot.drivetrain.setLeft(-output);
 			Robot.drivetrain.setRight(-output);

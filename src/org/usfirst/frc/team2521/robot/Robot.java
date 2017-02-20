@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2521.robot;
 
+import org.usfirst.frc.team2521.robot.commands.automation.DriveToGear;
 import org.usfirst.frc.team2521.robot.commands.automation.TurnToBoiler;
 import org.usfirst.frc.team2521.robot.commands.groups.AlignShooter;
 import org.usfirst.frc.team2521.robot.commands.groups.Auto;
@@ -39,7 +40,7 @@ public class Robot extends IterativeRobot {
 		feeder = new Feeder();
 		agitator = new Agitator();
 
-		auto = new AlignShooter();
+		auto = new DriveToGear(false);
 	}
 
 	@Override
