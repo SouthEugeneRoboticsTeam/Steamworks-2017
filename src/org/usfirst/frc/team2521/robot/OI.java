@@ -13,8 +13,6 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * driver to control the robot.
  */
 public class OI {
-	private static OI instance;
-
 	private final Joystick left;
 	private final Joystick right;
 	private final Joystick secondary;
@@ -45,18 +43,10 @@ public class OI {
 	}
 
 	/**
-	 * @return an instance of the OI
+	 * @return the singleton instance of the OI
 	 */
 	public static OI getInstance() {
-		if (instance == null) {
-			synchronized (OI.class) {
-				if (instance == null) {
-					instance = new OI();
-				}
-			}
-		}
-
-		return instance;
+		return Holder.INSTANCE;
 	}
 
 	/**
@@ -86,5 +76,9 @@ public class OI {
 		runShooterSubsystemsButton.toggleWhenActive(new RunShooterSubsystems());
 		runAgitatorBackwardButton.toggleWhenActive(new RunAgitator(false));
 		ToggleCameraButton.toggleWhenActive(new ToggleCamera());
+	}
+
+	private static final class Holder {
+		public static final OI INSTANCE = new OI();
 	}
 }

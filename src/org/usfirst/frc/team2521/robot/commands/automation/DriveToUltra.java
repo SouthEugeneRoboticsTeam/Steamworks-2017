@@ -51,7 +51,6 @@ public class DriveToUltra extends PIDCommand {
 
 	@Override
 	protected boolean isFinished() {
-		ultrasonicValue = useRearUltra ? Robot.sensors.getRearUltraInches() : Robot.sensors.getFrontUltraInches();
 		if (Robot.DEBUG) {
 			SmartDashboard.putNumber("Drive to ultra setpoint", setpoint);
 			SmartDashboard.putNumber("Drive to ultra error", getPIDController().getAvgError());
