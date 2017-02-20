@@ -5,7 +5,7 @@ import org.usfirst.frc.team2521.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2521.robot.subsystems.Sensors;
 
 /**
- * This command drives to the gear drop-off automatically.
+ * This command drives to the correct spot to shoot from automatically.
  */
 public class DriveToBoiler extends DriveToBlob {
 	private static final double P = 0.008;

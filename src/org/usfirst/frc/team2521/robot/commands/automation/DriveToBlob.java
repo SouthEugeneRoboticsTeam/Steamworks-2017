@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * This command drives to the gear drop-off automatically.
+ * This abstract class provides a template for driving to the gear or the boiler.
  */
 public abstract class DriveToBlob extends PIDCommand {
 	private static final double CAMERA_PROJ_PLANE_DISTANCE = 216.226;
@@ -51,7 +51,7 @@ public abstract class DriveToBlob extends PIDCommand {
 		}
 
 		if (Robot.DEBUG) {
-			SmartDashboard.putNumber("Drive to gear setpoint", targetAngle);
+			SmartDashboard.putNumber("Drive to blob setpoint", targetAngle);
 			SmartDashboard.putBoolean("Oriented", oriented);
 		}
 	}
