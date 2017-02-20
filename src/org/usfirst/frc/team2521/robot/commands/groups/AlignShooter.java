@@ -14,7 +14,8 @@ import edu.wpi.first.wpilibj.command.TimedCommand;
 public class AlignShooter extends CommandGroup {
 	public AlignShooter() {
 		addSequential(new TurnToBoiler());
-		addSequential(new DriveToUltra(35.25, true));
+		//addSequential(new DriveToUltra(35.25, true));
+		//addSequential(new TurnToBoiler());
 		//addSequential(new RunShooterSubsystems());
 	}
 }
