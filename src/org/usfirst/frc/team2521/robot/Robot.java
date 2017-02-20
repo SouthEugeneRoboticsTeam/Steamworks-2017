@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2521.robot;
 
 import org.usfirst.frc.team2521.robot.commands.automation.TurnToBoiler;
+import org.usfirst.frc.team2521.robot.commands.groups.AlignShooter;
 import org.usfirst.frc.team2521.robot.commands.groups.Auto;
 import org.usfirst.frc.team2521.robot.subsystems.Agitator;
 import org.usfirst.frc.team2521.robot.subsystems.Climber;
@@ -18,7 +19,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  * This is the main robot class which calls various methods depending on the current game stage.
  */
 public class Robot extends IterativeRobot {
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 
 	public static Drivetrain drivetrain;
 	public static Sensors sensors;
@@ -38,7 +39,7 @@ public class Robot extends IterativeRobot {
 		feeder = new Feeder();
 		agitator = new Agitator();
 
-		auto = new TurnToBoiler();
+		auto = new AlignShooter();
 	}
 
 	@Override

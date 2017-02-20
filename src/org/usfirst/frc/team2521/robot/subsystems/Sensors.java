@@ -48,10 +48,10 @@ public class Sensors extends Subsystem {
 	 */
 	public void display() {
 		if (Robot.DEBUG) {
-			SmartDashboard.putNumber("1", getRearUltraInches());
-			SmartDashboard.putNumber("0", getFrontUltraInches());
-			SmartDashboard.putNumber("2", getLeftLidarInches());
-			SmartDashboard.putNumber("3", getRightLidarInches());
+			SmartDashboard.putNumber("Front ultra", getFrontUltraInches());
+			SmartDashboard.putNumber("Rear ultra", getRearUltraInches());
+			SmartDashboard.putNumber("Left lidar", getLeftLidarInches());
+			SmartDashboard.putNumber("Right lidar", getRightLidarInches());
 			SmartDashboard.putNumber("CV offset", getCVOffsetX());
 			SmartDashboard.putBoolean("Blob found", getBlobFound());
 		}
