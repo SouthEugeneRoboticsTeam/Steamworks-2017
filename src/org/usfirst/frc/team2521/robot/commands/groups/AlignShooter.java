@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2521.robot.commands.groups;
 
 import org.usfirst.frc.team2521.robot.commands.automation.DriveToBoiler;
+import org.usfirst.frc.team2521.robot.commands.automation.TurnToBoiler;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -11,8 +12,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AlignShooter extends CommandGroup {
 	public AlignShooter() {
 		addSequential(new DriveToBoiler(false));
-		//addSequential(new DriveToUltra(35.25, true));
-		//addSequential(new TurnToBoiler());
-		//addSequential(new RunShooterSubsystems());
+		addSequential(new TurnToBoiler());
+		addSequential(new RunShooterSubsystems());
 	}
 }
