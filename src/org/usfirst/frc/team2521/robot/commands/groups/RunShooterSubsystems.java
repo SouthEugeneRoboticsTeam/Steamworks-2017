@@ -20,11 +20,9 @@ public class RunShooterSubsystems extends CommandGroup {
 
 			@Override
 			protected void execute() {
-				if (Robot.shooter.getEncVelocity() < speedCutoff) {					upToSpeed = true;
-				}
-				if (upToSpeed) {
+				if (upToSpeed || Robot.shooter.getEncVelocity() < speedCutoff) {					upToSpeed = true;
 					Robot.feeder.setMotor(-Feeder.FEEDER_SPEED);
-				}	
+				}
 			}
 		});
 	}

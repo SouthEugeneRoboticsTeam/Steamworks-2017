@@ -52,6 +52,5 @@ public class RunShooter extends PIDCommand {
 	@Override
 	protected void usePIDOutput(double output) {
 		Robot.shooter.setMotor(-output);
-		//Robot.shooter.setMotor(0.535);
 	}
 }

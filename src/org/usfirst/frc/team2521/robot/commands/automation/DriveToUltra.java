@@ -29,13 +29,14 @@ public class DriveToUltra extends Command {
 	@Override
 	protected void execute() {
 		ultrasonicValue = useRearUltra ? Robot.sensors.getRearUltraInches() : Robot.sensors.getFrontUltraInches();
+		boolean tooClose = setpoint - ultrasonicValue > 0;
 
 		if (useRearUltra) {
-			Robot.drivetrain.setLeft(setpoint - ultrasonicValue > 0 ? Drivetrain.SLOW_SPEED : -Drivetrain.SLOW_SPEED);
-			Robot.drivetrain.setRight(setpoint - ultrasonicValue > 0 ? -Drivetrain.SLOW_SPEED : Drivetrain.SLOW_SPEED);
+			Robot.drivetrain.setLeft(tooClose ? Drivetrain.SLOW_SPEED : -Drivetrain.SLOW_SPEED);
+			Robot.drivetrain.setRight(tooClose ? -Drivetrain.SLOW_SPEED : Drivetrain.SLOW_SPEED);
 		} else {
-			Robot.drivetrain.setLeft(setpoint - ultrasonicValue > 0 ? -Drivetrain.SLOW_SPEED : Drivetrain.SLOW_SPEED);
-			Robot.drivetrain.setRight(setpoint - ultrasonicValue > 0 ? Drivetrain.SLOW_SPEED : -Drivetrain.SLOW_SPEED);
+			Robot.drivetrain.setLeft(tooClose ? -Drivetrain.SLOW_SPEED : Drivetrain.SLOW_SPEED);
+			Robot.drivetrain.setRight(tooClose ? Drivetrain.SLOW_SPEED : -Drivetrain.SLOW_SPEED);
 		}
 	}
 
