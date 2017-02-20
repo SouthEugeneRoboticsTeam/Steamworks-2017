@@ -100,7 +100,7 @@ public class Drivetrain extends Subsystem {
 
 		rearLeft.changeControlMode(TalonControlMode.Follower);
 		rearLeft.set(RobotMap.FRONT_LEFT_MOTOR);
-		
+
 		SmartDashboard.putNumber("Left output", value);
 	}
 
@@ -115,7 +115,7 @@ public class Drivetrain extends Subsystem {
 
 		rearRight.changeControlMode(TalonControlMode.Follower);
 		rearRight.set(RobotMap.FRONT_RIGHT_MOTOR);
-		
+
 		SmartDashboard.putNumber("Right output", value);
 	}
 

@@ -32,7 +32,7 @@ public class DriveToGear extends PIDCommand {
 		this.onLeftSide = onLeftSide;
 		requires(Robot.drivetrain);
 	}
-	
+
 	@Override
 	protected void initialize() {
 		Robot.sensors.setCVCamera(Sensors.Camera.FRONT);

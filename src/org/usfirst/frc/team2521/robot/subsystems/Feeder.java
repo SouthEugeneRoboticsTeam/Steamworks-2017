@@ -11,9 +11,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * indexer to the fly wheel.
  */
 public class Feeder extends Subsystem {
-	private CANTalon feeder;
-	
 	public static final double FEEDER_SPEED = 0.75;
+	private CANTalon feeder;
 
 	public Feeder() {
 		feeder = new CANTalon(RobotMap.FEEDER_MOTOR);

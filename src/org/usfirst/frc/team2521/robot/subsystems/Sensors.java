@@ -95,7 +95,7 @@ public class Sensors extends Subsystem {
 	public double getLeftLidarInches() {
 		return MED_LIDAR_M / Math.pow(getLeftLidarRaw(), 2) + MED_LIDAR_B;
 	}
-	
+
 	/**
 	 * @return the raw value from the side lidar
 	 */
@@ -132,11 +132,11 @@ public class Sensors extends Subsystem {
 	public void toggleCVCamera() {
 		table.putBoolean("front_camera", !table.getBoolean("front_camera", false));
 	}
-	
+
 	public void setCVCamera(Camera cameraType) {
 		table.putBoolean("front_camera", cameraType == Camera.FRONT);
 	}
-	
+
 	/**
 	 * @return the Navx's current angle measurement
 	 */
@@ -155,7 +155,7 @@ public class Sensors extends Subsystem {
 	public void initDefaultCommand() {
 		setDefaultCommand(new DisplaySensors());
 	}
-	
+
 	public enum Camera {
 		FRONT, REAR
 	}

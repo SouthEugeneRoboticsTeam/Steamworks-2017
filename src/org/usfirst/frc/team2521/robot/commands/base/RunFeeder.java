@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  * This command feeds the balls to the shooter.
  */
 public class RunFeeder extends Command {
-	
+
 
 	public RunFeeder() {
 		requires(Robot.feeder);
