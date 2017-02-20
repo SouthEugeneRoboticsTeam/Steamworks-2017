@@ -9,6 +9,11 @@ import org.usfirst.frc.team2521.robot.subsystems.Shooter;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
+/**
+ * This command runs the agitator and the shooter immediately, then
+ * starts the feeder once the shooter is up to speed.
+ *
+ */
 public class RunShooterSubsystems extends CommandGroup {
 	private double speedCutoff = -200;
 	

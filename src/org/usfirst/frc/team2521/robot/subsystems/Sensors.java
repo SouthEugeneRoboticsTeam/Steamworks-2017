@@ -136,8 +136,8 @@ public class Sensors extends Subsystem {
 		table.putBoolean("front_camera", !table.getBoolean("front_camera", false));
 	}
 	
-	public void setCVCamera(boolean isFrontCamera) {
-		table.putBoolean("front_camera", isFrontCamera);
+	public void setCVCamera(Camera cameraType) {
+		table.putBoolean("front_camera", cameraType == Camera.FRONT);
 	}
 	
 	/**
@@ -157,6 +157,10 @@ public class Sensors extends Subsystem {
 	@Override
 	public void initDefaultCommand() {
 		setDefaultCommand(new DisplaySensors());
+	}
+	
+	public enum Camera {
+		FRONT, REAR
 	}
 }
 

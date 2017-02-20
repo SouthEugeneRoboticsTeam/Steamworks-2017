@@ -2,6 +2,7 @@ package org.usfirst.frc.team2521.robot.commands.automation;
 
 import org.usfirst.frc.team2521.robot.Robot;
 import org.usfirst.frc.team2521.robot.subsystems.Drivetrain;
+import org.usfirst.frc.team2521.robot.subsystems.Sensors;
 
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -30,6 +31,11 @@ public class DriveToGear extends PIDCommand {
 		super(P, I, D);
 		this.onLeftSide = onLeftSide;
 		requires(Robot.drivetrain);
+	}
+	
+	@Override
+	protected void initialize() {
+		Robot.sensors.setCVCamera(Sensors.Camera.FRONT);
 	}
 
 	@Override
