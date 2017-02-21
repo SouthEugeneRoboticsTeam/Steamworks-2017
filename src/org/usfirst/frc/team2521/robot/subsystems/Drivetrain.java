@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Drivetrain extends Subsystem {
 	/** Speed to set drivetrain to when we want to move at a slow, constant speed */
-	public static final double SLOW_SPEED = 0.2;
+	public static final double SLOW_SPEED = 0.3;
 
 	private final double P = 0.01;
 	private final double I = 0;

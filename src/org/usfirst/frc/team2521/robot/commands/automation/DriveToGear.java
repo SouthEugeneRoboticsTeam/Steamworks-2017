@@ -4,11 +4,12 @@ import org.usfirst.frc.team2521.robot.Robot;
 import org.usfirst.frc.team2521.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2521.robot.subsystems.Sensors;
 
+
 /**
  * This command drives to the gear drop-off automatically.
  */
 public class DriveToGear extends DriveToBlob {
-	private static final double P = 0.008;
+	private static final double P = 0.025;
 	private static final double I = 0;
 	private static final double D = 0;
 

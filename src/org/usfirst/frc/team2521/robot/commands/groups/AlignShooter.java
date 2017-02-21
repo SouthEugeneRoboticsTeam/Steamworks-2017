@@ -5,6 +5,7 @@ import org.usfirst.frc.team2521.robot.commands.automation.TurnToBoiler;
 import org.usfirst.frc.team2521.robot.commands.base.RunShooter;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.TimedCommand;
 
 /**
  * This command turns until the boiler is centered for the camera,
@@ -15,6 +16,7 @@ public class AlignShooter extends CommandGroup {
 		addParallel(new RunShooter());
 		addSequential(new DriveToBoiler(false));
 		addParallel(new TurnToBoiler());
+		addSequential(new TimedCommand(0.5));
 		addParallel(new RunShooterSubsystems());
 	}
 }
