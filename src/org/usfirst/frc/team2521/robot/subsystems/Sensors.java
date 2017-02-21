@@ -55,31 +55,17 @@ public class Sensors extends Subsystem {
 	}
 
 	/**
-	 * @return the raw voltage from the front (gear side) ultrasonic sensor
-	 */
-	private double getFrontUltraRaw() {
-		return frontUltra.getVoltage();
-	}
-
-	/**
-	 * @return the raw voltage from the rear (shooter side) ultrasonic sensor
-	 */
-	private double getRearUltraRaw() {
-		return rearUltra.getVoltage();
-	}
-
-	/**
 	 * @return the distance in inches from the front (gear side) ultrasonic sensor
 	 */
 	public double getFrontUltraInches() {
-		return getFrontUltraRaw() * 1000 / 9.8;
+		return frontUltra.getVoltage() * 1000 / 9.8;
 	}
 
 	/**
 	 * @return the distance in inches from the rear (shooter side) ultrasonic sensor
 	 */
 	public double getRearUltraInches() {
-		return getRearUltraRaw() * 1000 / 9.8;
+		return rearUltra.getVoltage() * 1000 / 9.8;
 	}
 
 	/**

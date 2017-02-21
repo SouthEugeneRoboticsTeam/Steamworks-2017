@@ -34,22 +34,6 @@ public class DriveToUltra extends PIDCommand {
 	}
 
 	@Override
-	protected void execute() {
-		SmartDashboard.putNumber("PID controller error", getPIDController().getError());
-		/*
-		ultrasonicValue = useRearUltra ? Robot.sensors.getRearUltraInches() : Robot.sensors.getFrontUltraInches();
-		boolean tooClose = setpoint - ultrasonicValue > 0;
-
-		if (useRearUltra) {
-			Robot.drivetrain.setLeft(tooClose ? Drivetrain.SLOW_SPEED : -Drivetrain.SLOW_SPEED);
-			Robot.drivetrain.setRight(tooClose ? -Drivetrain.SLOW_SPEED : Drivetrain.SLOW_SPEED);
-		} else {
-			Robot.drivetrain.setLeft(tooClose ? -Drivetrain.SLOW_SPEED : Drivetrain.SLOW_SPEED);
-			Robot.drivetrain.setRight(tooClose ? Drivetrain.SLOW_SPEED : -Drivetrain.SLOW_SPEED);
-		}*/
-	}
-
-	@Override
 	protected boolean isFinished() {
 		if (Robot.DEBUG) {
 			SmartDashboard.putNumber("Drive to ultra setpoint", setpoint);

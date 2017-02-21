@@ -49,11 +49,6 @@ public abstract class DriveToBlob extends PIDCommand {
 		if (Robot.sensors.getBlobFound()) {
 			hasFoundBlob = true;
 		}
-
-		if (Robot.DEBUG) {
-			SmartDashboard.putNumber("Drive to blob setpoint", targetAngle);
-			SmartDashboard.putBoolean("Oriented", oriented);
-		}
 	}
 
 	@Override
