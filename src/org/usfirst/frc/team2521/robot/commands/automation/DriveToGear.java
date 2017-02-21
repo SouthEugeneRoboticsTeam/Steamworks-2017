@@ -28,6 +28,6 @@ public class DriveToGear extends DriveToBlob {
 
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return !Robot.sensors.getBlobFound();
 	}
 }

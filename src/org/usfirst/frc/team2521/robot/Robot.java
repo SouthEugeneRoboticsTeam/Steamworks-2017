@@ -1,6 +1,6 @@
 package org.usfirst.frc.team2521.robot;
 
-import org.usfirst.frc.team2521.robot.commands.groups.AlignShooter;
+import org.usfirst.frc.team2521.robot.commands.groups.Auto;
 import org.usfirst.frc.team2521.robot.subsystems.Agitator;
 import org.usfirst.frc.team2521.robot.subsystems.Climber;
 import org.usfirst.frc.team2521.robot.subsystems.Drivetrain;
@@ -37,7 +37,7 @@ public class Robot extends IterativeRobot {
 		feeder = new Feeder();
 		agitator = new Agitator();
 
-		auto = new AlignShooter();
+		auto = new Auto();
 	}
 
 	@Override

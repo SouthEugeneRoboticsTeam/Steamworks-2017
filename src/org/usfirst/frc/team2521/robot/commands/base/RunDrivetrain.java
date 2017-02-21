@@ -6,7 +6,6 @@ import org.usfirst.frc.team2521.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class RunDrivetrain extends Command {
-
 	public RunDrivetrain() {
 		requires(Robot.drivetrain);
 	}
