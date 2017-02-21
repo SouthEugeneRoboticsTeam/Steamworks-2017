@@ -2,7 +2,7 @@
 
 <project name="FRC Deployment" default="deploy">
 
-  <property name="code-version" value="1.1"/>
+  <property name="code-version" value="1.2"/>
 
   <property file="${user.home}/wpilib/wpilib.properties"/>
   <property file="build.properties"/>
