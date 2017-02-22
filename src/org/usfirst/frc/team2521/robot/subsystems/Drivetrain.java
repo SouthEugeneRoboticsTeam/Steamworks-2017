@@ -111,7 +111,7 @@ public class Drivetrain extends Subsystem {
 	 */
 	public void setRight(double value) {
 		frontRight.changeControlMode(TalonControlMode.PercentVbus);
-		frontRight.set(value);
+		frontRight.set(-value);
 
 		rearRight.changeControlMode(TalonControlMode.Follower);
 		rearRight.set(RobotMap.FRONT_RIGHT_MOTOR);

@@ -12,7 +12,7 @@ public class RunDrivetrain extends Command {
 
 	protected void execute() {
 		Robot.drivetrain.setLeft(Drivetrain.SLOW_SPEED);
-		Robot.drivetrain.setRight(-Drivetrain.SLOW_SPEED);
+		Robot.drivetrain.setRight(Drivetrain.SLOW_SPEED);
 	}
 
 	@Override

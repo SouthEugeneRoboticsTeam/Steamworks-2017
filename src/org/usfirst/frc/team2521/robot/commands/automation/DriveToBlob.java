@@ -12,11 +12,11 @@ public abstract class DriveToBlob extends PIDCommand {
 	private static final double CAMERA_PROJ_PLANE_DISTANCE = 216.226;
 
 	/** true if we're straight-on */
-	private boolean oriented = false;
+	protected boolean oriented = false;
 	/** true if we're on the left side of the target */
-	private boolean onLeftSide;
+	protected boolean onLeftSide;
 
-	private boolean hasFoundBlob = false;
+	protected boolean hasFoundBlob = false;
 
 	/**
 	 * @param onLeftSide whether we're on the left side of the target
@@ -28,8 +28,6 @@ public abstract class DriveToBlob extends PIDCommand {
 	}
 
 	protected abstract double getSlowSpeed();
-	
-	protected abstract double getOutputSign();
 
 	@Override
 	protected abstract void initialize();
@@ -59,30 +57,5 @@ public abstract class DriveToBlob extends PIDCommand {
 	}
 
 	@Override
-	protected final void usePIDOutput(double output) {
-		if (Robot.DEBUG) {
-			SmartDashboard.putNumber("Drive to gear output", output);
-		}
-		if (Robot.sensors.getBlobFound()) {
-			// If we are already oriented, drive straight
-			SmartDashboard.putBoolean("Oriented", oriented);
-			if (oriented) {
-				Robot.drivetrain.setLeft(getSlowSpeed());
-				Robot.drivetrain.setRight(-getSlowSpeed());
-			} else if (getOutputSign() * output < 0) {
-				Robot.drivetrain.setLeft(-getOutputSign() * output);
-			} else {
-				Robot.drivetrain.setRight(-getOutputSign() * output);
-			}
-		} else {
-			if (hasFoundBlob) {
-				Robot.drivetrain.setLeft(getSlowSpeed());
-				Robot.drivetrain.setRight(-getSlowSpeed());
-			} else {
-				// Turn clockwise if we're too far left, counter-clockwise if we're too far right
-				Robot.drivetrain.setLeft(onLeftSide ? -getSlowSpeed() : getSlowSpeed());
-				Robot.drivetrain.setRight(onLeftSide ? -getSlowSpeed() : getSlowSpeed());
-			}
-		}
-	}
+	protected abstract void usePIDOutput(double output);
 }
