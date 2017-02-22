@@ -35,6 +35,7 @@ public class Auto extends CommandGroup {
 				break;
 		}*/
 		Robot.sensors.setCVCamera(Sensors.Camera.FRONT);
+		addSequential(new RunDrivetrain(), 1);
 		addSequential(new DriveToGear(false));
 		addSequential(new TimedCommand(1));
 		addSequential(new AlignShooter());

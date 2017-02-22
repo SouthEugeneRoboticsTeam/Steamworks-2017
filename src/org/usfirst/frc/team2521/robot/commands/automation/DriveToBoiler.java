@@ -14,8 +14,8 @@ public class DriveToBoiler extends DriveToBlob {
 	private static final double I = 0;
 	private static final double D = 0;
 
-	private static final double DISTANCE_SETPOINT = 43.5;
-	private static final double DISTANCE_ERROR_THRESHOLD = 1;
+	private static final double DISTANCE_SETPOINT = 39;
+	private static final double DISTANCE_ERROR_THRESHOLD = 3;
 
 	public DriveToBoiler(boolean onLeftSide) {
 		super(P, I, D, onLeftSide);
@@ -23,7 +23,7 @@ public class DriveToBoiler extends DriveToBlob {
 
 	@Override
 	protected double getSlowSpeed() {
-		return -Drivetrain.SLOW_SPEED;
+		return 0.0125 * (DISTANCE_SETPOINT - Robot.sensors.getRearUltraInches());
 	}
 	
 	@Override

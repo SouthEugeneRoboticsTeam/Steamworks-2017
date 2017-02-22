@@ -26,7 +26,7 @@ public class DriveToGear extends DriveToBlob {
 	
 	@Override
 	protected double getOrientedThreshold() {
-		return 5;
+		return 1;
 	}
 
 	@Override
