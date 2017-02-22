@@ -9,7 +9,7 @@ import org.usfirst.frc.team2521.robot.subsystems.Sensors;
  * This command drives to the gear drop-off automatically.
  */
 public class DriveToGear extends DriveToBlob {
-	private static final double P = 0.025;
+	private static final double P = 0.008;
 	private static final double I = 0;
 	private static final double D = 0;
 
@@ -20,6 +20,11 @@ public class DriveToGear extends DriveToBlob {
 	@Override
 	protected double getSlowSpeed() {
 		return Drivetrain.SLOW_SPEED;
+	}
+	
+	@Override
+	protected double getOutputSign() {
+		return -1;
 	}
 
 	@Override

@@ -25,6 +25,11 @@ public class DriveToBoiler extends DriveToBlob {
 	}
 
 	@Override
+	protected double getOutputSign() {
+		return 1;
+	}
+	
+	@Override
 	protected void initialize() {
 		Robot.sensors.setCVCamera(Sensors.Camera.REAR);
 	}

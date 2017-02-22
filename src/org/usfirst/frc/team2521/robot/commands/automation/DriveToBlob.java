@@ -28,6 +28,8 @@ public abstract class DriveToBlob extends PIDCommand {
 	}
 
 	protected abstract double getSlowSpeed();
+	
+	protected abstract double getOutputSign();
 
 	@Override
 	protected abstract void initialize();
@@ -63,13 +65,14 @@ public abstract class DriveToBlob extends PIDCommand {
 		}
 		if (Robot.sensors.getBlobFound()) {
 			// If we are already oriented, drive straight
+			SmartDashboard.putBoolean("Oriented", oriented);
 			if (oriented) {
 				Robot.drivetrain.setLeft(getSlowSpeed());
 				Robot.drivetrain.setRight(-getSlowSpeed());
-			} else if (output < 0) {
-				Robot.drivetrain.setLeft(output);
+			} else if (getOutputSign() * output < 0) {
+				Robot.drivetrain.setLeft(-getOutputSign() * output);
 			} else {
-				Robot.drivetrain.setRight(output);
+				Robot.drivetrain.setRight(-getOutputSign() * output);
 			}
 		} else {
 			if (hasFoundBlob) {

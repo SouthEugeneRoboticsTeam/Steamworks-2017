@@ -2,6 +2,7 @@ package org.usfirst.frc.team2521.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import org.usfirst.frc.team2521.robot.OI;
 import org.usfirst.frc.team2521.robot.Robot;
 import org.usfirst.frc.team2521.robot.RobotMap;
 import org.usfirst.frc.team2521.robot.commands.base.DisplaySensors;
@@ -54,6 +55,8 @@ public class Sensors extends Subsystem {
 			SmartDashboard.putNumber("Rear ultra", getRearUltraInches());
 			SmartDashboard.putNumber("CV offset", getCVOffsetX());
 			SmartDashboard.putBoolean("Blob found", getBlobFound());
+			
+			SmartDashboard.putNumber("Switches", OI.getInstance().getAutoMode());
 		}
 	}
 

@@ -15,6 +15,9 @@ public class OI {
 	private final Joystick left;
 	private final Joystick right;
 	private final Joystick secondary;
+	private final Joystick custom;
+	
+	private final int[] customButton = {2,3,4,5};
 
 	private JoystickButton driveToGearLeftButton;
 	private JoystickButton driveToGearRightButton;
@@ -25,6 +28,7 @@ public class OI {
 		left = new Joystick(RobotMap.LEFT_STICK_PORT);
 		right = new Joystick(RobotMap.RIGHT_STICK_PORT);
 		secondary = new Joystick(RobotMap.SECONDARY_STICK_PORT);
+		custom = new Joystick(RobotMap.CUSTOM_STICK_PORT);
 
 		// Right joystick buttons
 		driveToGearLeftButton = new JoystickButton(right, RobotMap.DRIVE_TO_GEAR_LEFT_PORT);
@@ -45,7 +49,17 @@ public class OI {
 	public static OI getInstance() {
 		return Holder.INSTANCE;
 	}
-
+	
+	public int getAutoMode() {
+		int autoMode = 0;
+		for (int i = 0; i < customButton.length; i++) {
+			if (custom.getRawButton(customButton[i])) {
+				autoMode += Math.pow(2, i);
+			}
+		}
+		return autoMode;
+	}
+	
 	/**
 	 * @return the left joystick
 	 */
@@ -76,5 +90,15 @@ public class OI {
 
 	private static final class Holder {
 		public static final OI INSTANCE = new OI();
+	}
+	
+	public final static class AutoModes {
+		public final static int nothing = 0;
+		public final static int crossBaseLine = 6;
+		public final static int ballThenGear = 15;
+		public final static int gearLeft = 8;
+		public final static int gearMiddle = 4;
+		public final static int gearRight = 2;
+		public final static int ballsOnly = 1;
 	}
 }

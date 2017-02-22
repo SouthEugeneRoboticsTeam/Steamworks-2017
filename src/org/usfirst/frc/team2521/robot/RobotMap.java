@@ -7,6 +7,7 @@ public class RobotMap {
 	public static final int LEFT_STICK_PORT = 0;
 	public static final int RIGHT_STICK_PORT = 1;
 	public static final int SECONDARY_STICK_PORT = 2;
+	public static final int CUSTOM_STICK_PORT = 3;
 
 	// Right joystick buttons
 	public static final int DRIVE_TO_GEAR_LEFT_PORT = 4; // On right stick
