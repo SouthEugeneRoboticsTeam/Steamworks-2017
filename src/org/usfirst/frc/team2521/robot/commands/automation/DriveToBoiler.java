@@ -27,6 +27,11 @@ public class DriveToBoiler extends DriveToBlob {
 	}
 	
 	@Override
+	protected double getOrientedThreshold() {
+		return 20;
+	}
+	
+	@Override
 	protected void initialize() {
 		Robot.sensors.setCVCamera(Sensors.Camera.REAR);
 	}

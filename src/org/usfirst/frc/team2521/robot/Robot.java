@@ -49,6 +49,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
+		Robot.sensors.setCVCamera(Sensors.Camera.FRONT);
 		auto.start();
 	}
 

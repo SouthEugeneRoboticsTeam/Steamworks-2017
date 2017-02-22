@@ -28,6 +28,8 @@ public abstract class DriveToBlob extends PIDCommand {
 	}
 
 	protected abstract double getSlowSpeed();
+	
+	protected abstract double getOrientedThreshold();
 
 	@Override
 	protected abstract void initialize();

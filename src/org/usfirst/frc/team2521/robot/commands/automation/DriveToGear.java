@@ -23,6 +23,11 @@ public class DriveToGear extends DriveToBlob {
 	protected double getSlowSpeed() {
 		return Drivetrain.SLOW_SPEED;
 	}
+	
+	@Override
+	protected double getOrientedThreshold() {
+		return 5;
+	}
 
 	@Override
 	protected void initialize() {
