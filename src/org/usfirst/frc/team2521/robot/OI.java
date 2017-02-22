@@ -2,6 +2,7 @@ package org.usfirst.frc.team2521.robot;
 
 import org.usfirst.frc.team2521.robot.commands.automation.DriveToGear;
 import org.usfirst.frc.team2521.robot.commands.base.RunAgitator;
+import org.usfirst.frc.team2521.robot.commands.groups.AlignShooter;
 import org.usfirst.frc.team2521.robot.commands.groups.RunShooterSubsystems;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -19,6 +20,7 @@ public class OI {
 	
 	private final int[] customButton = {2,3,4,5};
 
+	private JoystickButton alignShooterButton;
 	private JoystickButton driveToGearLeftButton;
 	private JoystickButton driveToGearRightButton;
 	private JoystickButton runShooterSubsystemsButton;
@@ -31,8 +33,9 @@ public class OI {
 		custom = new Joystick(RobotMap.CUSTOM_STICK_PORT);
 
 		// Right joystick buttons
-		driveToGearLeftButton = new JoystickButton(right, RobotMap.DRIVE_TO_GEAR_LEFT_PORT);
-		driveToGearRightButton = new JoystickButton(right, RobotMap.DRIVE_TO_GEAR_RIGHT_PORT);
+		alignShooterButton = new JoystickButton(left, RobotMap.ALIGN_SHOOTER_BUTTON_PORT);
+		driveToGearLeftButton = new JoystickButton(left, RobotMap.DRIVE_TO_GEAR_LEFT_PORT);
+		driveToGearRightButton = new JoystickButton(left, RobotMap.DRIVE_TO_GEAR_RIGHT_PORT);
 
 		// Secondary joystick buttons
 		runShooterSubsystemsButton = new JoystickButton(secondary,
@@ -82,6 +85,7 @@ public class OI {
 	}
 
 	private void setButtonListeners() {
+		alignShooterButton.toggleWhenActive(new AlignShooter());
 		driveToGearLeftButton.toggleWhenActive(new DriveToGear(true));
 		driveToGearRightButton.toggleWhenActive(new DriveToGear(false));
 		runShooterSubsystemsButton.toggleWhenActive(new RunShooterSubsystems());

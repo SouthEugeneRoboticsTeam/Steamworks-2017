@@ -14,7 +14,7 @@ public class DriveToBoiler extends DriveToBlob {
 	private static final double I = 0;
 	private static final double D = 0;
 
-	private static final double DISTANCE_SETPOINT = 39;
+	private static final double DISTANCE_SETPOINT = 35;
 	private static final double DISTANCE_ERROR_THRESHOLD = 3;
 
 	public DriveToBoiler(boolean onLeftSide) {

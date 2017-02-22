@@ -12,32 +12,35 @@ import edu.wpi.first.wpilibj.command.TimedCommand;
 
 public class Auto extends CommandGroup {
 	public Auto() {
-		/*
 		switch (OI.getInstance().getAutoMode()) {
 			case OI.AutoModes.nothing: 
 				break;
 			case OI.AutoModes.crossBaseLine:
+				addSequential(new RunDrivetrain(true), 2);
 				break;
 			case OI.AutoModes.ballsOnly:
+				addSequential(new RunDrivetrain(true), 1);
+				addSequential(new AlignShooter());
 				break;
 			case OI.AutoModes.ballThenGear:
-				//Robot.sensors.setCVCamera(Sensors.Camera.FRONT);
-				//addSequential(new RunDrivetrain(), 1.5);
+				Robot.sensors.setCVCamera(Sensors.Camera.FRONT);
+				addSequential(new RunDrivetrain(true), 1);
 				addSequential(new DriveToGear(false));
-				//addSequential(new TimedCommand(1));
-				//addSequential(new AlignShooter());
+				addSequential(new RunDrivetrain(true), 0.25);
+				addSequential(new TimedCommand(1));
+				addSequential(new AlignShooter());
 				break;
 			case OI.AutoModes.gearLeft:
+				addSequential(new RunDrivetrain(true), 1);
+				addSequential(new DriveToGear(false));
 				break;
 			case OI.AutoModes.gearMiddle:
+				addSequential(new DriveToGear(false));
 				break;
 			case OI.AutoModes.gearRight:
+				addSequential(new RunDrivetrain(true), 1);
+				addSequential(new DriveToGear(true));
 				break;
-		}*/
-		Robot.sensors.setCVCamera(Sensors.Camera.FRONT);
-		addSequential(new RunDrivetrain(), 1);
-		addSequential(new DriveToGear(false));
-		addSequential(new TimedCommand(1));
-		addSequential(new AlignShooter());
+		}
 	}
 }

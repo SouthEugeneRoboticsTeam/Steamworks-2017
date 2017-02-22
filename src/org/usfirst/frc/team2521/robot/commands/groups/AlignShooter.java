@@ -16,7 +16,7 @@ public class AlignShooter extends CommandGroup {
 		addParallel(new RunShooter());
 		addSequential(new DriveToBoiler(false));
 		addParallel(new TurnToBoiler());
-		addSequential(new TimedCommand(0.5));
+		addSequential(new TimedCommand(1));
 		addParallel(new RunShooterSubsystems());
 	}
 }
