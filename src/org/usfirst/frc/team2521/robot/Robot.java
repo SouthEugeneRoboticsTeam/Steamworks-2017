@@ -39,7 +39,7 @@ public class Robot extends IterativeRobot {
 
 		auto = new Auto();
 		
-		sensors.setCVCamera(Sensors.Camera.FRONT);
+		sensors.setCVCamera(Sensors.Camera.REAR);
 	}
 
 	@Override
