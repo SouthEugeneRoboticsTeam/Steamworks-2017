@@ -34,10 +34,10 @@ public class Auto extends CommandGroup {
 			case OI.AutoModes.gearRight:
 				break;
 		}*/
-		//Robot.sensors.setCVCamera(Sensors.Camera.FRONT);
-		//addSequential(new RunDrivetrain(), 1.5);
-		//addSequential(new DriveToGear(false));
-		//addSequential(new TimedCommand(1));
+		Robot.sensors.setCVCamera(Sensors.Camera.FRONT);
+		addSequential(new RunDrivetrain(), 1.5);
+		addSequential(new DriveToGear(false));
+		addSequential(new TimedCommand(1));
 		addSequential(new AlignShooter());
 	}
 }

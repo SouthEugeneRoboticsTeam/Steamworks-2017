@@ -35,6 +35,11 @@ public class DriveToGear extends DriveToBlob {
 	}
 	
 	@Override
+	protected void end() {
+		Robot.sensors.setCVCamera(Sensors.Camera.REAR);
+	}
+	
+	@Override
 	protected final void usePIDOutput(double output) {
 		if (Robot.DEBUG) {
 			SmartDashboard.putNumber("Drive to gear output", output);

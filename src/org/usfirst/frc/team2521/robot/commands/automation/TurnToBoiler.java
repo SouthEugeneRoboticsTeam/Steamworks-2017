@@ -32,11 +32,6 @@ public class TurnToBoiler extends PIDCommand {
 	}
 
 	@Override
-	protected void end() {
-		SmartDashboard.putBoolean("Done", true);
-	}
-
-	@Override
 	protected void usePIDOutput(double output) {
 		if (Robot.sensors.getBlobFound()) {
 			SmartDashboard.putNumber("Turn to boiler output", output);
