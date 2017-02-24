@@ -10,7 +10,6 @@ import org.usfirst.frc.team2521.robot.commands.base.TeleopDrivetrain;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Drivetrain is the subsystem for everything that relates to the robot's drivetrain. It consists of
@@ -100,8 +99,6 @@ public class Drivetrain extends Subsystem {
 
 		rearLeft.changeControlMode(TalonControlMode.Follower);
 		rearLeft.set(RobotMap.FRONT_LEFT_MOTOR);
-
-		SmartDashboard.putNumber("Left output", value);
 	}
 
 	/**
@@ -115,8 +112,6 @@ public class Drivetrain extends Subsystem {
 
 		rearRight.changeControlMode(TalonControlMode.Follower);
 		rearRight.set(RobotMap.FRONT_RIGHT_MOTOR);
-
-		SmartDashboard.putNumber("Right output", value);
 	}
 
 	/**

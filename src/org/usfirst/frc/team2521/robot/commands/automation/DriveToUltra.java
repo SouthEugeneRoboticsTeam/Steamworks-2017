@@ -3,7 +3,6 @@ package org.usfirst.frc.team2521.robot.commands.automation;
 import org.usfirst.frc.team2521.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.PIDCommand;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This command drives to a specified ultrasonic distance automatically.
@@ -30,10 +29,6 @@ public class DriveToUltra extends PIDCommand {
 
 	@Override
 	protected boolean isFinished() {
-		if (Robot.DEBUG) {
-			SmartDashboard.putNumber("Drive to ultra setpoint", setpoint);
-			SmartDashboard.putNumber("Drive to ultra error", getPIDController().getAvgError());
-		}
 		return Math.abs(setpoint) < ERROR_THRESHOLD;
 	}
 

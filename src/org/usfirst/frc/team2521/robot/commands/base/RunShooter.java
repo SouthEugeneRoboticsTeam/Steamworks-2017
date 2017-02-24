@@ -28,10 +28,7 @@ public class RunShooter extends PIDCommand {
 
 	@Override
 	public void execute() {
-		if (Robot.DEBUG) {
-			SmartDashboard.putNumber("Encoder Value", Robot.shooter.getEncVelocity());
-			SmartDashboard.putNumber("Error", SETPOINT - Robot.shooter.getEncVelocity());
-		}
+		SmartDashboard.putNumber("Encoder velocity", Robot.shooter.getEncVelocity());
 	}
 
 	@Override

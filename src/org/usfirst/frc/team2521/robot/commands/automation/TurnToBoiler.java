@@ -4,7 +4,6 @@ import org.usfirst.frc.team2521.robot.Robot;
 import org.usfirst.frc.team2521.robot.subsystems.Sensors;
 
 import edu.wpi.first.wpilibj.command.PIDCommand;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TurnToBoiler extends PIDCommand {
 	private static final double P = 0.0025;
@@ -34,7 +33,6 @@ public class TurnToBoiler extends PIDCommand {
 	@Override
 	protected void usePIDOutput(double output) {
 		if (Robot.sensors.getBlobFound()) {
-			SmartDashboard.putNumber("Turn to boiler output", output);
 			Robot.drivetrain.setLeft(-output);
 			Robot.drivetrain.setRight(output);
 		} else {

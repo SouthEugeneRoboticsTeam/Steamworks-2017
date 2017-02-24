@@ -3,8 +3,6 @@ package org.usfirst.frc.team2521.robot.commands.automation;
 import org.usfirst.frc.team2521.robot.Robot;
 import org.usfirst.frc.team2521.robot.subsystems.Sensors;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 /**
  * This command drives to the correct spot to shoot from automatically.
  */
@@ -38,12 +36,8 @@ public class DriveToBoiler extends DriveToBlob {
 
 	@Override
 	protected final void usePIDOutput(double output) {
-		if (Robot.DEBUG) {
-			SmartDashboard.putNumber("Drive to gear output", output);
-		}
 		if (Robot.sensors.getBlobFound()) {
 			// If we are already oriented, drive straight
-			SmartDashboard.putBoolean("Oriented", oriented);
 			if (oriented) {
 				Robot.drivetrain.setLeft(getSlowSpeed());
 				Robot.drivetrain.setRight(getSlowSpeed());
