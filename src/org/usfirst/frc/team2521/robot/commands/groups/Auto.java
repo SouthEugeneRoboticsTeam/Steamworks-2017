@@ -16,29 +16,29 @@ public class Auto extends CommandGroup {
 			case RobotMap.AutoModes.NOTHING:
 				break;
 			case RobotMap.AutoModes.CROSS_BASE_LINE:
-				addSequential(new RunDrivetrain(true), 2);
+				addSequential(new RunDrivetrain(), 2);
 				break;
 			case RobotMap.AutoModes.BALLS_ONLY:
-				addSequential(new RunDrivetrain(true), 1);
+				addSequential(new RunDrivetrain(), 1);
 				addSequential(new AlignShooter());
 				break;
 			case RobotMap.AutoModes.BALL_THEN_GEAR:
 				Robot.sensors.setCVCamera(Sensors.Camera.FRONT);
-				addSequential(new RunDrivetrain(true), 1);
+				addSequential(new RunDrivetrain(), 1);
 				addSequential(new DriveToGear(false));
-				addSequential(new RunDrivetrain(true), 0.25);
+				addSequential(new RunDrivetrain(), 0.25);
 				addSequential(new TimedCommand(1));
 				addSequential(new AlignShooter());
 				break;
 			case RobotMap.AutoModes.GEAR_LEFT:
-				addSequential(new RunDrivetrain(true), 1);
+				addSequential(new RunDrivetrain(), 1);
 				addSequential(new DriveToGear(false));
 				break;
 			case RobotMap.AutoModes.GEAR_MIDDLE:
 				addSequential(new DriveToGear(false));
 				break;
 			case RobotMap.AutoModes.GEAR_RIGHT:
-				addSequential(new RunDrivetrain(true), 1);
+				addSequential(new RunDrivetrain(), 1);
 				addSequential(new DriveToGear(true));
 				break;
 		}

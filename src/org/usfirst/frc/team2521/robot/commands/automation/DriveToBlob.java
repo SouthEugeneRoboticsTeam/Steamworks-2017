@@ -13,9 +13,8 @@ public abstract class DriveToBlob extends PIDCommand {
 	/** true if we're straight-on */
 	protected boolean oriented = false;
 	/** true if we're on the left side of the target */
-	protected boolean onLeftSide;
-
-	protected boolean hasFoundBlob = false;
+	private boolean onLeftSide;
+	private boolean hasFoundBlob = false;
 
 	/**
 	 * @param onLeftSide whether we're on the left side of the target
