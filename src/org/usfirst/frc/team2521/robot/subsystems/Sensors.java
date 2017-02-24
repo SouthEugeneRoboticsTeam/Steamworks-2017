@@ -18,7 +18,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * methods to show sensor data on the SmartDashboard.
  */
 public class Sensors extends Subsystem {
-	private AnalogInput frontUltra;
 	private AnalogInput rearUltra;
 	private AnalogInput leftLidar;
 	private AnalogInput rightLidar;
@@ -32,7 +31,6 @@ public class Sensors extends Subsystem {
 	private double MED_LIDAR_B = -1.045;
 
 	public Sensors() {
-		frontUltra = new AnalogInput(RobotMap.FRONT_ULTRA_PORT);
 		rearUltra = new AnalogInput(RobotMap.REAR_ULTRA_PORT);
 
 		leftLidar = new AnalogInput(RobotMap.LEFT_LIDAR_PORT);
@@ -56,13 +54,6 @@ public class Sensors extends Subsystem {
 		if (Robot.DEBUG) {
 			SmartDashboard.putNumber("CV offset", getCVOffsetX());
 		}
-	}
-
-	/**
-	 * @return the distance in inches from the front (gear side) ultrasonic sensor
-	 */
-	public double getFrontUltraInches() {
-		return frontUltra.getVoltage() * 1000 / 9.8;
 	}
 
 	/**
