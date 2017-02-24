@@ -7,15 +7,16 @@ public class RobotMap {
 	public static final int LEFT_STICK_PORT = 0;
 	public static final int RIGHT_STICK_PORT = 1;
 	public static final int SECONDARY_STICK_PORT = 2;
+	public static final int CUSTOM_STICK_PORT = 3;
 
 	// Right joystick buttons
-	public static final int DRIVE_TO_GEAR_LEFT_PORT = 4; // On right stick
-	public static final int DRIVE_TO_GEAR_RIGHT_PORT = 5; // On right stick
+	public static final int ALIGN_SHOOTER_BUTTON_PORT = 7; // On Left stick
+	public static final int DRIVE_TO_GEAR_LEFT_PORT = 8; // On left stick
+	public static final int DRIVE_TO_GEAR_RIGHT_PORT = 9; // On left stick
 
 	// Secondary joystick buttons
-	public static final int RUN_SHOOTER_AND_AGITATOR_BUTTON_PORT = 1; // On secondary stick
-	public static final int RUN_FEEDER_BUTTON_PORT = 2; // On secondary stick
-	public static final int RUN_AGITATOR_BACKWARD_BUTTON_PORT = 4; // On secondary stick
+	public static final int RUN_SHOOTER_SUBSYSTEMS_BUTTON_PORT = 1; // On secondary stick
+	public static final int RUN_AGITATOR_BACKWARD_BUTTON_PORT = 2; // On secondary stick
 
 	public static final int FRONT_RIGHT_MOTOR = 10;
 	public static final int FRONT_LEFT_MOTOR = 14;
@@ -30,7 +31,17 @@ public class RobotMap {
 	public static final int SHOOTER_MOTOR = 13;
 	public static final int FEEDER_MOTOR = 12;
 
-	public static final int FRONT_ULTRA_PORT = 0;
-	public static final int REAR_ULTRA_PORT = 2;
-	public static final int SIDE_LIDAR_PORT = 1;
+	public static final int REAR_ULTRA_PORT = 1;
+	public static final int LEFT_LIDAR_PORT = 0;
+	public static final int RIGHT_LIDAR_PORT = 2;
+
+	public final static class AutoModes {
+		public final static int NOTHING = 0;
+		public final static int CROSS_BASE_LINE = 6;
+		public final static int BALL_THEN_GEAR = 15;
+		public final static int GEAR_LEFT = 8;
+		public final static int GEAR_MIDDLE = 4;
+		public final static int GEAR_RIGHT = 2;
+		public final static int BALLS_ONLY = 1;
+	}
 }

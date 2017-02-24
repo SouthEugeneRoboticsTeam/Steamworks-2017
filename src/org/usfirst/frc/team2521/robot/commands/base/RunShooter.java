@@ -13,7 +13,7 @@ public class RunShooter extends PIDCommand {
 	private static final double I = 0;
 	private static final double D = 0;
 
-	private static final int SETPOINT = -280;
+	private static final int SETPOINT = -290;
 
 	public RunShooter() {
 		super(P, I, D);
@@ -28,10 +28,7 @@ public class RunShooter extends PIDCommand {
 
 	@Override
 	public void execute() {
-		if (Robot.DEBUG) {
-			SmartDashboard.putNumber("Encoder Value", Robot.shooter.getEncVelocity());
-			SmartDashboard.putNumber("Error", SETPOINT - Robot.shooter.getEncVelocity());
-		}
+		SmartDashboard.putNumber("Encoder velocity", Robot.shooter.getEncVelocity());
 	}
 
 	@Override
@@ -52,6 +49,5 @@ public class RunShooter extends PIDCommand {
 	@Override
 	protected void usePIDOutput(double output) {
 		Robot.shooter.setMotor(-output);
-		//Robot.shooter.setMotor(0.535);
 	}
 }
