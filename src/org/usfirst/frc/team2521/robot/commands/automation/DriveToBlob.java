@@ -3,7 +3,6 @@ package org.usfirst.frc.team2521.robot.commands.automation;
 import org.usfirst.frc.team2521.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.PIDCommand;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This abstract class provides a template for driving to the gear or the boiler.
@@ -21,15 +20,13 @@ public abstract class DriveToBlob extends PIDCommand {
 	/**
 	 * @param onLeftSide whether we're on the left side of the target
 	 */
-	public DriveToBlob(double p, double i, double d, boolean onLeftSide) {
+	protected DriveToBlob(double p, double i, double d, boolean onLeftSide) {
 		super(p, i, d);
 		this.onLeftSide = onLeftSide;
 		requires(Robot.drivetrain);
 	}
 
 	protected abstract double getSlowSpeed();
-	
-	protected abstract double getOrientedThreshold();
 
 	@Override
 	protected abstract void initialize();
@@ -58,6 +55,14 @@ public abstract class DriveToBlob extends PIDCommand {
 		return Robot.sensors.getNavxAngle();
 	}
 
-	@Override
-	protected abstract void usePIDOutput(double output);
+	protected void setCurrentBlobFoundMotorSpeed() {
+		if (hasFoundBlob) {
+			Robot.drivetrain.setLeft(getSlowSpeed());
+			Robot.drivetrain.setRight(getSlowSpeed());
+		} else {
+			// Turn clockwise if we're too far left, counter-clockwise if we're too far right
+			Robot.drivetrain.setLeft(onLeftSide ? -getSlowSpeed() : getSlowSpeed());
+			Robot.drivetrain.setRight(onLeftSide ? -getSlowSpeed() : getSlowSpeed());
+		}
+	}
 }

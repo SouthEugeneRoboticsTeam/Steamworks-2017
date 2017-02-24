@@ -38,7 +38,7 @@ public class Robot extends IterativeRobot {
 		agitator = new Agitator();
 
 		auto = new Auto();
-		
+
 		sensors.setCVCamera(Sensors.Camera.REAR);
 	}
 

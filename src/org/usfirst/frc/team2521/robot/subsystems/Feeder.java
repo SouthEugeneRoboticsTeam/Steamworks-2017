@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Feeder extends Subsystem {
 	public static final double FEEDER_SPEED = 0.75;
+
 	private CANTalon feeder;
 
 	public Feeder() {

@@ -13,21 +13,16 @@ public class DriveToUltra extends PIDCommand {
 	private static final double I = 0;
 	private static final double D = 0;
 
-	private final static double ERROR_THRESHOLD = 1;
+	private static final double ERROR_THRESHOLD = 1;
 
-	protected double setpoint;
-	/** {@code true} if we should use the front ultrasonic */
-	protected boolean useRearUltra = false;
-	private double ultrasonicValue;
+	private double setpoint;
 
 	/**
-	 * @param setpoint     the ultrasonic setpoint
-	 * @param useRearUltra whether we should use the rear ultrasonic
+	 * @param setpoint the ultrasonic setpoint
 	 */
-	public DriveToUltra(double setpoint, boolean useRearUltra) {
+	public DriveToUltra(double setpoint) {
 		super(P, I, D);
 		this.setpoint = setpoint;
-		this.useRearUltra = useRearUltra;
 		requires(Robot.drivetrain);
 
 		setSetpoint(setpoint);
@@ -39,12 +34,12 @@ public class DriveToUltra extends PIDCommand {
 			SmartDashboard.putNumber("Drive to ultra setpoint", setpoint);
 			SmartDashboard.putNumber("Drive to ultra error", getPIDController().getAvgError());
 		}
-		return Math.abs(setpoint - ultrasonicValue) < ERROR_THRESHOLD;
+		return Math.abs(setpoint) < ERROR_THRESHOLD;
 	}
 
 	@Override
 	protected double returnPIDInput() {
-		return useRearUltra ? Robot.sensors.getRearUltraInches() : Robot.sensors.getFrontUltraInches();
+		return Robot.sensors.getFrontUltraInches();
 	}
 
 	@Override

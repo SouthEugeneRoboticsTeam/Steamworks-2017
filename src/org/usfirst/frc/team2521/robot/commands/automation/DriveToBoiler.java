@@ -1,7 +1,6 @@
 package org.usfirst.frc.team2521.robot.commands.automation;
 
 import org.usfirst.frc.team2521.robot.Robot;
-import org.usfirst.frc.team2521.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2521.robot.subsystems.Sensors;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -14,23 +13,19 @@ public class DriveToBoiler extends DriveToBlob {
 	private static final double I = 0;
 	private static final double D = 0;
 
+	private static final double P2 = 0.0125;
 	private static final double DISTANCE_SETPOINT = 35;
 	private static final double DISTANCE_ERROR_THRESHOLD = 3;
 
-	public DriveToBoiler(boolean onLeftSide) {
-		super(P, I, D, onLeftSide);
+	public DriveToBoiler() {
+		super(P, I, D, false);
 	}
 
 	@Override
 	protected double getSlowSpeed() {
-		return 0.0125 * (DISTANCE_SETPOINT - Robot.sensors.getRearUltraInches());
+		return P2 * (DISTANCE_SETPOINT - Robot.sensors.getRearUltraInches());
 	}
-	
-	@Override
-	protected double getOrientedThreshold() {
-		return 20;
-	}
-	
+
 	@Override
 	protected void initialize() {
 		Robot.sensors.setCVCamera(Sensors.Camera.REAR);
@@ -40,7 +35,7 @@ public class DriveToBoiler extends DriveToBlob {
 	protected boolean isFinished() {
 		return Math.abs(DISTANCE_SETPOINT - Robot.sensors.getRearUltraInches()) < DISTANCE_ERROR_THRESHOLD;
 	}
-	
+
 	@Override
 	protected final void usePIDOutput(double output) {
 		if (Robot.DEBUG) {
@@ -58,14 +53,8 @@ public class DriveToBoiler extends DriveToBlob {
 				Robot.drivetrain.setRight(-output);
 			}
 		} else {
-			if (hasFoundBlob) {
-				Robot.drivetrain.setLeft(getSlowSpeed());
-				Robot.drivetrain.setRight(getSlowSpeed());
-			} else {
-				// Turn clockwise if we're too far left, counter-clockwise if we're too far right
-				Robot.drivetrain.setLeft(onLeftSide ? -getSlowSpeed() : getSlowSpeed());
-				Robot.drivetrain.setRight(onLeftSide ? -getSlowSpeed() : getSlowSpeed());
-			}
+			setCurrentBlobFoundMotorSpeed();
 		}
 	}
+
 }

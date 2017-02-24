@@ -40,10 +40,10 @@ public class Sensors extends Subsystem {
 		rightLidar = new AnalogInput(RobotMap.RIGHT_LIDAR_PORT);
 
 		table = NetworkTable.getTable("Vision");
-		
+
 		ahrs = new AHRS(SPI.Port.kMXP);
 		ahrs.reset();
-		
+
 		setCVThresholds();
 	}
 
@@ -55,7 +55,7 @@ public class Sensors extends Subsystem {
 			SmartDashboard.putNumber("Rear ultra", getRearUltraInches());
 			SmartDashboard.putNumber("CV offset", getCVOffsetX());
 			SmartDashboard.putBoolean("Blob found", getBlobFound());
-			
+
 			SmartDashboard.putNumber("Switches", OI.getInstance().getAutoMode());
 		}
 	}
@@ -124,7 +124,7 @@ public class Sensors extends Subsystem {
 	/**
 	 * Sets which camera (front or back) vision code on the minnow
 	 * board should use.
-	 * 
+	 *
 	 * @param cameraType desired camera to use
 	 */
 	public void setCVCamera(Camera cameraType) {
@@ -148,7 +148,7 @@ public class Sensors extends Subsystem {
 		double rearUpperRed = Preferences.getInstance().getDouble("rear_upper_red", 50);
 		double rearUpperGreen = Preferences.getInstance().getDouble("rear_upper_green", 175);
 		double rearUpperBlue = Preferences.getInstance().getDouble("rear_upper_blue", 50);
-		
+
 		table.putNumber("front_lower_red", frontLowerRed);
 		table.putNumber("front_lower_green", frontLowerGreen);
 		table.putNumber("front_lower_blue", frontLowerBlue);
@@ -162,7 +162,7 @@ public class Sensors extends Subsystem {
 		table.putNumber("rear_upper_green", rearUpperGreen);
 		table.putNumber("rear_upper_blue", rearUpperBlue);
 	}
-	
+
 	/**
 	 * @return the Navx's current angle measurement
 	 */

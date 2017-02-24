@@ -5,6 +5,8 @@ import org.usfirst.frc.team2521.robot.commands.base.RunAgitator;
 import org.usfirst.frc.team2521.robot.commands.groups.AlignShooter;
 import org.usfirst.frc.team2521.robot.commands.groups.RunShooterSubsystems;
 
+import java.util.stream.IntStream;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -13,12 +15,12 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * driver to control the robot.
  */
 public class OI {
+	private static final int[] CUSTOM_BUTTONS = {2, 3, 4, 5};
+
 	private final Joystick left;
 	private final Joystick right;
 	private final Joystick secondary;
 	private final Joystick custom;
-	
-	private final int[] customButton = {2,3,4,5};
 
 	private JoystickButton alignShooterButton;
 	private JoystickButton driveToGearLeftButton;
@@ -52,17 +54,14 @@ public class OI {
 	public static OI getInstance() {
 		return Holder.INSTANCE;
 	}
-	
+
 	public int getAutoMode() {
-		int autoMode = 0;
-		for (int i = 0; i < customButton.length; i++) {
-			if (custom.getRawButton(customButton[i])) {
-				autoMode += Math.pow(2, i);
-			}
-		}
-		return autoMode;
+		return IntStream.range(0, CUSTOM_BUTTONS.length)
+				.filter(i -> custom.getRawButton(CUSTOM_BUTTONS[i]))
+				.map(i -> (int) Math.pow(2, i))
+				.sum();
 	}
-	
+
 	/**
 	 * @return the left joystick
 	 */
@@ -94,15 +93,5 @@ public class OI {
 
 	private static final class Holder {
 		public static final OI INSTANCE = new OI();
-	}
-	
-	public final static class AutoModes {
-		public final static int nothing = 0;
-		public final static int crossBaseLine = 6;
-		public final static int ballThenGear = 15;
-		public final static int gearLeft = 8;
-		public final static int gearMiddle = 4;
-		public final static int gearRight = 2;
-		public final static int ballsOnly = 1;
 	}
 }

@@ -23,11 +23,6 @@ public class DriveToGear extends DriveToBlob {
 	protected double getSlowSpeed() {
 		return Drivetrain.SLOW_SPEED;
 	}
-	
-	@Override
-	protected double getOrientedThreshold() {
-		return 1;
-	}
 
 	@Override
 	protected void initialize() {
@@ -38,17 +33,16 @@ public class DriveToGear extends DriveToBlob {
 	protected boolean isFinished() {
 		return !Robot.sensors.getBlobFound();
 	}
-	
+
 	@Override
 	protected void end() {
 		Robot.sensors.setCVCamera(Sensors.Camera.REAR);
 	}
-	
+
 	@Override
 	protected final void usePIDOutput(double output) {
-		if (Robot.DEBUG) {
-			SmartDashboard.putNumber("Drive to gear output", output);
-		}
+		if (Robot.DEBUG) SmartDashboard.putNumber("Drive to gear output", output);
+
 		if (Robot.sensors.getBlobFound()) {
 			// If we are already oriented, drive straight
 			SmartDashboard.putBoolean("Oriented", oriented);
@@ -61,14 +55,7 @@ public class DriveToGear extends DriveToBlob {
 				Robot.drivetrain.setRight(-output);
 			}
 		} else {
-			if (hasFoundBlob) {
-				Robot.drivetrain.setLeft(getSlowSpeed());
-				Robot.drivetrain.setRight(getSlowSpeed());
-			} else {
-				// Turn clockwise if we're too far left, counter-clockwise if we're too far right
-				Robot.drivetrain.setLeft(onLeftSide ? -getSlowSpeed() : getSlowSpeed());
-				Robot.drivetrain.setRight(onLeftSide ? -getSlowSpeed() : getSlowSpeed());
-			}
+			setCurrentBlobFoundMotorSpeed();
 		}
 	}
 }

@@ -17,13 +17,11 @@ public class DriveToAngle extends PIDCommand {
 
 	private double targetAngle;
 
-	/**
-	 * @param targetAngle the angle we want to drive to
-	 */
-	public DriveToAngle(double targetAngle) {
+	public DriveToAngle() {
 		super(P, I, D);
+		this.targetAngle = (double) 180;
+
 		requires(Robot.drivetrain);
-		this.targetAngle = targetAngle;
 		getPIDController().setAbsoluteTolerance(ERROR_THRESHOLD);
 	}
 
