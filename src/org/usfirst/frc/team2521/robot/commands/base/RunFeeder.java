@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2521.robot.commands.base;
 
 import org.usfirst.frc.team2521.robot.Robot;
+import org.usfirst.frc.team2521.robot.subsystems.Feeder;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -8,15 +9,13 @@ import edu.wpi.first.wpilibj.command.Command;
  * This command feeds the balls to the shooter.
  */
 public class RunFeeder extends Command {
-	private static final double FEEDER_SPEED = 0.75;
-
 	public RunFeeder() {
 		requires(Robot.feeder);
 	}
 
 	@Override
 	protected void execute() {
-		Robot.feeder.setMotor(-FEEDER_SPEED);
+		Robot.feeder.setMotor(-Feeder.FEEDER_SPEED);
 	}
 
 	@Override

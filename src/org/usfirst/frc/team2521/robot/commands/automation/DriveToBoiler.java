@@ -1,30 +1,54 @@
 package org.usfirst.frc.team2521.robot.commands.automation;
 
 import org.usfirst.frc.team2521.robot.Robot;
-
-import edu.wpi.first.wpilibj.command.CommandGroup;
+import org.usfirst.frc.team2521.robot.subsystems.Sensors;
 
 /**
- * Starting from any point on the wall next to the boiler, this command drives to a specific point
- * on the boiler wall from where we can shoot accurately.
+ * This command drives to the correct spot to shoot from automatically.
  */
-public class DriveToBoiler extends CommandGroup {
-	public DriveToBoiler() {
-		addSequential(new DriveToUltra(-1, true) {
-			/** How far from the right side of the boiler the robot's center */
-			private static final double X_SETPOINT = 21;
-			private static final double ROBOT_HALF_WIDTH = 15.75;
-			/** How far the side ultrasonic is from front of the robot */
-			private static final double SIDE_LIDAR_OFFSET = 19.5;
-			private static final double ROBOT_LENGTH = 26;
+public class DriveToBoiler extends DriveToBlob {
+	private static final double P = 0.008;
+	private static final double I = 0;
+	private static final double D = 0;
 
-			@Override
-			protected void initialize() {
-				setpoint = Robot.sensors.getSideLidarInches() + X_SETPOINT * Math.sqrt(2) + ROBOT_HALF_WIDTH
-						- SIDE_LIDAR_OFFSET - 0.5 * ROBOT_LENGTH;
-			}
-		});
-		addSequential(new DriveToAngle(-45));
-		addSequential(new DriveToUltra(0, true));
+	private static final double P2 = 0.0125;
+	private static final double DISTANCE_SETPOINT = 35;
+	private static final double DISTANCE_ERROR_THRESHOLD = 3;
+
+	public DriveToBoiler() {
+		super(P, I, D, false);
 	}
+
+	@Override
+	protected double getSlowSpeed() {
+		return P2 * (DISTANCE_SETPOINT - Robot.sensors.getRearUltraInches());
+	}
+
+	@Override
+	protected void initialize() {
+		Robot.sensors.setCVCamera(Sensors.Camera.REAR);
+	}
+
+	@Override
+	protected boolean isFinished() {
+		return Math.abs(DISTANCE_SETPOINT - Robot.sensors.getRearUltraInches()) < DISTANCE_ERROR_THRESHOLD;
+	}
+
+	@Override
+	protected final void usePIDOutput(double output) {
+		if (Robot.sensors.getBlobFound()) {
+			// If we are already oriented, drive straight
+			if (oriented) {
+				Robot.drivetrain.setLeft(getSlowSpeed());
+				Robot.drivetrain.setRight(getSlowSpeed());
+			} else if (-output > 0) {
+				Robot.drivetrain.setLeft(output);
+			} else {
+				Robot.drivetrain.setRight(-output);
+			}
+		} else {
+			setCurrentBlobFoundMotorSpeed();
+		}
+	}
+
 }
