@@ -27,10 +27,12 @@ public class Climber extends Subsystem {
 	public void teleoperatedClimb() {
 		double speed = -OI.getInstance().getSecondaryStick().getY();
 
-		master.changeControlMode(TalonControlMode.PercentVbus);
-		slave.changeControlMode(TalonControlMode.Follower);
-		master.set(speed);
-		slave.set(RobotMap.CLIMBER_WHEEL_MASTER_MOTOR);
+		if (speed > 0) {
+			master.changeControlMode(TalonControlMode.PercentVbus);
+			slave.changeControlMode(TalonControlMode.Follower);
+			master.set(speed);
+			slave.set(RobotMap.CLIMBER_WHEEL_MASTER_MOTOR);
+		}
 	}
 
 	@Override
