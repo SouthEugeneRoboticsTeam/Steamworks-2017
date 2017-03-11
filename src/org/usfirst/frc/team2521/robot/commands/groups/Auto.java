@@ -46,7 +46,7 @@ public class Auto extends CommandGroup {
 				Robot.sensors.setCVCamera(Sensors.Camera.FRONT);
 				SmartDashboard.putString("Auto mode", "Gear middle");
 				addSequential(new DriveToGear(false));
-				addSequential(new RunDrivetrain(), 0.25);
+				addSequential(new RunDrivetrain(), 2);
 				break;
 			case RobotMap.AutoModes.GEAR_RIGHT:
 				Robot.sensors.setCVCamera(Sensors.Camera.FRONT);
