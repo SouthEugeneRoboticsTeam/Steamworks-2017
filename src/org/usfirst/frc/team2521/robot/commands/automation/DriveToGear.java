@@ -4,6 +4,8 @@ import org.usfirst.frc.team2521.robot.Robot;
 import org.usfirst.frc.team2521.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2521.robot.subsystems.Sensors;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * This command drives to the gear drop-off automatically.
  */
@@ -11,6 +13,7 @@ public class DriveToGear extends DriveToBlob {
 	private static final double P = 0.008;
 	private static final double I = 0;
 	private static final double D = 0;
+	private boolean hasFoundBlob = false;
 
 	public DriveToGear(boolean onLeftSide) {
 		super(P, I, D, onLeftSide);
@@ -38,7 +41,12 @@ public class DriveToGear extends DriveToBlob {
 
 	@Override
 	protected final void usePIDOutput(double output) {
+		if (Robot.DEBUG) {
+			SmartDashboard.putNumber("Drive to gear output", output);
+			SmartDashboard.putBoolean("Has found blob", hasFoundBlob);
+		}
 		if (Robot.sensors.getBlobFound()) {
+			hasFoundBlob = true;
 			// If we are already oriented, drive straight
 			if (oriented) {
 				Robot.drivetrain.setLeft(getSlowSpeed());
@@ -49,7 +57,10 @@ public class DriveToGear extends DriveToBlob {
 				Robot.drivetrain.setRight(-output);
 			}
 		} else {
-			setCurrentBlobFoundMotorSpeed();
+			if (hasFoundBlob) {
+				Robot.drivetrain.setLeft(getSlowSpeed());
+				Robot.drivetrain.setRight(getSlowSpeed());
+			}
 		}
 	}
 }

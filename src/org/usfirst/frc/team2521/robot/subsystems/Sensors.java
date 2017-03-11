@@ -114,7 +114,16 @@ public class Sensors extends Subsystem {
 	 * @param cameraType desired camera to use
 	 */
 	public void setCVCamera(Camera cameraType) {
+		/*
 		table.putBoolean("front_camera", cameraType == Camera.FRONT);
+		if (Robot.DEBUG) {
+			SmartDashboard.putBoolean("Camera is front", cameraType == Camera.FRONT);
+		}*/
+		
+		table.putBoolean("front_camera", true);
+		if (Robot.DEBUG) {
+			SmartDashboard.putBoolean("Camera is front", true);
+		}
 	}
 
 	/**

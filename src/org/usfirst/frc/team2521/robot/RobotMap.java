@@ -36,9 +36,9 @@ public class RobotMap {
 	public static final int RIGHT_LIDAR_PORT = 2;
 
 	public final static class AutoModes {
-		public final static int NOTHING = 0;
+		public final static int NOTHING = 3;
 		public final static int CROSS_BASE_LINE = 6;
-		public final static int BALL_THEN_GEAR = 15;
+		public final static int GEAR_THEN_BALL = 15;
 		public final static int GEAR_LEFT = 8;
 		public final static int GEAR_MIDDLE = 4;
 		public final static int GEAR_RIGHT = 2;

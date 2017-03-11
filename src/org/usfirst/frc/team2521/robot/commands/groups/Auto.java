@@ -26,29 +26,38 @@ public class Auto extends CommandGroup {
 				addSequential(new RunDrivetrain(), 1);
 				addSequential(new AlignShooter());
 				break;
-			case RobotMap.AutoModes.BALL_THEN_GEAR:
+			case RobotMap.AutoModes.GEAR_THEN_BALL:
 				SmartDashboard.putString("Auto mode", "Ball then gear");
 				Robot.sensors.setCVCamera(Sensors.Camera.FRONT);
-				addSequential(new RunDrivetrain(), 1);
+				addSequential(new RunDrivetrain(),2);
 				addSequential(new DriveToGear(false));
 				addSequential(new RunDrivetrain(), 0.25);
 				addSequential(new TimedCommand(1));
 				addSequential(new AlignShooter());
 				break;
 			case RobotMap.AutoModes.GEAR_LEFT:
+				Robot.sensors.setCVCamera(Sensors.Camera.FRONT);
 				SmartDashboard.putString("Auto mode", "Gear left");
 				addSequential(new RunDrivetrain(), 2);
 				addSequential(new DriveToGear(false));
-				addSequential(new RunDrivetrain(), .2);
+				addSequential(new RunDrivetrain(), .25);
 				break;
 			case RobotMap.AutoModes.GEAR_MIDDLE:
+				Robot.sensors.setCVCamera(Sensors.Camera.FRONT);
 				SmartDashboard.putString("Auto mode", "Gear middle");
 				addSequential(new DriveToGear(false));
+				addSequential(new RunDrivetrain(), 0.25);
 				break;
 			case RobotMap.AutoModes.GEAR_RIGHT:
+				Robot.sensors.setCVCamera(Sensors.Camera.FRONT);
 				SmartDashboard.putString("Auto mode", "Gear right");
-				addSequential(new RunDrivetrain(), 1);
+				addSequential(new RunDrivetrain(), 2);
 				addSequential(new DriveToGear(true));
+				addSequential(new RunDrivetrain(), 0.25);
+				break;
+			default:
+				SmartDashboard.putString("Auto mode", "Cross baseline");
+				addSequential(new RunDrivetrain(), 2);
 				break;
 		}
 	}
