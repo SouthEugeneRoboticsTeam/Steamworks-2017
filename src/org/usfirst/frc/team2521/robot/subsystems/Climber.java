@@ -16,7 +16,7 @@ public class Climber extends Subsystem {
 	private static final double CLIMBER_SPEED = 1;
 	
 	public Climber() {
-		master = new CANTalon(RobotMap.CLIMBER_WHEEL_MASTER_MOTOR);
+		master = new CANTalon(RobotMap.CLIMBER_MOTOR);
 		
 		master.changeControlMode(TalonControlMode.PercentVbus);
 		master.enableBrakeMode(true);
