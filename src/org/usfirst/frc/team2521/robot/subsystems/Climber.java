@@ -1,11 +1,10 @@
 package org.usfirst.frc.team2521.robot.subsystems;
 
+import org.usfirst.frc.team2521.robot.RobotMap;
+import org.usfirst.frc.team2521.robot.commands.base.RunClimber;
+
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
-
-import org.usfirst.frc.team2521.robot.OI;
-import org.usfirst.frc.team2521.robot.RobotMap;
-import org.usfirst.frc.team2521.robot.commands.base.TeleopClimber;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -14,29 +13,30 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Climber extends Subsystem {
 	private CANTalon master;
-	private CANTalon slave;
 
+	private static final double CLIMBER_SPEED = 1;
+	
 	public Climber() {
 		master = new CANTalon(RobotMap.CLIMBER_WHEEL_MASTER_MOTOR);
-		slave = new CANTalon(RobotMap.CLIMBER_WHEEL_SLAVE_MOTOR);
+		
+		master.changeControlMode(TalonControlMode.PercentVbus);
+		master.enableBrakeMode(true);
 	}
 
 	/**
-	 * Enables operation of the climber.
+	 * Runs the climber at a constant speed.
 	 */
-	public void teleoperatedClimb() {
-		double speed = -OI.getInstance().getSecondaryStick().getY();
-
-		if (speed > 0) {
-			master.changeControlMode(TalonControlMode.PercentVbus);
-			slave.changeControlMode(TalonControlMode.Follower);
-			master.set(speed);
-			slave.set(RobotMap.CLIMBER_WHEEL_MASTER_MOTOR);
-		}
+	public void runClimber() {
+		master.set(CLIMBER_SPEED);
+	}
+	
+	/**
+	 * Stops the climber.
+	 */
+	public void stopClimber() {
+		master.set(0);
 	}
 
 	@Override
-	public void initDefaultCommand() {
-		setDefaultCommand(new TeleopClimber());
-	}
+	public void initDefaultCommand() {}
 }
