@@ -17,7 +17,7 @@ public class Auto extends CommandGroup {
 			case RobotMap.AutoModes.NOTHING:
 				SmartDashboard.putString("Auto mode", "Nothing");
 				break;
-			case RobotMap.AutoModes.CROSS_BASE_LINE:
+			case RobotMap.AutoModes.CROSS_BASELINE:
 				SmartDashboard.putString("Auto mode", "Cross baseline");
 				addSequential(new RunDrivetrain(), 2);
 				break;
