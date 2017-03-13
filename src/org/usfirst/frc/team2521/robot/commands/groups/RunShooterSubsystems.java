@@ -22,6 +22,11 @@ public class RunShooterSubsystems extends CommandGroup {
 			private boolean upToSpeed = false;
 
 			@Override
+			protected void initialize() {
+				upToSpeed = false;
+			}
+
+			@Override
 			protected void execute() {
 				if (upToSpeed || Robot.shooter.getEncVelocity() < speedCutoff) {
 					upToSpeed = true;
