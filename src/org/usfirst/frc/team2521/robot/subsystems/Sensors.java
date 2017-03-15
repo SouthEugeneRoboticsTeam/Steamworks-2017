@@ -7,7 +7,6 @@ import org.usfirst.frc.team2521.robot.RobotMap;
 import org.usfirst.frc.team2521.robot.commands.base.DisplaySensors;
 
 import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
@@ -40,8 +39,6 @@ public class Sensors extends Subsystem {
 
 		ahrs = new AHRS(SPI.Port.kMXP);
 		ahrs.reset();
-
-		setCVThresholds();
 	}
 
 	/**
@@ -50,7 +47,7 @@ public class Sensors extends Subsystem {
 	public void display() {
 		SmartDashboard.putNumber("Rear ultra distance", getRearUltraInches());
 		SmartDashboard.putBoolean("Blob found", getBlobFound());
-		
+
 		if (Robot.DEBUG) {
 			SmartDashboard.putNumber("CV offset", getCVOffsetX());
 		}
@@ -117,39 +114,16 @@ public class Sensors extends Subsystem {
 	 * @param cameraType desired camera to use
 	 */
 	public void setCVCamera(Camera cameraType) {
+		/*
 		table.putBoolean("front_camera", cameraType == Camera.FRONT);
-	}
-
-	/**
-	 * Sets the minnow board's blob thresholds based on SmartDashboard
-	 * preferences.
-	 */
-	private void setCVThresholds() {
-		double frontLowerRed = Preferences.getInstance().getDouble("front_lower_red", 0);
-		double frontLowerGreen = Preferences.getInstance().getDouble("front_lower_green", 55);
-		double frontLowerBlue = Preferences.getInstance().getDouble("front_lower_blue", 0);
-		double frontUpperRed = Preferences.getInstance().getDouble("front_upper_red", 50);
-		double frontUpperGreen = Preferences.getInstance().getDouble("front_upper_green", 175);
-		double frontUpperBlue = Preferences.getInstance().getDouble("front_upper_blue", 50);
-		double rearLowerRed = Preferences.getInstance().getDouble("rear_lower_red", 0);
-		double rearLowerGreen = Preferences.getInstance().getDouble("rear_lower_green", 55);
-		double rearLowerBlue = Preferences.getInstance().getDouble("rear_lower_blue", 0);
-		double rearUpperRed = Preferences.getInstance().getDouble("rear_upper_red", 50);
-		double rearUpperGreen = Preferences.getInstance().getDouble("rear_upper_green", 175);
-		double rearUpperBlue = Preferences.getInstance().getDouble("rear_upper_blue", 50);
-
-		table.putNumber("front_lower_red", frontLowerRed);
-		table.putNumber("front_lower_green", frontLowerGreen);
-		table.putNumber("front_lower_blue", frontLowerBlue);
-		table.putNumber("front_upper_red", frontUpperRed);
-		table.putNumber("front_upper_green", frontUpperGreen);
-		table.putNumber("front_upper_blue", frontUpperBlue);
-		table.putNumber("rear_lower_red", rearLowerRed);
-		table.putNumber("rear_lower_green", rearLowerGreen);
-		table.putNumber("rear_lower_blue", rearLowerBlue);
-		table.putNumber("rear_upper_red", rearUpperRed);
-		table.putNumber("rear_upper_green", rearUpperGreen);
-		table.putNumber("rear_upper_blue", rearUpperBlue);
+		if (Robot.DEBUG) {
+			SmartDashboard.putBoolean("Camera is front", cameraType == Camera.FRONT);
+		}*/
+		
+		table.putBoolean("front_camera", true);
+		if (Robot.DEBUG) {
+			SmartDashboard.putBoolean("Camera is front", true);
+		}
 	}
 
 	/**
@@ -175,4 +149,3 @@ public class Sensors extends Subsystem {
 		FRONT, REAR
 	}
 }
-

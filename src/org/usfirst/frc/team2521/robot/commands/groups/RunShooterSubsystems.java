@@ -19,13 +19,12 @@ public class RunShooterSubsystems extends CommandGroup {
 		addParallel(new RunAgitator(true));
 		addParallel(new RunShooter());
 		addSequential(new RunFeeder() {
-			private boolean upToSpeed = false;
-
 			@Override
 			protected void execute() {
-				if (upToSpeed || Robot.shooter.getEncVelocity() < speedCutoff) {
-					upToSpeed = true;
+				if (Robot.shooter.getEncVelocity() < speedCutoff) {
 					Robot.feeder.setMotor(-Feeder.FEEDER_SPEED);
+				} else {
+					Robot.feeder.setMotor(0);
 				}
 			}
 		});

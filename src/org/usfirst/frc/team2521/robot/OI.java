@@ -2,6 +2,7 @@ package org.usfirst.frc.team2521.robot;
 
 import org.usfirst.frc.team2521.robot.commands.automation.DriveToGear;
 import org.usfirst.frc.team2521.robot.commands.base.RunAgitator;
+import org.usfirst.frc.team2521.robot.commands.base.RunClimber;
 import org.usfirst.frc.team2521.robot.commands.groups.AlignShooter;
 import org.usfirst.frc.team2521.robot.commands.groups.RunShooterSubsystems;
 
@@ -27,6 +28,7 @@ public class OI {
 	private JoystickButton driveToGearRightButton;
 	private JoystickButton runShooterSubsystemsButton;
 	private JoystickButton runAgitatorBackwardButton;
+	private JoystickButton runClimberButton;
 
 	private OI() {
 		left = new Joystick(RobotMap.LEFT_STICK_PORT);
@@ -38,7 +40,8 @@ public class OI {
 		alignShooterButton = new JoystickButton(left, RobotMap.ALIGN_SHOOTER_BUTTON_PORT);
 		driveToGearLeftButton = new JoystickButton(left, RobotMap.DRIVE_TO_GEAR_LEFT_PORT);
 		driveToGearRightButton = new JoystickButton(left, RobotMap.DRIVE_TO_GEAR_RIGHT_PORT);
-
+		runClimberButton = new JoystickButton(left, RobotMap.RUN_CLIMBER_PORT);
+		
 		// Secondary joystick buttons
 		runShooterSubsystemsButton = new JoystickButton(secondary,
 														RobotMap.RUN_SHOOTER_SUBSYSTEMS_BUTTON_PORT);
@@ -89,6 +92,7 @@ public class OI {
 		driveToGearRightButton.toggleWhenActive(new DriveToGear(false));
 		runShooterSubsystemsButton.toggleWhenActive(new RunShooterSubsystems());
 		runAgitatorBackwardButton.toggleWhenActive(new RunAgitator(false));
+		runClimberButton.whileHeld(new RunClimber());
 	}
 
 	private static final class Holder {

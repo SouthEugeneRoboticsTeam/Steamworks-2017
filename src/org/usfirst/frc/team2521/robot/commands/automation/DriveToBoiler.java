@@ -46,8 +46,6 @@ public class DriveToBoiler extends DriveToBlob {
 			} else {
 				Robot.drivetrain.setRight(-output);
 			}
-		} else {
-			setCurrentBlobFoundMotorSpeed();
 		}
 	}
 
