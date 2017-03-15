@@ -18,22 +18,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Sensors extends Subsystem {
 	private AnalogInput rearUltra;
-	private AnalogInput leftLidar;
-	private AnalogInput rightLidar;
 
 	private NetworkTable table;
 
 	private AHRS ahrs;
 
-	/** Lidar distance equation: `distance = m/lidar^2 + b` */
-	private double MED_LIDAR_M = 1.964 * Math.pow(10, 7);
-	private double MED_LIDAR_B = -1.045;
-
 	public Sensors() {
 		rearUltra = new AnalogInput(RobotMap.REAR_ULTRA_PORT);
-
-		leftLidar = new AnalogInput(RobotMap.LEFT_LIDAR_PORT);
-		rightLidar = new AnalogInput(RobotMap.RIGHT_LIDAR_PORT);
 
 		table = NetworkTable.getTable("Vision");
 
@@ -58,34 +49,6 @@ public class Sensors extends Subsystem {
 	 */
 	public double getRearUltraInches() {
 		return rearUltra.getVoltage() * 1000 / 9.8;
-	}
-
-	/**
-	 * @return the raw value from the side lidar
-	 */
-	private double getLeftLidarRaw() {
-		return leftLidar.getValue();
-	}
-
-	/**
-	 * @return the distance in inches from the side lidar
-	 */
-	public double getLeftLidarInches() {
-		return MED_LIDAR_M / Math.pow(getLeftLidarRaw(), 2) + MED_LIDAR_B;
-	}
-
-	/**
-	 * @return the raw value from the side lidar
-	 */
-	private double getRightLidarRaw() {
-		return rightLidar.getValue();
-	}
-
-	/**
-	 * @return the distance in inches from the side lidar
-	 */
-	public double getRightLidarInches() {
-		return MED_LIDAR_M / Math.pow(getRightLidarRaw(), 2) + MED_LIDAR_B;
 	}
 
 	/**
@@ -114,16 +77,7 @@ public class Sensors extends Subsystem {
 	 * @param cameraType desired camera to use
 	 */
 	public void setCVCamera(Camera cameraType) {
-		/*
 		table.putBoolean("front_camera", cameraType == Camera.FRONT);
-		if (Robot.DEBUG) {
-			SmartDashboard.putBoolean("Camera is front", cameraType == Camera.FRONT);
-		}*/
-		
-		table.putBoolean("front_camera", true);
-		if (Robot.DEBUG) {
-			SmartDashboard.putBoolean("Camera is front", true);
-		}
 	}
 
 	/**
@@ -131,13 +85,6 @@ public class Sensors extends Subsystem {
 	 */
 	public double getNavxAngle() {
 		return ahrs.getYaw();
-	}
-
-	/**
-	 * Resets the gyro for yaw, setting the navX angle to 0
-	 */
-	public void resetNavxAngle() {
-		ahrs.reset();
 	}
 
 	@Override

@@ -36,10 +36,6 @@ public class Robot extends IterativeRobot {
 		shooter = new Shooter();
 		feeder = new Feeder();
 		agitator = new Agitator();
-
-		auto = new Auto();
-
-		Robot.sensors.setCVCamera(Sensors.Camera.FRONT);
 	}
 
 	@Override
@@ -49,7 +45,6 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
-		Robot.sensors.setCVCamera(Sensors.Camera.FRONT);
 		auto = new Auto();
 		auto.start();
 	}

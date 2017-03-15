@@ -16,11 +16,10 @@ public class DriveToBoiler extends DriveToBlob {
 	private static final double DISTANCE_ERROR_THRESHOLD = 3;
 
 	public DriveToBoiler() {
-		super(P, I, D, false);
+		super(P, I, D);
 	}
 
-	@Override
-	protected double getSlowSpeed() {
+	private double getSlowSpeed() {
 		return P2 * (DISTANCE_SETPOINT - Robot.sensors.getRearUltraInches());
 	}
 
