@@ -1,5 +1,8 @@
 package org.usfirst.frc.team2521.robot.commands.automation.camera;
 
+import com.sun.istack.internal.NotNull;
+import com.sun.istack.internal.Nullable;
+
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
@@ -25,14 +28,19 @@ public final class Looper implements Runnable {
 
 	private static final int INPUT_STREAM_PORT = 1185;
 	private static final int CV_STREAM_PORT = 1186;
+	private static final int CAMERA_ID0 = 0;
 
+	private static final int WIDTH = 640;
+	private static final int HEIGHT = 480;
+	private static final int CENTER_X = WIDTH / 2;
+	private static final int FPS = 30;
+
+	private static final int MIN_AREA = 50;
+	private static final int MAX_AREA = 10000;
+	private final List<Rect> mLatestRects = new ArrayList<>();
 	private boolean mIsStarted;
-
 	private CvSink mImageSink;
 	private CvSource mImageSource;
-
-	private Rect mLatestRect;
-
 	private Thread mThread;
 
 	private Looper() {
@@ -55,22 +63,34 @@ public final class Looper implements Runnable {
 		mThread.interrupt();
 	}
 
+	public boolean hasFoundBlob() {
+		Pair<Rect, Rect> blobs = getLargestBlobs();
+		if (blobs == null) return false;
+		double largestArea = blobs.first.area();
+		double secondLargestArea = blobs.second.area();
+		return isAreaInBounds(largestArea) && isAreaInBounds(secondLargestArea);
+	}
+
+	public double getCVOffsetX() {
+		if (!hasFoundBlob()) {
+			throw new IllegalStateException("Cannot get CV offset if no blobs have been found");
+		}
+		return getCenterOfBlobsX(getLargestBlobs()) - CENTER_X;
+	}
+
 	private void initialize() {
 		mIsStarted = true;
 
 		MjpegServer inputStream = new MjpegServer("MJPEG Server", INPUT_STREAM_PORT);
 
-		UsbCamera camera = setUsbCamera(0, inputStream);
-		camera.setResolution(640, 480);
+		UsbCamera camera = setUsbCamera(CAMERA_ID0, inputStream);
+		camera.setResolution(WIDTH, HEIGHT);
 
 		mImageSink = new CvSink("CV Image Grabber");
 		mImageSink.setSource(camera);
 
-		mImageSource = new CvSource("CV Image Source",
-									VideoMode.PixelFormat.kMJPEG,
-									640,
-									480,
-									30);
+		mImageSource = new CvSource(
+				"CV Image Source", VideoMode.PixelFormat.kMJPEG, WIDTH, HEIGHT, FPS);
 		MjpegServer cvStream = new MjpegServer("CV Image Stream", CV_STREAM_PORT);
 		cvStream.setSource(mImageSource);
 	}
@@ -107,18 +127,23 @@ public final class Looper implements Runnable {
 							 Imgproc.RETR_TREE,
 							 Imgproc.CHAIN_APPROX_SIMPLE);
 
-		List<Rect> rects = new ArrayList<>();
+		List<Rect> rects = new ArrayList<>(contours.size());
 		for (MatOfPoint point : contours) {
 			rects.add(Imgproc.boundingRect(point));
 		}
 		rects.sort(Comparator.comparingDouble(Rect::area));
 
-		if (!rects.isEmpty()) {
-			mLatestRect = rects.get(rects.size() - 1);
+		synchronized (mLatestRects) {
+			mLatestRects.clear();
+			mLatestRects.addAll(rects);
 
 			if (Robot.DEBUG) {
-				Imgproc.rectangle(inputImage, mLatestRect.tl(), mLatestRect.br(), upperb);
-				mImageSource.putFrame(inputImage);
+				Pair<Rect, Rect> blobs = getLargestBlobs();
+				if (blobs != null) {
+					Rect largest = blobs.first;
+					Imgproc.rectangle(inputImage, largest.tl(), largest.br(), upperb);
+					mImageSource.putFrame(inputImage);
+				}
 			}
 		}
 
@@ -137,9 +162,24 @@ public final class Looper implements Runnable {
 		}
 	}
 
-	public boolean getBlobFound() {
-		if (mLatestRect == null) return false;
-		double area = mLatestRect.area();
-		return area >= 50 && area <= 10000;
+	private boolean isAreaInBounds(double area) {
+		return area >= MIN_AREA && area <= MAX_AREA;
+	}
+
+	private int getCenterOfBlobsX(@NotNull Pair<Rect, Rect> blobs) {
+		return (getCenterX(blobs.first) + getCenterX(blobs.second)) / 2;
+	}
+
+	private int getCenterX(Rect blob) {
+		return blob.x + (blob.width / 2);
+	}
+
+	@Nullable
+	private Pair<Rect, Rect> getLargestBlobs() {
+		synchronized (mLatestRects) {
+			if (mLatestRects.size() < 2) return null;
+			else return Pair.create(mLatestRects.get(mLatestRects.size() - 1),
+									mLatestRects.get(mLatestRects.size() - 2));
+		}
 	}
 }

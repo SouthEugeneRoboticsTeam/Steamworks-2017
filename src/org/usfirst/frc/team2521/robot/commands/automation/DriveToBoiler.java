@@ -35,7 +35,7 @@ public class DriveToBoiler extends DriveToBlob {
 
 	@Override
 	protected final void usePIDOutput(double output) {
-		if (Robot.sensors.getBlobFound()) {
+		if (Robot.sensors.hasFoundBlob()) {
 			// If we are already oriented, drive straight
 			if (oriented) {
 				Robot.drivetrain.setLeft(getSlowSpeed());

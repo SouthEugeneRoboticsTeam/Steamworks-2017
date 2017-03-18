@@ -30,7 +30,7 @@ public class DriveToGear extends DriveToBlob {
 
 	@Override
 	protected boolean isFinished() {
-		return !Robot.sensors.getBlobFound();
+		return !Robot.sensors.hasFoundBlob();
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class DriveToGear extends DriveToBlob {
 			SmartDashboard.putNumber("Drive to gear output", output);
 			SmartDashboard.putBoolean("Has found blob", hasFoundBlob);
 		}
-		if (Robot.sensors.getBlobFound()) {
+		if (Robot.sensors.hasFoundBlob()) {
 			hasFoundBlob = true;
 			// If we are already oriented, drive straight
 			if (oriented) {

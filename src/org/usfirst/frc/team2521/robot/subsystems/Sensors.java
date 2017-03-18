@@ -10,7 +10,6 @@ import org.usfirst.frc.team2521.robot.commands.base.DisplaySensors;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -18,16 +17,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * methods to show sensor data on the SmartDashboard.
  */
 public class Sensors extends Subsystem {
+	public static final double DEFAULT_CV_OFFSET = 0;
+
 	private AnalogInput rearUltra;
-
-	private NetworkTable table;
-
 	private AHRS ahrs;
 
 	public Sensors() {
 		rearUltra = new AnalogInput(RobotMap.REAR_ULTRA_PORT);
-
-		table = NetworkTable.getTable("Vision");
 
 		ahrs = new AHRS(SPI.Port.kMXP);
 		ahrs.reset();
@@ -38,10 +34,10 @@ public class Sensors extends Subsystem {
 	 */
 	public void display() {
 		SmartDashboard.putNumber("Rear ultra distance", getRearUltraInches());
-		SmartDashboard.putBoolean("Blob found", getBlobFound());
+		SmartDashboard.putBoolean("Blob found", hasFoundBlob());
 
 		if (Robot.DEBUG) {
-			SmartDashboard.putNumber("CV offset", getCVOffsetX());
+			if (hasFoundBlob()) SmartDashboard.putNumber("CV offset", getCVOffsetX());
 		}
 	}
 
@@ -54,21 +50,21 @@ public class Sensors extends Subsystem {
 
 	/**
 	 * Returns the target's offset (in pixels) from the center of the screen on the X-axis. This
-	 * value is only updated if getBlobFound() is `true`.
+	 * value is only updated if hasFoundBlob() is `true`.
 	 *
 	 * @return the target's offset (in pixels) from the center of the screen
-	 * @see Sensors#getBlobFound()
+	 * @see Sensors#hasFoundBlob()
 	 */
 	public double getCVOffsetX() {
-		return table.getNumber("offset_x", 0.0);
+		return Looper.getInstance().getCVOffsetX();
 	}
 
 	/**
 	 * @return whether a blob is currently being tracked in computer vision
 	 * @see Sensors#getCVOffsetX()
 	 */
-	public boolean getBlobFound() {
-		return Looper.getInstance().getBlobFound();
+	public boolean hasFoundBlob() {
+		return Looper.getInstance().hasFoundBlob();
 	}
 
 	/**
@@ -78,7 +74,7 @@ public class Sensors extends Subsystem {
 	 * @param cameraType desired camera to use
 	 */
 	public void setCVCamera(Camera cameraType) {
-		table.putBoolean("front_camera", cameraType == Camera.FRONT);
+		// TODO
 	}
 
 	/**

@@ -27,12 +27,12 @@ public class TurnToBoiler extends PIDCommand {
 
 	@Override
 	protected double returnPIDInput() {
-		return Robot.sensors.getCVOffsetX();
+		return Robot.sensors.hasFoundBlob() ? Robot.sensors.getCVOffsetX() : Sensors.DEFAULT_CV_OFFSET;
 	}
 
 	@Override
 	protected void usePIDOutput(double output) {
-		if (Robot.sensors.getBlobFound()) {
+		if (Robot.sensors.hasFoundBlob()) {
 			Robot.drivetrain.setLeft(-output);
 			Robot.drivetrain.setRight(output);
 		} else {
