@@ -1,8 +1,5 @@
 package org.usfirst.frc.team2521.robot.commands.automation.camera;
 
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
-
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
@@ -166,7 +163,7 @@ public final class Looper implements Runnable {
 		return area >= MIN_AREA && area <= MAX_AREA;
 	}
 
-	private int getCenterOfBlobsX(@NotNull Pair<Rect, Rect> blobs) {
+	private int getCenterOfBlobsX(@NonNull Pair<Rect, Rect> blobs) {
 		return (getCenterX(blobs.first) + getCenterX(blobs.second)) / 2;
 	}
 
