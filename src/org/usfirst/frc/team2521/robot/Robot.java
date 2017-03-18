@@ -1,6 +1,6 @@
 package org.usfirst.frc.team2521.robot;
 
-import org.usfirst.frc.team2521.robot.commands.automation.Test;
+import org.usfirst.frc.team2521.robot.commands.automation.camera.CameraLooper;
 import org.usfirst.frc.team2521.robot.commands.groups.Auto;
 import org.usfirst.frc.team2521.robot.subsystems.Agitator;
 import org.usfirst.frc.team2521.robot.subsystems.Climber;
@@ -59,7 +59,7 @@ public class Robot extends IterativeRobot {
 	public void teleopInit() {
 		if (auto != null) auto.cancel();
 
-		new Test().start();
+		new CameraLooper().start();
 	}
 
 	@Override

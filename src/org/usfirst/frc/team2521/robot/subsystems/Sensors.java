@@ -4,6 +4,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 import org.usfirst.frc.team2521.robot.Robot;
 import org.usfirst.frc.team2521.robot.RobotMap;
+import org.usfirst.frc.team2521.robot.commands.automation.camera.Looper;
 import org.usfirst.frc.team2521.robot.commands.base.DisplaySensors;
 
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -67,7 +68,7 @@ public class Sensors extends Subsystem {
 	 * @see Sensors#getCVOffsetX()
 	 */
 	public boolean getBlobFound() {
-		return table.getBoolean("blob_found", false);
+		return Looper.getInstance().getBlobFound();
 	}
 
 	/**
