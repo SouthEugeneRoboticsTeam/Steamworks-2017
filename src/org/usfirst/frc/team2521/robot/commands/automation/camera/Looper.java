@@ -108,13 +108,13 @@ public final class Looper implements Runnable {
 		Preferences prefs = Preferences.getInstance();
 
 		Mat greenMask = new Mat();
-		Scalar lowerBounds = new Scalar(prefs.getInt("lower_b", 0),
+		Scalar lowerThreashold = new Scalar(prefs.getInt("lower_b", 0),
 										prefs.getInt("lower_g", 0),
 										prefs.getInt("lower_r", 0));
-		Scalar upperBounds = new Scalar(prefs.getInt("upper_b", 255),
+		Scalar upperThreashold = new Scalar(prefs.getInt("upper_b", 255),
 										prefs.getInt("upper_g", 255),
 										prefs.getInt("upper_r", 255));
-		Core.inRange(inputImage, lowerBounds, upperBounds, greenMask);
+		Core.inRange(inputImage, lowerThreashold, upperThreashold, greenMask);
 		Mat hierarchy = new Mat();
 		Imgproc.findContours(greenMask,
 							 contours,
@@ -136,7 +136,7 @@ public final class Looper implements Runnable {
 				Pair<Rect, Rect> blobs = getLargestBlobs();
 				if (blobs != null) {
 					Rect largest = blobs.first;
-					Imgproc.rectangle(inputImage, largest.tl(), largest.br(), upperBounds);
+					Imgproc.rectangle(inputImage, largest.tl(), largest.br(), upperThreashold);
 					mImageSource.putFrame(inputImage);
 				}
 			}
@@ -161,7 +161,7 @@ public final class Looper implements Runnable {
 		return area >= MIN_AREA && area <= MAX_AREA;
 	}
 
-	private int getCenterOfBlobsX(Pair<Rect, Rect> blobs) {
+	private int getCenterOfBlobsX(@NonNull Pair<Rect, Rect> blobs) {
 		return (getCenterX(blobs.first) + getCenterX(blobs.second)) / 2;
 	}
 
@@ -169,6 +169,7 @@ public final class Looper implements Runnable {
 		return blob.x + (blob.width / 2);
 	}
 
+	@Nullable
 	private Pair<Rect, Rect> getLargestBlobs() {
 		synchronized (mLatestRects) {
 			if (mLatestRects.size() < 2) return null;
