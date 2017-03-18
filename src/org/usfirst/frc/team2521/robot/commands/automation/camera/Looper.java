@@ -161,7 +161,7 @@ public final class Looper implements Runnable {
 		return area >= MIN_AREA && area <= MAX_AREA;
 	}
 
-	private int getCenterOfBlobsX(@NonNull Pair<Rect, Rect> blobs) {
+	private int getCenterOfBlobsX(Pair<Rect, Rect> blobs) {
 		return (getCenterX(blobs.first) + getCenterX(blobs.second)) / 2;
 	}
 
@@ -169,7 +169,6 @@ public final class Looper implements Runnable {
 		return blob.x + (blob.width / 2);
 	}
 
-	@Nullable
 	private Pair<Rect, Rect> getLargestBlobs() {
 		synchronized (mLatestRects) {
 			if (mLatestRects.size() < 2) return null;
