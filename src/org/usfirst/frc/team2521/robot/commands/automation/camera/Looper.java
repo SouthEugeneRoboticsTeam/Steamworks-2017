@@ -108,13 +108,13 @@ public final class Looper implements Runnable {
 		Preferences prefs = Preferences.getInstance();
 
 		Mat greenMask = new Mat();
-		Scalar lowerThreashold = new Scalar(prefs.getInt("lower_b", 0),
+		Scalar lowerThreshold = new Scalar(prefs.getInt("lower_b", 0),
 										prefs.getInt("lower_g", 0),
 										prefs.getInt("lower_r", 0));
-		Scalar upperThreashold = new Scalar(prefs.getInt("upper_b", 255),
+		Scalar upperThreshold = new Scalar(prefs.getInt("upper_b", 255),
 										prefs.getInt("upper_g", 255),
 										prefs.getInt("upper_r", 255));
-		Core.inRange(inputImage, lowerThreashold, upperThreashold, greenMask);
+		Core.inRange(inputImage, lowerThreshold, upperThreshold, greenMask);
 		Mat hierarchy = new Mat();
 		Imgproc.findContours(greenMask,
 							 contours,
@@ -136,7 +136,7 @@ public final class Looper implements Runnable {
 				Pair<Rect, Rect> blobs = getLargestBlobs();
 				if (blobs != null) {
 					Rect largest = blobs.first;
-					Imgproc.rectangle(inputImage, largest.tl(), largest.br(), upperThreashold);
+					Imgproc.rectangle(inputImage, largest.tl(), largest.br(), upperThreshold);
 					mImageSource.putFrame(inputImage);
 				}
 			}
