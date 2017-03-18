@@ -108,15 +108,13 @@ public final class Looper implements Runnable {
 		Preferences prefs = Preferences.getInstance();
 
 		Mat greenMask = new Mat();
-		Scalar upperb = new Scalar(prefs.getInt("upper_b", 254),
-								   prefs.getInt("upper_g", 254),
-								   prefs.getInt("upper_r", 254));
-		Core.inRange(inputImage,
-					 new Scalar(prefs.getInt("lower_b", 0),
-								prefs.getInt("lower_g", 0),
-								prefs.getInt("lower_r", 0)),
-					 upperb,
-					 greenMask);
+		Scalar lowerBounds = new Scalar(prefs.getInt("lower_b", 0),
+										prefs.getInt("lower_g", 0),
+										prefs.getInt("lower_r", 0));
+		Scalar upperBounds = new Scalar(prefs.getInt("upper_b", 255),
+										prefs.getInt("upper_g", 255),
+										prefs.getInt("upper_r", 255));
+		Core.inRange(inputImage, lowerBounds, upperBounds, greenMask);
 		Mat hierarchy = new Mat();
 		Imgproc.findContours(greenMask,
 							 contours,
@@ -138,7 +136,7 @@ public final class Looper implements Runnable {
 				Pair<Rect, Rect> blobs = getLargestBlobs();
 				if (blobs != null) {
 					Rect largest = blobs.first;
-					Imgproc.rectangle(inputImage, largest.tl(), largest.br(), upperb);
+					Imgproc.rectangle(inputImage, largest.tl(), largest.br(), upperBounds);
 					mImageSource.putFrame(inputImage);
 				}
 			}
