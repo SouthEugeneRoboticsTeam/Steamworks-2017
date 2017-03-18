@@ -32,6 +32,10 @@ public final class Looper implements Runnable {
 	private static final int CENTER_X = WIDTH / 2;
 	private static final int FPS = 30;
 
+	private static final int BRIGHTNESS = 7;
+	private static final int EXPOSURE = 0;
+	private static final int WHITE_BALANCE_TEMP = 4500;
+
 	private static final int MIN_AREA = 50;
 	private static final int MAX_AREA = 10000;
 	private final List<Rect> latestRects = new ArrayList<>();
@@ -51,6 +55,11 @@ public final class Looper implements Runnable {
 
 	private static UsbCamera setUsbCamera(int cameraId, MjpegServer server) {
 		UsbCamera camera = new UsbCamera("CoprocessorCamera", cameraId);
+
+		camera.setBrightness(BRIGHTNESS);
+		camera.setExposureManual(EXPOSURE);
+		camera.setWhiteBalanceManual(WHITE_BALANCE_TEMP);
+
 		server.setSource(camera);
 
 		return camera;
