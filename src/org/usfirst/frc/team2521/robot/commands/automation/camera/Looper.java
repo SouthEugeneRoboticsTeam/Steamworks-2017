@@ -30,8 +30,8 @@ public final class Looper implements Runnable {
 	private static final int WIDTH = 640;
 	private static final int HEIGHT = 480;
 	private static final int CENTER_X = WIDTH / 2;
-	private static final int FPS = 30;
 
+	private static final int FPS = 30;
 	private static final int BRIGHTNESS = 7;
 	private static final int EXPOSURE = 0;
 	private static final int WHITE_BALANCE_TEMP = 4500;
@@ -53,9 +53,10 @@ public final class Looper implements Runnable {
 		return INSTANCE;
 	}
 
-	private static UsbCamera setUsbCamera(int cameraId, MjpegServer server) {
+	private static UsbCamera getUsbCamera(int cameraId, MjpegServer server) {
 		UsbCamera camera = new UsbCamera("CoprocessorCamera", cameraId);
 
+		camera.setResolution(WIDTH, HEIGHT);
 		camera.setBrightness(BRIGHTNESS);
 		camera.setExposureManual(EXPOSURE);
 		camera.setWhiteBalanceManual(WHITE_BALANCE_TEMP);
@@ -87,13 +88,9 @@ public final class Looper implements Runnable {
 	private void initialize() {
 		isStarted = true;
 
-		MjpegServer inputStream = new MjpegServer("MJPEG Server", INPUT_STREAM_PORT);
-
-		UsbCamera camera = setUsbCamera(CAMERA_ID, inputStream);
-		camera.setResolution(WIDTH, HEIGHT);
-
+		MjpegServer inputStream = new MjpegServer("MJPEG Server", INPUT_STREAM_PORT);		
 		imageSink = new CvSink("CV Image Grabber");
-		imageSink.setSource(camera);
+		imageSink.setSource(getUsbCamera(CAMERA_ID, inputStream));
 
 		imageSource = new CvSource(
 				"CV Image Source", VideoMode.PixelFormat.kMJPEG, WIDTH, HEIGHT, FPS);
