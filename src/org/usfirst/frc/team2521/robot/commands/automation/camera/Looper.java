@@ -25,7 +25,7 @@ public final class Looper implements Runnable {
 
 	private static final int INPUT_STREAM_PORT = 1185;
 	private static final int CV_STREAM_PORT = 1186;
-	private static final int CAMERA_ID0 = 0;
+	private static final int CAMERA_ID = 0;
 
 	private static final int WIDTH = 640;
 	private static final int HEIGHT = 480;
@@ -34,15 +34,15 @@ public final class Looper implements Runnable {
 
 	private static final int MIN_AREA = 50;
 	private static final int MAX_AREA = 10000;
-	private final List<Rect> mLatestRects = new ArrayList<>();
-	private boolean mIsStarted;
-	private CvSink mImageSink;
-	private CvSource mImageSource;
-	private Thread mThread;
+	private final List<Rect> latestRects = new ArrayList<>();
+	private boolean isStarted;
+	private CvSink imageSink;
+	private CvSource imageSource;
+	private Thread thread;
 
 	private Looper() {
-		mThread = new Thread(this);
-		mThread.start();
+		thread = new Thread(this);
+		thread.start();
 	}
 
 	public static Looper getInstance() {
@@ -57,7 +57,7 @@ public final class Looper implements Runnable {
 	}
 
 	public void loop() {
-		mThread.interrupt();
+		thread.interrupt();
 	}
 
 	public boolean hasFoundBlob() {
@@ -76,28 +76,28 @@ public final class Looper implements Runnable {
 	}
 
 	private void initialize() {
-		mIsStarted = true;
+		isStarted = true;
 
 		MjpegServer inputStream = new MjpegServer("MJPEG Server", INPUT_STREAM_PORT);
 
-		UsbCamera camera = setUsbCamera(CAMERA_ID0, inputStream);
+		UsbCamera camera = setUsbCamera(CAMERA_ID, inputStream);
 		camera.setResolution(WIDTH, HEIGHT);
 
-		mImageSink = new CvSink("CV Image Grabber");
-		mImageSink.setSource(camera);
+		imageSink = new CvSink("CV Image Grabber");
+		imageSink.setSource(camera);
 
-		mImageSource = new CvSource(
+		imageSource = new CvSource(
 				"CV Image Source", VideoMode.PixelFormat.kMJPEG, WIDTH, HEIGHT, FPS);
 		MjpegServer cvStream = new MjpegServer("CV Image Stream", CV_STREAM_PORT);
-		cvStream.setSource(mImageSource);
+		cvStream.setSource(imageSource);
 	}
 
 	@Override
 	public void run() {
-		if (!mIsStarted) initialize();
+		if (!isStarted) initialize();
 
 		Mat inputImage = new Mat();
-		long frameTime = mImageSink.grabFrame(inputImage);
+		long frameTime = imageSink.grabFrame(inputImage);
 		if (frameTime == 0) {
 			waitForInterrupt();
 			return;
@@ -128,16 +128,16 @@ public final class Looper implements Runnable {
 		}
 		rects.sort(Comparator.comparingDouble(Rect::area));
 
-		synchronized (mLatestRects) {
-			mLatestRects.clear();
-			mLatestRects.addAll(rects);
+		synchronized (latestRects) {
+			latestRects.clear();
+			latestRects.addAll(rects);
 
 			if (Robot.DEBUG) {
 				Pair<Rect, Rect> blobs = getLargestBlobs();
 				if (blobs != null) {
 					Rect largest = blobs.first;
 					Imgproc.rectangle(inputImage, largest.tl(), largest.br(), upperThreshold);
-					mImageSource.putFrame(inputImage);
+					imageSource.putFrame(inputImage);
 				}
 			}
 		}
@@ -153,7 +153,7 @@ public final class Looper implements Runnable {
 		try {
 			Thread.sleep(TimeUnit.HOURS.toMillis(1));
 		} catch (InterruptedException e) {
-			mThread.run();
+			thread.run();
 		}
 	}
 
@@ -171,10 +171,10 @@ public final class Looper implements Runnable {
 
 	@Nullable
 	private Pair<Rect, Rect> getLargestBlobs() {
-		synchronized (mLatestRects) {
-			if (mLatestRects.size() < 2) return null;
-			else return Pair.create(mLatestRects.get(mLatestRects.size() - 1),
-									mLatestRects.get(mLatestRects.size() - 2));
+		synchronized (latestRects) {
+			if (latestRects.size() < 2) return null;
+			else return Pair.create(latestRects.get(latestRects.size() - 1),
+									latestRects.get(latestRects.size() - 2));
 		}
 	}
 }
