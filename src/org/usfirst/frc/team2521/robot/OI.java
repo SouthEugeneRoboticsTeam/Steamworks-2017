@@ -32,7 +32,6 @@ public class OI {
 	private OI() {
 		left = new Joystick(RobotMap.LEFT_STICK_PORT);
 		right = new Joystick(RobotMap.RIGHT_STICK_PORT);
-		Joystick secondary = new Joystick(RobotMap.SECONDARY_STICK_PORT);
 		custom = new Joystick(RobotMap.CUSTOM_STICK_PORT);
 
 		// Right joystick buttons
@@ -42,6 +41,7 @@ public class OI {
 		runClimberButton = new JoystickButton(left, RobotMap.RUN_CLIMBER_PORT);
 
 		// Secondary joystick buttons
+		Joystick secondary = new Joystick(RobotMap.SECONDARY_STICK_PORT);
 		runShooterSubsystemsButton = new JoystickButton(secondary,
 														RobotMap.RUN_SHOOTER_SUBSYSTEMS_BUTTON_PORT);
 		runAgitatorBackwardButton = new JoystickButton(secondary,
