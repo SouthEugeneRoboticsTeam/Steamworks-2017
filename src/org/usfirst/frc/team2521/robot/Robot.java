@@ -58,8 +58,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopInit() {
 		if (auto != null) auto.cancel();
-
-		new CameraLooper().start();
 	}
 
 	@Override
