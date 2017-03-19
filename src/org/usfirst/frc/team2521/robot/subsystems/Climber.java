@@ -1,8 +1,6 @@
 package org.usfirst.frc.team2521.robot.subsystems;
 
-import org.usfirst.frc.team2521.robot.OI;
 import org.usfirst.frc.team2521.robot.RobotMap;
-import org.usfirst.frc.team2521.robot.commands.base.RunClimber;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
@@ -14,24 +12,21 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Climber extends Subsystem {
 	private CANTalon master;
-	private CANTalon slave;
 
 	private static final double CLIMBER_SPEED = 1;
 	
 	public Climber() {
-		master = new CANTalon(RobotMap.CLIMBER_MASTER_MOTOR);
-		slave = new CANTalon(RobotMap.CLIMBER_SLAVE_MOTOR);
+		master = new CANTalon(RobotMap.CLIMBER_MOTOR);
 		
 		master.changeControlMode(TalonControlMode.PercentVbus);
-		slave.changeControlMode(TalonControlMode.Follower);
+		master.enableBrakeMode(true);
 	}
 
 	/**
 	 * Runs the climber at a constant speed.
 	 */
 	public void runClimber() {
-		master.set(OI.getInstance().getSecondaryStick().getY());
-		slave.set(RobotMap.CLIMBER_MASTER_MOTOR);
+		master.set(CLIMBER_SPEED);
 	}
 	
 	/**
@@ -42,7 +37,5 @@ public class Climber extends Subsystem {
 	}
 
 	@Override
-	public void initDefaultCommand() {
-		setDefaultCommand(new RunClimber());
-	}
+	public void initDefaultCommand() {}
 }
