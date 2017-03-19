@@ -24,7 +24,8 @@ public class RobotMap {
 	public static final int REAR_RIGHT_MOTOR = 11;
 	public static final int REAR_LEFT_MOTOR = 15;
 
-	public static final int CLIMBER_MOTOR = 16;
+	public static final int CLIMBER_MASTER_MOTOR = 16;
+	public static final int CLIMBER_SLAVE_MOTOR = 17;
 
 	public static final int AGITATOR_MOTOR = 19;
 
@@ -32,6 +33,8 @@ public class RobotMap {
 	public static final int FEEDER_MOTOR = 12;
 
 	public static final int REAR_ULTRA_PORT = 1;
+	public static final int LEFT_LIDAR_PORT = 0;
+	public static final int RIGHT_LIDAR_PORT = 2;
 
 	public final static class AutoModes {
 		public final static int NOTHING = 3;

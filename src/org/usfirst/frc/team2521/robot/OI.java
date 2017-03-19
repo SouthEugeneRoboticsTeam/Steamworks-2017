@@ -20,6 +20,7 @@ public class OI {
 
 	private final Joystick left;
 	private final Joystick right;
+	private final Joystick secondary;
 	private final Joystick custom;
 
 	private JoystickButton alignShooterButton;
@@ -32,6 +33,7 @@ public class OI {
 	private OI() {
 		left = new Joystick(RobotMap.LEFT_STICK_PORT);
 		right = new Joystick(RobotMap.RIGHT_STICK_PORT);
+		secondary = new Joystick(RobotMap.SECONDARY_STICK_PORT);
 		custom = new Joystick(RobotMap.CUSTOM_STICK_PORT);
 
 		// Right joystick buttons
@@ -39,9 +41,8 @@ public class OI {
 		driveToGearLeftButton = new JoystickButton(left, RobotMap.DRIVE_TO_GEAR_LEFT_PORT);
 		driveToGearRightButton = new JoystickButton(left, RobotMap.DRIVE_TO_GEAR_RIGHT_PORT);
 		runClimberButton = new JoystickButton(left, RobotMap.RUN_CLIMBER_PORT);
-
+		
 		// Secondary joystick buttons
-		Joystick secondary = new Joystick(RobotMap.SECONDARY_STICK_PORT);
 		runShooterSubsystemsButton = new JoystickButton(secondary,
 														RobotMap.RUN_SHOOTER_SUBSYSTEMS_BUTTON_PORT);
 		runAgitatorBackwardButton = new JoystickButton(secondary,
@@ -78,10 +79,17 @@ public class OI {
 		return right;
 	}
 
+	/**
+	 * @return the secondary joystick
+	 */
+	public Joystick getSecondaryStick() {
+		return secondary;
+	}
+
 	private void setButtonListeners() {
 		alignShooterButton.toggleWhenActive(new AlignShooter());
-		driveToGearLeftButton.toggleWhenActive(new DriveToGear());
-		driveToGearRightButton.toggleWhenActive(new DriveToGear());
+		driveToGearLeftButton.toggleWhenActive(new DriveToGear(true));
+		driveToGearRightButton.toggleWhenActive(new DriveToGear(false));
 		runShooterSubsystemsButton.toggleWhenActive(new RunShooterSubsystems());
 		runAgitatorBackwardButton.toggleWhenActive(new RunAgitator(false));
 		runClimberButton.whileHeld(new RunClimber());
