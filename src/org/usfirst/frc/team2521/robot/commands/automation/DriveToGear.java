@@ -15,12 +15,11 @@ public class DriveToGear extends DriveToBlob {
 	private static final double D = 0;
 	private boolean hasFoundBlob = false;
 
-	public DriveToGear(boolean onLeftSide) {
-		super(P, I, D, onLeftSide);
+	public DriveToGear() {
+		super(P, I, D);
 	}
 
-	@Override
-	protected double getSlowSpeed() {
+	private double getSlowSpeed() {
 		return Drivetrain.SLOW_SPEED;
 	}
 
@@ -31,12 +30,7 @@ public class DriveToGear extends DriveToBlob {
 
 	@Override
 	protected boolean isFinished() {
-		return !Robot.sensors.getBlobFound();
-	}
-
-	@Override
-	protected void end() {
-		Robot.sensors.setCVCamera(Sensors.Camera.REAR);
+		return !Robot.sensors.hasFoundBlob();
 	}
 
 	@Override
@@ -45,7 +39,7 @@ public class DriveToGear extends DriveToBlob {
 			SmartDashboard.putNumber("Drive to gear output", output);
 			SmartDashboard.putBoolean("Has found blob", hasFoundBlob);
 		}
-		if (Robot.sensors.getBlobFound()) {
+		if (Robot.sensors.hasFoundBlob()) {
 			hasFoundBlob = true;
 			// If we are already oriented, drive straight
 			if (oriented) {

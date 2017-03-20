@@ -16,11 +16,10 @@ public class DriveToBoiler extends DriveToBlob {
 	private static final double DISTANCE_ERROR_THRESHOLD = 3;
 
 	public DriveToBoiler() {
-		super(P, I, D, false);
+		super(P, I, D);
 	}
 
-	@Override
-	protected double getSlowSpeed() {
+	private double getSlowSpeed() {
 		return P2 * (DISTANCE_SETPOINT - Robot.sensors.getRearUltraInches());
 	}
 
@@ -36,7 +35,7 @@ public class DriveToBoiler extends DriveToBlob {
 
 	@Override
 	protected final void usePIDOutput(double output) {
-		if (Robot.sensors.getBlobFound()) {
+		if (Robot.sensors.hasFoundBlob()) {
 			// If we are already oriented, drive straight
 			if (oriented) {
 				Robot.drivetrain.setLeft(getSlowSpeed());
