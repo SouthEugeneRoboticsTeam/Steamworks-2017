@@ -13,15 +13,15 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * Climber is the subsystem dedicated to the robot's rope climber.
  */
 public class Climber extends Subsystem {
+	private static final double CLIMBER_SPEED = 1;
+
 	private CANTalon master;
 	private CANTalon slave;
 
-	private static final double CLIMBER_SPEED = 1;
-	
 	public Climber() {
 		master = new CANTalon(RobotMap.CLIMBER_MASTER_MOTOR);
 		slave = new CANTalon(RobotMap.CLIMBER_SLAVE_MOTOR);
-		
+
 		master.changeControlMode(TalonControlMode.PercentVbus);
 		slave.changeControlMode(TalonControlMode.Follower);
 	}
@@ -33,7 +33,7 @@ public class Climber extends Subsystem {
 		master.set(OI.getInstance().getSecondaryStick().getY());
 		slave.set(RobotMap.CLIMBER_MASTER_MOTOR);
 	}
-	
+
 	/**
 	 * Stops the climber.
 	 */

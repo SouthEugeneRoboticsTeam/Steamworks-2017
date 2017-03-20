@@ -12,23 +12,11 @@ public abstract class DriveToBlob extends PIDCommand {
 
 	/** true if we're straight-on */
 	protected boolean oriented = false;
-	/** true if we're on the left side of the target */
-	private boolean onLeftSide;
-	private boolean hasFoundBlob = false;
 
-	/**
-	 * @param onLeftSide whether we're on the left side of the target
-	 */
-	protected DriveToBlob(double p, double i, double d, boolean onLeftSide) {
+	protected DriveToBlob(double p, double i, double d) {
 		super(p, i, d);
-		this.onLeftSide = onLeftSide;
 		requires(Robot.drivetrain);
 	}
-
-	protected abstract double getSlowSpeed();
-
-	@Override
-	protected abstract void initialize();
 
 	@Override
 	protected final void execute() {
@@ -43,25 +31,10 @@ public abstract class DriveToBlob extends PIDCommand {
 
 		targetAngle += Robot.sensors.getNavxAngle();
 		setSetpoint(targetAngle);
-
-		if (Robot.sensors.getBlobFound()) {
-			hasFoundBlob = true;
-		}
 	}
 
 	@Override
 	protected final double returnPIDInput() {
 		return Robot.sensors.getNavxAngle();
-	}
-
-	protected void setCurrentBlobFoundMotorSpeed() {
-		if (hasFoundBlob) {
-			Robot.drivetrain.setLeft(getSlowSpeed());
-			Robot.drivetrain.setRight(getSlowSpeed());
-		} else {
-			// Turn clockwise if we're too far left, counter-clockwise if we're too far right
-			Robot.drivetrain.setLeft(onLeftSide ? -getSlowSpeed() : getSlowSpeed());
-			Robot.drivetrain.setRight(onLeftSide ? -getSlowSpeed() : getSlowSpeed());
-		}
 	}
 }

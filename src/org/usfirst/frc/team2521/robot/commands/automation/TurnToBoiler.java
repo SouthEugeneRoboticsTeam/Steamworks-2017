@@ -32,7 +32,7 @@ public class TurnToBoiler extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double output) {
-		if (Robot.sensors.getBlobFound()) {
+		if (Robot.sensors.hasFoundBlob()) {
 			Robot.drivetrain.setLeft(-output);
 			Robot.drivetrain.setRight(output);
 		} else {
