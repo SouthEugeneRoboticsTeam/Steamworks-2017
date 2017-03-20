@@ -53,23 +53,7 @@ public class Drivetrain extends Subsystem {
 	}
 
 	/**
-	 * Enables tank driving using the left and right joysticks.
-	 *
-	 * @see OI#getLeftStick()
-	 * @see OI#getRightStick()
-	 */
-	private void tankDrive() {
-		double left = -OI.getInstance().getLeftStick().getY();
-		double right = -OI.getInstance().getRightStick().getY();
-
-		frontDrive.tankDrive(left, right);
-		rearDrive.tankDrive(left, right);
-	}
-
-	/**
-	 * Changes all talon control modes to PercentVbus, then enables tank drive.
-	 *
-	 * @see Drivetrain#tankDrive()
+	 * Runs drivetrain with joystick input
 	 */
 	public void teleoperatedDrive() {
 		frontLeft.changeControlMode(TalonControlMode.PercentVbus);
@@ -77,11 +61,7 @@ public class Drivetrain extends Subsystem {
 		rearLeft.changeControlMode(TalonControlMode.PercentVbus);
 		rearRight.changeControlMode(TalonControlMode.PercentVbus);
 
-		if (Preferences.getInstance().getBoolean("is_arcade_mode", true)) {
-			arcadeDrive();
-		} else {
-			tankDrive();
-		}
+		arcadeDrive();
 	}
 
 	/**
