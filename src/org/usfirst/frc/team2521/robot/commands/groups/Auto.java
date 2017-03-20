@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Auto extends CommandGroup {
 	public Auto() {
-		switch (OI.getInstance().getAutoMode()) {
+		/*switch (OI.getInstance().getAutoMode()) {
 			case RobotMap.AutoModes.NOTHING:
 				SmartDashboard.putString("Auto mode", "Nothing");
 				break;
@@ -35,18 +35,18 @@ public class Auto extends CommandGroup {
 				addSequential(new TimedCommand(1));
 				addSequential(new AlignShooter());
 				break;
-			case RobotMap.AutoModes.GEAR_LEFT:
+			case RobotMap.AutoModes.GEAR_LEFT:*/
 				Robot.sensors.setCVCamera(Sensors.Camera.FRONT);
 				SmartDashboard.putString("Auto mode", "Gear left");
-				addSequential(new RunDrivetrain(), 2);
+				addSequential(new RunDrivetrain(), .5);
 				addSequential(new DriveToGear());
-				addSequential(new RunDrivetrain(), .25);
-				break;
+				//addSequential(new RunDrivetrain(), .25);
+				/*break;
 			case RobotMap.AutoModes.GEAR_MIDDLE:
 				Robot.sensors.setCVCamera(Sensors.Camera.FRONT);
 				SmartDashboard.putString("Auto mode", "Gear middle");
 				addSequential(new DriveToGear());
-				addSequential(new RunDrivetrain(), 2);
+				//addSequential(new RunDrivetrain(), 2);
 				break;
 			case RobotMap.AutoModes.GEAR_RIGHT:
 				Robot.sensors.setCVCamera(Sensors.Camera.FRONT);
@@ -59,6 +59,6 @@ public class Auto extends CommandGroup {
 				SmartDashboard.putString("Auto mode", "Cross baseline");
 				addSequential(new RunDrivetrain(), 2);
 				break;
-		}
+		}*/
 	}
 }

@@ -25,7 +25,7 @@ public final class Looper implements Runnable {
 
 	private static final int INPUT_STREAM_PORT = 1185;
 	private static final int CV_STREAM_PORT = 1186;
-	private static final int CAMERA_ID = 0;
+	private static final int CAMERA_ID = 1;
 
 	private static final int WIDTH = 640;
 	private static final int HEIGHT = 480;
@@ -102,8 +102,10 @@ public final class Looper implements Runnable {
 	public void run() {
 		if (!isStarted) initialize();
 
+		System.out.println("Run called");
 		Mat inputImage = new Mat();
 		long frameTime = imageSink.grabFrame(inputImage);
+		System.out.println("Frame time: " +  frameTime);
 		if (frameTime == 0) {
 			waitForInterrupt();
 			return;
@@ -143,6 +145,8 @@ public final class Looper implements Runnable {
 				if (blobs != null) {
 					Rect largest = blobs.first;
 					Imgproc.rectangle(inputImage, largest.tl(), largest.br(), upperThreshold);
+					Rect secondLargest = blobs.second;
+					Imgproc.rectangle(inputImage, secondLargest.tl(), secondLargest.br(), upperThreshold);
 					imageSource.putFrame(inputImage);
 				}
 			}

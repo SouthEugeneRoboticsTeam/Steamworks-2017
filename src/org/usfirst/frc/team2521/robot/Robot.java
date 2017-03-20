@@ -37,6 +37,8 @@ public class Robot extends IterativeRobot {
 		shooter = new Shooter();
 		feeder = new Feeder();
 		agitator = new Agitator();
+		
+		new CameraLooper().start();
 	}
 
 	@Override
@@ -46,6 +48,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
+		new CameraLooper().start();
 		auto = new Auto();
 		auto.start();
 	}
@@ -58,7 +61,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopInit() {
 		if (auto != null) auto.cancel();
-
+		
 		new CameraLooper().start();
 	}
 
