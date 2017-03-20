@@ -12,7 +12,7 @@ public class RunDrivetrain extends Command {
 	}
 
 	protected void execute() {
-		if Robot.DEBUG {
+		if (Robot.DEBUG) {
 			SmartDashboard.putString("Auto place", "RunDrivetrain");
 		}
 		Robot.drivetrain.setLeft(Drivetrain.SLOW_SPEED);
