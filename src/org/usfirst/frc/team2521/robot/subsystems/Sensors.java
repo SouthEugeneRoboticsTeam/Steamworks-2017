@@ -83,6 +83,10 @@ public class Sensors extends Subsystem {
 	public double getNavxAngle() {
 		return ahrs.getYaw();
 	}
+	
+	public void resetNavxAngle() {
+		ahrs.reset();
+	}
 
 	@Override
 	public void initDefaultCommand() {

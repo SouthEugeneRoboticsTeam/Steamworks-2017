@@ -3,6 +3,7 @@ package org.usfirst.frc.team2521.robot.commands.groups;
 import org.usfirst.frc.team2521.robot.OI;
 import org.usfirst.frc.team2521.robot.Robot;
 import org.usfirst.frc.team2521.robot.RobotMap;
+import org.usfirst.frc.team2521.robot.commands.automation.DriveToAngle;
 import org.usfirst.frc.team2521.robot.commands.automation.DriveToGear;
 import org.usfirst.frc.team2521.robot.commands.base.RunDrivetrain;
 import org.usfirst.frc.team2521.robot.subsystems.Sensors;
@@ -36,11 +37,11 @@ public class Auto extends CommandGroup {
 				addSequential(new AlignShooter());
 				break;
 			case RobotMap.AutoModes.GEAR_LEFT:*/
-				Robot.sensors.setCVCamera(Sensors.Camera.FRONT);
 				SmartDashboard.putString("Auto mode", "Gear left");
-				addSequential(new RunDrivetrain(), .5);
+				addSequential(new RunDrivetrain(), .75);
+				addSequential(new TimedCommand(0.25));
+				addSequential(new DriveToAngle(25));
 				addSequential(new DriveToGear());
-				//addSequential(new RunDrivetrain(), .25);
 				/*break;
 			case RobotMap.AutoModes.GEAR_MIDDLE:
 				Robot.sensors.setCVCamera(Sensors.Camera.FRONT);
@@ -49,12 +50,12 @@ public class Auto extends CommandGroup {
 				//addSequential(new RunDrivetrain(), 2);
 				break;
 			case RobotMap.AutoModes.GEAR_RIGHT:
-				Robot.sensors.setCVCamera(Sensors.Camera.FRONT);
-				SmartDashboard.putString("Auto mode", "Gear right");
-				addSequential(new RunDrivetrain(), 2);
+				SmartDashboard.putString("Auto mode", "Gear left");
+				addSequential(new RunDrivetrain(), .75);
+				addSequential(new TimedCommand(0.25));
+				addSequential(new DriveToAngle(25));
 				addSequential(new DriveToGear());
-				addSequential(new RunDrivetrain(), 0.25);
-				break;
+					/*break;
 			default:
 				SmartDashboard.putString("Auto mode", "Cross baseline");
 				addSequential(new RunDrivetrain(), 2);
