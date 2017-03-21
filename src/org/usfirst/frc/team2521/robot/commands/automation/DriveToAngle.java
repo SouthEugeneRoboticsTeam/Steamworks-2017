@@ -1,11 +1,10 @@
 package org.usfirst.frc.team2521.robot.commands.automation;
 
 import org.usfirst.frc.team2521.robot.Robot;
+import org.usfirst.frc.team2521.robot.subsystems.Drivetrain;
 
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import org.usfirst.frc.team2521.robot.subsystems.Drivetrain;
 
 /**
  * This command drives to a specified angle using the navX.
@@ -31,16 +30,17 @@ public class DriveToAngle extends PIDCommand {
 		Robot.sensors.resetNavxAngle();
 		targetAngle += Robot.sensors.getNavxAngle();
 		setSetpoint(targetAngle);
-		
+
 		if (Robot.DEBUG) {
 			SmartDashboard.putString("Auto place", "DriveToAngle");
 		}
 	}
-	
+
 	@Override
 	protected void execute() {
 		if (Robot.DEBUG) {
-			SmartDashboard.putNumber("Navx angle error", (Robot.sensors.getNavxAngle() - targetAngle));
+			SmartDashboard.putNumber("Navx angle error",
+									 (Robot.sensors.getNavxAngle() - targetAngle));
 		}
 	}
 

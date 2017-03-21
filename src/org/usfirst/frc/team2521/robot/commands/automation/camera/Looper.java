@@ -98,7 +98,8 @@ public final class Looper implements Runnable {
 	private void initialize() {
 		isStarted = true;
 
-		MjpegServer frontInputStream = new MjpegServer("Front MJPEG Server", FRONT_INPUT_STREAM_PORT);
+		MjpegServer frontInputStream = new MjpegServer("Front MJPEG Server",
+													   FRONT_INPUT_STREAM_PORT);
 		frontImageSink = new CvSink("Front CV Image Grabber");
 		frontImageSink.setSource(getUsbCamera(FRONT_CAMERA_ID, frontInputStream));
 
@@ -130,7 +131,7 @@ public final class Looper implements Runnable {
 			frameTime = rearImageSink.grabFrame(inputImage);
 		}
 
-		System.out.println("Frame time: " +  frameTime);
+		System.out.println("Frame time: " + frameTime);
 		if (frameTime == 0) {
 			waitForInterrupt();
 			return;
@@ -142,11 +143,11 @@ public final class Looper implements Runnable {
 
 		Mat greenMask = new Mat();
 		Scalar lowerThreshold = new Scalar(prefs.getInt("lower_b", 0),
-										prefs.getInt("lower_g", 0),
-										prefs.getInt("lower_r", 0));
+										   prefs.getInt("lower_g", 0),
+										   prefs.getInt("lower_r", 0));
 		Scalar upperThreshold = new Scalar(prefs.getInt("upper_b", 255),
-										prefs.getInt("upper_g", 255),
-										prefs.getInt("upper_r", 255));
+										   prefs.getInt("upper_g", 255),
+										   prefs.getInt("upper_r", 255));
 		Core.inRange(inputImage, lowerThreshold, upperThreshold, greenMask);
 		Mat hierarchy = new Mat();
 		Imgproc.findContours(greenMask,
@@ -171,7 +172,10 @@ public final class Looper implements Runnable {
 					Rect largest = blobs.first;
 					Imgproc.rectangle(inputImage, largest.tl(), largest.br(), upperThreshold);
 					Rect secondLargest = blobs.second;
-					Imgproc.rectangle(inputImage, secondLargest.tl(), secondLargest.br(), upperThreshold);
+					Imgproc.rectangle(inputImage,
+									  secondLargest.tl(),
+									  secondLargest.br(),
+									  upperThreshold);
 					if (isFrontCamera) {
 						frontImageSource.putFrame(inputImage);
 					} else {

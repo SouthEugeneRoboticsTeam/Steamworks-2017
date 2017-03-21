@@ -1,11 +1,10 @@
 package org.usfirst.frc.team2521.robot.subsystems;
 
-import org.usfirst.frc.team2521.robot.OI;
-import org.usfirst.frc.team2521.robot.RobotMap;
-import org.usfirst.frc.team2521.robot.commands.base.RunClimber;
-
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
+
+import org.usfirst.frc.team2521.robot.RobotMap;
+import org.usfirst.frc.team2521.robot.commands.base.RunClimber;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
