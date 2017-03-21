@@ -33,6 +33,8 @@ public class Sensors extends Subsystem {
 
 		ahrs = new AHRS(SPI.Port.kMXP);
 		ahrs.reset();
+
+		setCVCamera(Camera.Type.FRONT);
 	}
 
 	/**
@@ -155,10 +157,6 @@ public class Sensors extends Subsystem {
 
 		private Camera() {
 			throw new AssertionError("No instance for you!");
-		}
-
-		public static void init() {
-			// Force class initialization
 		}
 
 		private static UsbCamera getUsbCamera(int cameraId, MjpegServer server) {

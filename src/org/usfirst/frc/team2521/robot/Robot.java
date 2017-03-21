@@ -40,7 +40,6 @@ public class Robot extends IterativeRobot {
 		feeder = new Feeder();
 		agitator = new Agitator();
 
-		Camera.init();
 		runCameraLooper();
 	}
 
