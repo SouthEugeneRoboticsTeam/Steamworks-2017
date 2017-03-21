@@ -4,6 +4,7 @@ import org.usfirst.frc.team2521.robot.Robot;
 import org.usfirst.frc.team2521.robot.subsystems.Sensors;
 
 import edu.wpi.first.wpilibj.command.PIDCommand;
+import static org.usfirst.frc.team2521.robot.subsystems.Sensors.Camera;
 
 public class TurnToBoiler extends PIDCommand {
 	private static final double P = 0.0025;
@@ -17,7 +18,7 @@ public class TurnToBoiler extends PIDCommand {
 
 	@Override
 	protected void initialize() {
-		Robot.sensors.setCVCamera(Sensors.Camera.REAR);
+		Robot.sensors.setCVCamera(Camera.Type.REAR);
 	}
 
 	@Override

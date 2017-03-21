@@ -7,6 +7,11 @@ import org.usfirst.frc.team2521.robot.RobotMap;
 import org.usfirst.frc.team2521.robot.commands.automation.camera.Looper;
 import org.usfirst.frc.team2521.robot.commands.base.DisplaySensors;
 
+import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.CvSource;
+import edu.wpi.cscore.MjpegServer;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoMode;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -21,6 +26,7 @@ public class Sensors extends Subsystem {
 
 	private AnalogInput rearUltra;
 	private AHRS ahrs;
+	private Camera.Type cameraType;
 
 	public Sensors() {
 		rearUltra = new AnalogInput(RobotMap.REAR_ULTRA_PORT);
@@ -74,8 +80,12 @@ public class Sensors extends Subsystem {
 	 *
 	 * @param cameraType desired camera to use
 	 */
-	public void setCVCamera(Camera cameraType) {
-		// TODO
+	public void setCVCamera(Camera.Type cameraType) {
+		this.cameraType = cameraType;
+	}
+
+	public Camera.Type getCamera() {
+		return cameraType;
 	}
 
 	/**
@@ -94,7 +104,97 @@ public class Sensors extends Subsystem {
 		setDefaultCommand(new DisplaySensors());
 	}
 
-	public enum Camera {
-		FRONT, REAR
+	public static final class Camera {
+		public static final int WIDTH = 640;
+		public static final int HEIGHT = 480;
+
+		private static final int FRONT_INPUT_STREAM_PORT = 1185;
+		private static final int FRONT_CV_STREAM_PORT = 1186;
+		private static final int FRONT_CAMERA_ID = 1;
+
+		private static final int REAR_INPUT_STREAM_PORT = 1187;
+		private static final int REAR_CV_STREAM_PORT = 1188;
+		private static final int REAR_CAMERA_ID = 0;
+
+		private static final int FPS = 30;
+		private static final int BRIGHTNESS = 7;
+		private static final int EXPOSURE = 0;
+		private static final int WHITE_BALANCE_TEMP = 4500;
+
+		private static final CvSink FRONT_IMAGE_SINK;
+		private static final CvSource FRONT_IMAGE_SOURCE;
+
+		private static final CvSink REAR_IMAGE_SINK;
+		private static final CvSource REAR_IMAGE_SOURCE;
+
+		static {
+			FRONT_IMAGE_SINK = new CvSink("Front CV Image Grabber");
+			FRONT_IMAGE_SOURCE = new CvSource("CV Image Source",
+											  VideoMode.PixelFormat.kMJPEG,
+											  WIDTH,
+											  HEIGHT,
+											  FPS);
+			FRONT_IMAGE_SINK.setSource(
+					getUsbCamera(FRONT_CAMERA_ID,
+								 new MjpegServer("Front MJPEG Server", FRONT_INPUT_STREAM_PORT)));
+			new MjpegServer("Front CV Image Stream", FRONT_CV_STREAM_PORT)
+					.setSource(FRONT_IMAGE_SOURCE);
+
+			REAR_IMAGE_SINK = new CvSink("Rear CV Image Grabber");
+			REAR_IMAGE_SOURCE = new CvSource("CV Image Source",
+											 VideoMode.PixelFormat.kMJPEG,
+											 WIDTH,
+											 HEIGHT,
+											 FPS);
+			REAR_IMAGE_SINK.setSource(
+					getUsbCamera(REAR_CAMERA_ID,
+								 new MjpegServer("Rear MJPEG Server", REAR_INPUT_STREAM_PORT)));
+			new MjpegServer("Rear CV Image Stream", REAR_CV_STREAM_PORT)
+					.setSource(REAR_IMAGE_SOURCE);
+		}
+
+		private Camera() {
+			throw new AssertionError("No instance for you!");
+		}
+
+		public static void init() {
+			// Force class initialization
+		}
+
+		private static UsbCamera getUsbCamera(int cameraId, MjpegServer server) {
+			UsbCamera camera = new UsbCamera("Camera", cameraId);
+
+			camera.setResolution(WIDTH, HEIGHT);
+			camera.setBrightness(BRIGHTNESS);
+			camera.setExposureManual(EXPOSURE);
+			camera.setWhiteBalanceManual(WHITE_BALANCE_TEMP);
+
+			server.setSource(camera);
+
+			return camera;
+		}
+
+		public enum Type {
+			/** Used for auto gear. */
+			FRONT(FRONT_IMAGE_SINK, FRONT_IMAGE_SOURCE),
+			/** Used for auto shooting. */
+			REAR(REAR_IMAGE_SINK, REAR_IMAGE_SOURCE);
+
+			private final CvSink sink;
+			private final CvSource source;
+
+			Type(CvSink sink, CvSource source) {
+				this.sink = sink;
+				this.source = source;
+			}
+
+			public CvSink getSink() {
+				return sink;
+			}
+
+			public CvSource getSource() {
+				return source;
+			}
+		}
 	}
 }

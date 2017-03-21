@@ -7,50 +7,27 @@ import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team2521.robot.Robot;
+import org.usfirst.frc.team2521.robot.subsystems.Sensors;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import edu.wpi.cscore.CvSink;
-import edu.wpi.cscore.CvSource;
-import edu.wpi.cscore.MjpegServer;
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.cscore.VideoMode;
 import edu.wpi.first.wpilibj.Preferences;
+
+import static org.usfirst.frc.team2521.robot.subsystems.Sensors.Camera;
 
 public final class Looper implements Runnable {
 	private static final Looper INSTANCE = new Looper();
 
-	private static final int FRONT_INPUT_STREAM_PORT = 1185;
-	private static final int FRONT_CV_STREAM_PORT = 1186;
-	private static final int FRONT_CAMERA_ID = 1;
-
-	private static final int REAR_INPUT_STREAM_PORT = 1187;
-	private static final int REAR_CV_STREAM_PORT = 1188;
-	private static final int REAR_CAMERA_ID = 0;
-
-	private static final int WIDTH = 640;
-	private static final int HEIGHT = 480;
-	private static final int CENTER_X = WIDTH / 2;
-
-	private static final int FPS = 30;
-	private static final int BRIGHTNESS = 7;
-	private static final int EXPOSURE = 0;
-	private static final int WHITE_BALANCE_TEMP = 4500;
+	private static final int CENTER_X = Camera.WIDTH / 2;
 
 	private static final int MIN_AREA = 50;
 	private static final int MAX_AREA = 10000;
+
 	private final List<Rect> latestRects = new ArrayList<>();
 	private boolean isStarted;
-	private boolean isFrontCamera = true;
-
-	private CvSink frontImageSink;
-	private CvSource frontImageSource;
-
-	private CvSink rearImageSink;
-	private CvSource rearImageSource;
 
 	private Thread thread;
 
@@ -61,19 +38,6 @@ public final class Looper implements Runnable {
 
 	public static Looper getInstance() {
 		return INSTANCE;
-	}
-
-	private static UsbCamera getUsbCamera(int cameraId, MjpegServer server) {
-		UsbCamera camera = new UsbCamera("CoprocessorCamera", cameraId);
-
-		camera.setResolution(WIDTH, HEIGHT);
-		camera.setBrightness(BRIGHTNESS);
-		camera.setExposureManual(EXPOSURE);
-		camera.setWhiteBalanceManual(WHITE_BALANCE_TEMP);
-
-		server.setSource(camera);
-
-		return camera;
 	}
 
 	public void loop() {
@@ -97,39 +61,15 @@ public final class Looper implements Runnable {
 
 	private void initialize() {
 		isStarted = true;
-
-		MjpegServer frontInputStream = new MjpegServer("Front MJPEG Server",
-													   FRONT_INPUT_STREAM_PORT);
-		frontImageSink = new CvSink("Front CV Image Grabber");
-		frontImageSink.setSource(getUsbCamera(FRONT_CAMERA_ID, frontInputStream));
-
-		MjpegServer rearInputStream = new MjpegServer("Rear MJPEG Server", REAR_INPUT_STREAM_PORT);
-		rearImageSink = new CvSink("Rear CV Image Grabber");
-		rearImageSink.setSource(getUsbCamera(REAR_CAMERA_ID, rearInputStream));
-
-		frontImageSource = new CvSource(
-				"CV Image Source", VideoMode.PixelFormat.kMJPEG, WIDTH, HEIGHT, FPS);
-		MjpegServer frontCVStream = new MjpegServer("Front CV Image Stream", FRONT_CV_STREAM_PORT);
-		frontCVStream.setSource(frontImageSource);
-
-		rearImageSource = new CvSource(
-				"CV Image Source", VideoMode.PixelFormat.kMJPEG, WIDTH, HEIGHT, FPS);
-		MjpegServer rearCVStream = new MjpegServer("Rear CV Image Stream", REAR_CV_STREAM_PORT);
-		rearCVStream.setSource(rearImageSource);
 	}
 
 	@Override
 	public void run() {
 		if (!isStarted) initialize();
 
-		System.out.println("Run called");
+		Sensors.Camera.Type camera = Robot.sensors.getCamera();
 		Mat inputImage = new Mat();
-		long frameTime;
-		if (isFrontCamera) {
-			frameTime = frontImageSink.grabFrame(inputImage);
-		} else {
-			frameTime = rearImageSink.grabFrame(inputImage);
-		}
+		long frameTime = camera.getSink().grabFrame(inputImage);
 
 		System.out.println("Frame time: " + frameTime);
 		if (frameTime == 0) {
@@ -176,11 +116,7 @@ public final class Looper implements Runnable {
 									  secondLargest.tl(),
 									  secondLargest.br(),
 									  upperThreshold);
-					if (isFrontCamera) {
-						frontImageSource.putFrame(inputImage);
-					} else {
-						rearImageSource.putFrame(inputImage);
-					}
+					camera.getSource().putFrame(inputImage);
 				}
 			}
 		}
@@ -190,10 +126,6 @@ public final class Looper implements Runnable {
 		hierarchy.release();
 
 		waitForInterrupt();
-	}
-
-	public void setIsFrontCamera(boolean isFrontCamera) {
-		this.isFrontCamera = isFrontCamera;
 	}
 
 	private void waitForInterrupt() {
