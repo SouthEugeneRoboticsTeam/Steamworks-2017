@@ -100,7 +100,7 @@ public class Sensors extends Subsystem {
 	public void resetNavxAngle() {
 		ahrs.reset();
 	}
-  
+
 	@Override
 	public void initDefaultCommand() {
 		setDefaultCommand(new DisplaySensors());
