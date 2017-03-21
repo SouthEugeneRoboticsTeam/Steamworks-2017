@@ -53,6 +53,7 @@ public class Robot extends IterativeRobot {
 		sensors.setCVCamera(Camera.Type.FRONT);
 
 		runCameraLooper();
+    
 		auto = new Auto();
 		auto.start();
 	}
@@ -65,6 +66,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopInit() {
 		if (auto != null) auto.cancel();
+
 		sensors.setCVCamera(Camera.Type.REAR);
 
 		runCameraLooper();
