@@ -62,7 +62,6 @@ public class Auto extends CommandGroup {
 			default:
 				SmartDashboard.putString(KEY_NAME, "Cross baseline");
 				addSequential(new RunDrivetrain(), 2);
-				break;
 		}
 	}
 }

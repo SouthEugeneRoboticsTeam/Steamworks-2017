@@ -53,7 +53,7 @@ public class Robot extends IterativeRobot {
 		sensors.setCVCamera(Camera.Type.FRONT);
 
 		runCameraLooper();
-    
+
 		auto = new Auto();
 		auto.start();
 	}
