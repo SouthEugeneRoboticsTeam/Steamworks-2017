@@ -30,7 +30,7 @@ public class Climber extends Subsystem {
 	 * Runs the climber at a constant speed.
 	 */
 	public void runClimber() {
-		master.set(OI.getInstance().getSecondaryStick().getY());
+		master.set(CLIMBER_SPEED);
 		slave.set(RobotMap.CLIMBER_MASTER_MOTOR);
 	}
 
