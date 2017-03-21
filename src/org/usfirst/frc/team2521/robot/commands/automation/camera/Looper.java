@@ -12,7 +12,9 @@ import org.usfirst.frc.team2521.robot.subsystems.Sensors;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import edu.wpi.first.wpilibj.Preferences;
 
@@ -20,6 +22,7 @@ import static org.usfirst.frc.team2521.robot.subsystems.Sensors.Camera;
 
 public final class Looper implements Runnable {
 	private static final Looper INSTANCE = new Looper();
+	private static final ExecutorService SERVICE = Executors.newCachedThreadPool();
 
 	private static final int CENTER_X = Camera.WIDTH / 2;
 
@@ -27,12 +30,10 @@ public final class Looper implements Runnable {
 	private static final int MAX_AREA = 10000;
 
 	private final List<Rect> latestRects = new ArrayList<>();
-
-	private Thread thread;
+	private final List<Future> tasks = new ArrayList<>();
 
 	private Looper() {
-		thread = new Thread(this);
-		thread.start();
+		// Singleton
 	}
 
 	public static Looper getInstance() {
@@ -40,7 +41,20 @@ public final class Looper implements Runnable {
 	}
 
 	public void loop() {
-		thread.interrupt();
+		synchronized (tasks) {
+			clearCompletedTasks();
+			limitNumberOfTasks();
+			tasks.add(SERVICE.submit(this));
+		}
+	}
+
+	private void clearCompletedTasks() {
+		for (Future task : new ArrayList<>(tasks)) if (task.isDone()) tasks.remove(task);
+	}
+
+	private void limitNumberOfTasks() {
+		int size = tasks.size();
+		if (size > 5) tasks.remove(size - 1).cancel(false);
 	}
 
 	public boolean hasFoundBlob() {
@@ -62,12 +76,7 @@ public final class Looper implements Runnable {
 	public void run() {
 		Sensors.Camera.Type camera = Robot.sensors.getCamera();
 		Mat inputImage = new Mat();
-		long frameTime = camera.getSink().grabFrame(inputImage);
-
-		if (frameTime == 0) {
-			waitForInterrupt();
-			return;
-		}
+		if (camera.getSink().grabFrame(inputImage) == 0) return;
 
 		List<MatOfPoint> contours = new ArrayList<>();
 
@@ -116,16 +125,6 @@ public final class Looper implements Runnable {
 		inputImage.release();
 		greenMask.release();
 		hierarchy.release();
-
-		waitForInterrupt();
-	}
-
-	private void waitForInterrupt() {
-		try {
-			Thread.sleep(TimeUnit.HOURS.toMillis(1));
-		} catch (InterruptedException e) {
-			thread.run();
-		}
 	}
 
 	private boolean isAreaInBounds(double area) {
