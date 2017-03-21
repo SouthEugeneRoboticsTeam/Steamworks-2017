@@ -50,7 +50,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
-		Robot.sensors.setCVCamera(Camera.Type.FRONT);
+		sensors.setCVCamera(Camera.Type.FRONT);
 
 		runCameraLooper();
 		auto = new Auto();
@@ -65,7 +65,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopInit() {
 		if (auto != null) auto.cancel();
-		Robot.sensors.setCVCamera(Camera.Type.REAR);
+		sensors.setCVCamera(Camera.Type.REAR);
 
 		runCameraLooper();
 	}
