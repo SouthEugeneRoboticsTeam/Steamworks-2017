@@ -38,6 +38,7 @@ public class Sensors extends Subsystem {
 
 		if (Robot.DEBUG) {
 			if (hasFoundBlob()) SmartDashboard.putNumber("CV offset", getCVOffsetX());
+			SmartDashboard.putNumber("Navx angle", getNavxAngle());
 		}
 	}
 
