@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2521.robot;
 
 import org.usfirst.frc.team2521.robot.commands.automation.camera.CameraLooper;
+import org.usfirst.frc.team2521.robot.commands.automation.camera.Looper;
 import org.usfirst.frc.team2521.robot.commands.groups.Auto;
 import org.usfirst.frc.team2521.robot.subsystems.Agitator;
 import org.usfirst.frc.team2521.robot.subsystems.Climber;
@@ -37,7 +38,7 @@ public class Robot extends IterativeRobot {
 		shooter = new Shooter();
 		feeder = new Feeder();
 		agitator = new Agitator();
-		
+
 		new CameraLooper().start();
 	}
 
@@ -48,6 +49,8 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
+		Looper.getInstance().setIsFrontCamera(true);
+
 		new CameraLooper().start();
 		auto = new Auto();
 		auto.start();
@@ -61,7 +64,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopInit() {
 		if (auto != null) auto.cancel();
-		
+		Looper.getInstance().setIsFrontCamera(false);
+
 		new CameraLooper().start();
 	}
 

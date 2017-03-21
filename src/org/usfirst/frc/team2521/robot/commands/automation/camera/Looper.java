@@ -188,6 +188,10 @@ public final class Looper implements Runnable {
 		waitForInterrupt();
 	}
 
+	public void setIsFrontCamera(boolean isFrontCamera) {
+		this.isFrontCamera = isFrontCamera;
+	}
+
 	private void waitForInterrupt() {
 		try {
 			Thread.sleep(TimeUnit.HOURS.toMillis(1));
