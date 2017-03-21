@@ -27,7 +27,6 @@ public final class Looper implements Runnable {
 	private static final int MAX_AREA = 10000;
 
 	private final List<Rect> latestRects = new ArrayList<>();
-	private boolean isStarted;
 
 	private Thread thread;
 
@@ -59,14 +58,8 @@ public final class Looper implements Runnable {
 		return getCenterOfBlobsX(getLargestBlobs()) - CENTER_X;
 	}
 
-	private void initialize() {
-		isStarted = true;
-	}
-
 	@Override
 	public void run() {
-		if (!isStarted) initialize();
-
 		Sensors.Camera.Type camera = Robot.sensors.getCamera();
 		Mat inputImage = new Mat();
 		long frameTime = camera.getSink().grabFrame(inputImage);
