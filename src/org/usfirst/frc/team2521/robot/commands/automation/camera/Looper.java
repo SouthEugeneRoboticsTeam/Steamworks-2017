@@ -23,9 +23,13 @@ import edu.wpi.first.wpilibj.Preferences;
 public final class Looper implements Runnable {
 	private static final Looper INSTANCE = new Looper();
 
-	private static final int INPUT_STREAM_PORT = 1185;
-	private static final int CV_STREAM_PORT = 1186;
-	private static final int CAMERA_ID = 1;
+	private static final int FRONT_INPUT_STREAM_PORT = 1185;
+	private static final int FRONT_CV_STREAM_PORT = 1186;
+	private static final int FRONT_CAMERA_ID = 1;
+
+	private static final int REAR_INPUT_STREAM_PORT = 1187;
+	private static final int REAR_CV_STREAM_PORT = 1188;
+	private static final int REAR_CAMERA_ID = 0;
 
 	private static final int WIDTH = 640;
 	private static final int HEIGHT = 480;
@@ -40,8 +44,14 @@ public final class Looper implements Runnable {
 	private static final int MAX_AREA = 10000;
 	private final List<Rect> latestRects = new ArrayList<>();
 	private boolean isStarted;
-	private CvSink imageSink;
-	private CvSource imageSource;
+	private boolean isFrontCamera = true;
+
+	private CvSink frontImageSink;
+	private CvSource frontImageSource;
+
+	private CvSink rearImageSink;
+	private CvSource rearImageSource;
+
 	private Thread thread;
 
 	private Looper() {
@@ -88,14 +98,23 @@ public final class Looper implements Runnable {
 	private void initialize() {
 		isStarted = true;
 
-		MjpegServer inputStream = new MjpegServer("MJPEG Server", INPUT_STREAM_PORT);		
-		imageSink = new CvSink("CV Image Grabber");
-		imageSink.setSource(getUsbCamera(CAMERA_ID, inputStream));
+		MjpegServer frontInputStream = new MjpegServer("Front MJPEG Server", FRONT_INPUT_STREAM_PORT);
+		frontImageSink = new CvSink("Front CV Image Grabber");
+		frontImageSink.setSource(getUsbCamera(FRONT_CAMERA_ID, frontInputStream));
 
-		imageSource = new CvSource(
+		MjpegServer rearInputStream = new MjpegServer("Rear MJPEG Server", REAR_INPUT_STREAM_PORT);
+		rearImageSink = new CvSink("Rear CV Image Grabber");
+		rearImageSink.setSource(getUsbCamera(REAR_CAMERA_ID, rearInputStream));
+
+		frontImageSource = new CvSource(
 				"CV Image Source", VideoMode.PixelFormat.kMJPEG, WIDTH, HEIGHT, FPS);
-		MjpegServer cvStream = new MjpegServer("CV Image Stream", CV_STREAM_PORT);
-		cvStream.setSource(imageSource);
+		MjpegServer frontCVStream = new MjpegServer("Front CV Image Stream", FRONT_CV_STREAM_PORT);
+		frontCVStream.setSource(frontImageSource);
+
+		rearImageSource = new CvSource(
+				"CV Image Source", VideoMode.PixelFormat.kMJPEG, WIDTH, HEIGHT, FPS);
+		MjpegServer rearCVStream = new MjpegServer("Rear CV Image Stream", REAR_CV_STREAM_PORT);
+		rearCVStream.setSource(rearImageSource);
 	}
 
 	@Override
@@ -104,7 +123,13 @@ public final class Looper implements Runnable {
 
 		System.out.println("Run called");
 		Mat inputImage = new Mat();
-		long frameTime = imageSink.grabFrame(inputImage);
+		long frameTime;
+		if (isFrontCamera) {
+			frameTime = frontImageSink.grabFrame(inputImage);
+		} else {
+			frameTime = rearImageSink.grabFrame(inputImage);
+		}
+
 		System.out.println("Frame time: " +  frameTime);
 		if (frameTime == 0) {
 			waitForInterrupt();
@@ -147,7 +172,11 @@ public final class Looper implements Runnable {
 					Imgproc.rectangle(inputImage, largest.tl(), largest.br(), upperThreshold);
 					Rect secondLargest = blobs.second;
 					Imgproc.rectangle(inputImage, secondLargest.tl(), secondLargest.br(), upperThreshold);
-					imageSource.putFrame(inputImage);
+					if (isFrontCamera) {
+						frontImageSource.putFrame(inputImage);
+					} else {
+						rearImageSource.putFrame(inputImage);
+					}
 				}
 			}
 		}
