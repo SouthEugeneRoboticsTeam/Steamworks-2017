@@ -27,10 +27,6 @@ public class DriveToGear extends DriveToBlob {
 	@Override
 	protected void initialize() {
 		Robot.sensors.setCVCamera(Camera.Type.FRONT);
-
-		if (Robot.DEBUG) {
-			SmartDashboard.putString("Auto place", "DriveToGear");
-		}
 	}
 
 	@Override
@@ -60,13 +56,6 @@ public class DriveToGear extends DriveToBlob {
 				Robot.drivetrain.setLeft(getSlowSpeed());
 				Robot.drivetrain.setRight(getSlowSpeed());
 			}
-		}
-	}
-
-	@Override
-	protected void end() {
-		if (Robot.DEBUG) {
-			SmartDashboard.putString("Auto place", "End");
 		}
 	}
 }

@@ -64,7 +64,6 @@ public final class Looper implements Runnable {
 		Mat inputImage = new Mat();
 		long frameTime = camera.getSink().grabFrame(inputImage);
 
-		System.out.println("Frame time: " + frameTime);
 		if (frameTime == 0) {
 			waitForInterrupt();
 			return;

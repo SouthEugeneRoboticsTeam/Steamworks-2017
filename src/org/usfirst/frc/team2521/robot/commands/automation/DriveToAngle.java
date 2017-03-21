@@ -30,10 +30,6 @@ public class DriveToAngle extends PIDCommand {
 		Robot.sensors.resetNavxAngle();
 		targetAngle += Robot.sensors.getNavxAngle();
 		setSetpoint(targetAngle);
-
-		if (Robot.DEBUG) {
-			SmartDashboard.putString("Auto place", "DriveToAngle");
-		}
 	}
 
 	@Override
