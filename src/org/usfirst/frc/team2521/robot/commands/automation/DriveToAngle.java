@@ -15,8 +15,7 @@ public class DriveToAngle extends PIDCommand {
 	private static final double I = 0;
 	private static final double D = 0;
 
-	private static final double ERROR_THRESHOLD = 3;
-	private static final double MIN_OUTPUT = 0.1;
+	private static final double ERROR_THRESHOLD = 1;
 
 	private double targetAngle;
 
@@ -37,10 +36,16 @@ public class DriveToAngle extends PIDCommand {
 			SmartDashboard.putString("Auto place", "DriveToAngle");
 		}
 	}
+	
+	@Override
+	protected void execute() {
+		if (Robot.DEBUG) {
+			SmartDashboard.putNumber("Navx angle error", (Robot.sensors.getNavxAngle() - targetAngle));
+		}
+	}
 
 	@Override
 	protected boolean isFinished() {
-		System.out.println("Navx angle error" + (Robot.sensors.getNavxAngle() - targetAngle));
 		return Math.abs(Robot.sensors.getNavxAngle() - targetAngle) < ERROR_THRESHOLD;
 	}
 
@@ -51,13 +56,10 @@ public class DriveToAngle extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double output) {
-		System.out.println(output);
-		/*if (Math.abs(output) < MIN_OUTPUT) {
-			output = Math.signum(output) * MIN_OUTPUT;
+		if (output > 0) {
+			Robot.drivetrain.setLeft(Drivetrain.SLOW_SPEED);
+		} else {
+			Robot.drivetrain.setRight(Drivetrain.SLOW_SPEED);
 		}
-		Robot.drivetrain.setLeft(output);
-		Robot.drivetrain.setRight(-output);*/
-		Robot.drivetrain.setLeft(Math.copySign(Drivetrain.SLOW_SPEED, -output));
-		Robot.drivetrain.setLeft(Math.copySign(Drivetrain.SLOW_SPEED, output));
 	}
 }
