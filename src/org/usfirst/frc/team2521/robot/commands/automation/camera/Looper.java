@@ -23,6 +23,7 @@ import static org.usfirst.frc.team2521.robot.subsystems.Sensors.Camera;
 public final class Looper implements Runnable {
 	private static final Looper INSTANCE = new Looper();
 	private static final ExecutorService SERVICE = Executors.newCachedThreadPool();
+	private static final int MAX_TASKS = 5;
 
 	private static final int CENTER_X = Camera.WIDTH / 2;
 
@@ -54,7 +55,7 @@ public final class Looper implements Runnable {
 
 	private void limitNumberOfTasks() {
 		int size = tasks.size();
-		if (size > 5) tasks.remove(size - 1).cancel(false);
+		if (size > MAX_TASKS) tasks.remove(size - 1).cancel(false);
 	}
 
 	public boolean hasFoundBlob() {
