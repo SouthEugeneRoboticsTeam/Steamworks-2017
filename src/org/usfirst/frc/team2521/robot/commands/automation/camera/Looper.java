@@ -23,7 +23,7 @@ import static org.usfirst.frc.team2521.robot.subsystems.Sensors.Camera;
 public final class Looper implements Runnable {
 	private static final Looper INSTANCE = new Looper();
 	private static final ExecutorService SERVICE = Executors.newCachedThreadPool();
-	private static final int MAX_TASKS = 5;
+	private static final int MAX_TASKS = 3;
 
 	private static final int CENTER_X = Camera.WIDTH / 2;
 
