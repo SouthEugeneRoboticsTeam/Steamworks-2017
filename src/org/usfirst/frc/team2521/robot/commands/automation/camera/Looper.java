@@ -44,18 +44,12 @@ public final class Looper implements Runnable {
 	public void loop() {
 		synchronized (tasks) {
 			clearCompletedTasks();
-			limitNumberOfTasks();
-			tasks.add(SERVICE.submit(this));
+			if (tasks.size() < MAX_TASKS) tasks.add(SERVICE.submit(this));
 		}
 	}
 
 	private void clearCompletedTasks() {
 		for (Future task : new ArrayList<>(tasks)) if (task.isDone()) tasks.remove(task);
-	}
-
-	private void limitNumberOfTasks() {
-		int size = tasks.size();
-		if (size > MAX_TASKS) tasks.remove(size - 1).cancel(false);
 	}
 
 	public boolean hasFoundBlob() {
