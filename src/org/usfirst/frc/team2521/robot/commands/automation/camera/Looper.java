@@ -81,11 +81,11 @@ public final class Looper implements Runnable {
 
 		Mat greenMask = new Mat();
 		Scalar lowerThreshold = new Scalar(prefs.getInt("lower_b", 0),
-										   prefs.getInt("lower_g", 0),
+										   prefs.getInt("lower_g", 20),
 										   prefs.getInt("lower_r", 0));
-		Scalar upperThreshold = new Scalar(prefs.getInt("upper_b", 255),
+		Scalar upperThreshold = new Scalar(prefs.getInt("upper_b", 75),
 										   prefs.getInt("upper_g", 255),
-										   prefs.getInt("upper_r", 255));
+										   prefs.getInt("upper_r", 20));
 		Core.inRange(inputImage, lowerThreshold, upperThreshold, greenMask);
 		Mat hierarchy = new Mat();
 		Imgproc.findContours(greenMask,
