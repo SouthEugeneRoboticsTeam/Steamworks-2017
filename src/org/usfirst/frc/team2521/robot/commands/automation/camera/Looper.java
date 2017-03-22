@@ -71,7 +71,9 @@ public final class Looper implements Runnable {
 	public void run() {
 		Sensors.Camera.Type camera = Robot.sensors.getCamera();
 		Mat inputImage = new Mat();
-		if (camera.getSink().grabFrame(inputImage) == 0) return;
+		synchronized (latestRects) {
+			if (camera.getSink().grabFrame(inputImage) == 0) return;
+		}
 
 		List<MatOfPoint> contours = new ArrayList<>();
 
