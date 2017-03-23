@@ -34,9 +34,4 @@ public abstract class DriveToBlob extends PIDCommand {
 		targetAngle += Robot.sensors.getNavxAngle();
 		setSetpoint(targetAngle);
 	}
-
-	@Override
-	protected final double returnPIDInput() {
-		return Robot.sensors.getNavxAngle();
-	}
 }

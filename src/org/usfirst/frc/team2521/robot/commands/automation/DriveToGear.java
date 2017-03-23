@@ -58,4 +58,9 @@ public class DriveToGear extends DriveToBlob {
 			}
 		}
 	}
+
+	@Override
+	protected double returnPIDInput() {
+		return Robot.sensors.getNavxAngle();
+	}
 }

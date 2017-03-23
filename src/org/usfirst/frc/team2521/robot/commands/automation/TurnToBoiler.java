@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 import static org.usfirst.frc.team2521.robot.subsystems.Sensors.Camera;
 
 public class TurnToBoiler extends PIDCommand {
-	private static final double P = 0.0025;
+	private static final double P = 0.002;
 	private static final double I = 0.00015;
 	private static final double D = 0;
 
@@ -24,7 +24,7 @@ public class TurnToBoiler extends PIDCommand {
 
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return Robot.sensors.hasFoundBlob() && Math.abs(Robot.sensors.getCVOffsetX()) < 5;
 	}
 
 	@Override
