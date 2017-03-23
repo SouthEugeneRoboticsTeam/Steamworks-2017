@@ -4,6 +4,7 @@ import org.usfirst.frc.team2521.robot.commands.automation.DriveToGear;
 import org.usfirst.frc.team2521.robot.commands.base.RunAgitator;
 import org.usfirst.frc.team2521.robot.commands.base.RunClimber;
 import org.usfirst.frc.team2521.robot.commands.groups.AlignShooter;
+import org.usfirst.frc.team2521.robot.commands.groups.RunShooterSubsystems;
 
 import java.util.stream.IntStream;
 
@@ -67,7 +68,7 @@ public class OI {
 	private void setButtonListeners() {
 		alignShooterButton.toggleWhenActive(new AlignShooter());
 		driveToGearLeftButton.toggleWhenActive(new DriveToGear());
-		runShooterSubsystemsButton.toggleWhenActive(new AlignShooter());
+		runShooterSubsystemsButton.toggleWhenActive(new RunShooterSubsystems());
 		runAgitatorBackwardButton.toggleWhenActive(new RunAgitator(false));
 		runClimberButton.whileHeld(new RunClimber());
 	}
