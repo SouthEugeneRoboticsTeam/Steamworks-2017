@@ -22,6 +22,7 @@ import static org.usfirst.frc.team2521.robot.subsystems.Sensors.Camera;
 
 public final class Looper implements Runnable {
 	private static final Looper INSTANCE = new Looper();
+	private static final Object LOCK = new Object();
 	private static final ExecutorService SERVICE = Executors.newCachedThreadPool();
 	private static final int MAX_TASKS = 3;
 
@@ -71,7 +72,7 @@ public final class Looper implements Runnable {
 	public void run() {
 		Sensors.Camera.Type camera = Robot.sensors.getCamera();
 		Mat inputImage = new Mat();
-		synchronized (latestRects) {
+		synchronized (LOCK) {
 			if (camera.getSink().grabFrame(inputImage) == 0) return;
 		}
 
