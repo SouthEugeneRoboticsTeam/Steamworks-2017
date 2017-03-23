@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.stream.Collectors;
 
 import edu.wpi.first.wpilibj.Preferences;
 
@@ -50,8 +51,9 @@ public final class Looper implements Runnable {
 	}
 
 	private void clearCompletedTasks() {
-		for (Future task : new ArrayList<>(tasks))
+		for (Future task : new ArrayList<>(tasks)) {
 			if (task.isDone()) tasks.remove(task);
+		}
 	}
 
 	/**
@@ -70,7 +72,7 @@ public final class Looper implements Runnable {
 
 	/**
 	 * @return the CV X offset
-	 * @throws IllegalStateException
+	 * @throws IllegalStateException if a blob could not be found
 	 */
 	public double getCVOffsetX() throws IllegalStateException {
 		if (!hasFoundBlob()) {
@@ -86,18 +88,15 @@ public final class Looper implements Runnable {
 
 		Mat inputImage = new Mat();
 		Mat greenMask = new Mat();
-		Mat hierarchy = new Mat();
-
-		List<MatOfPoint> contours = new ArrayList<>();
-
-		Preferences prefs = Preferences.getInstance();
+		Mat hierarchy = new Mat(); // ignored
 
 		synchronized (LOCK) {
-			/** Check to make sure the camera is running. */
+			// Check to make sure the camera is running.
 			if (camera.getSink().grabFrame(inputImage) == 0) return;
 		}
 
-		/** Define the lower and upper color thresholds. */
+		// Define the lower and upper color thresholds.
+		Preferences prefs = Preferences.getInstance();
 		Scalar lowerThreshold = new Scalar(
 				prefs.getInt("lower_b", 0),
 				prefs.getInt("lower_g", 20),
@@ -107,24 +106,23 @@ public final class Looper implements Runnable {
 				prefs.getInt("upper_g", 255),
 				prefs.getInt("upper_r", 20));
 
-		/** Find the areas that meet our threshold and find their contours. */
+		// Find the areas that meet our threshold and find their contours.
+		List<MatOfPoint> contours = new ArrayList<>();
 		Core.inRange(inputImage, lowerThreshold, upperThreshold, greenMask);
 		Imgproc.findContours(greenMask, contours, hierarchy, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
 
-		List<Rect> rects = new ArrayList<>(contours.size());
+		List<Rect> rects = contours.stream()
+				.map(Imgproc::boundingRect)
+				.sorted(Comparator.comparingDouble(Rect::area))
+				.collect(Collectors.toCollection(() -> new ArrayList<>(contours.size())));
 
-		for (MatOfPoint point : contours) {
-			rects.add(Imgproc.boundingRect(point));
-		}
-
-		/** Sort our bounding rectangles from smallest to largest. */
-		rects.sort(Comparator.comparingDouble(Rect::area));
+		// Sort our bounding rectangles from smallest to largest.
 
 		synchronized (latestRects) {
 			latestRects.clear();
 			latestRects.addAll(rects);
 
-			/** If we're debugging, draw rectangles around the blobs. */
+			// If we're debugging, draw rectangles around the blobs.
 			if (Robot.DEBUG) {
 				Pair<Rect, Rect> blobs = getLargestBlobs();
 
@@ -162,7 +160,6 @@ public final class Looper implements Runnable {
 	}
 
 	/**
-	 * @param blob
 	 * @return the center of one blob
 	 */
 	private int getCenterX(Rect blob) {
