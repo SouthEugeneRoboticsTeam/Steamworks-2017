@@ -54,6 +54,9 @@ public final class Looper implements Runnable {
 			if (task.isDone()) tasks.remove(task);
 	}
 
+	/**
+	 * @return if we currently have a blob
+	 */
 	public boolean hasFoundBlob() {
 		Pair<Rect, Rect> blobs = getLargestBlobs();
 
@@ -65,6 +68,10 @@ public final class Looper implements Runnable {
 		return isAreaInBounds(largestArea) && isAreaInBounds(secondLargestArea);
 	}
 
+	/**
+	 * @return the CV X offset
+	 * @throws IllegalStateException
+	 */
 	public double getCVOffsetX() throws IllegalStateException {
 		if (!hasFoundBlob()) {
 			throw new IllegalStateException("Cannot get CV offset if no blobs have been found");
@@ -86,9 +93,11 @@ public final class Looper implements Runnable {
 		Preferences prefs = Preferences.getInstance();
 
 		synchronized (LOCK) {
+			/** Check to make sure the camera is running. */
 			if (camera.getSink().grabFrame(inputImage) == 0) return;
 		}
 
+		/** Define the lower and upper color thresholds. */
 		Scalar lowerThreshold = new Scalar(
 				prefs.getInt("lower_b", 0),
 				prefs.getInt("lower_g", 20),
@@ -98,6 +107,7 @@ public final class Looper implements Runnable {
 				prefs.getInt("upper_g", 255),
 				prefs.getInt("upper_r", 20));
 
+		/** Find the areas that meet our threshold and find their contours. */
 		Core.inRange(inputImage, lowerThreshold, upperThreshold, greenMask);
 		Imgproc.findContours(greenMask, contours, hierarchy, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
 
@@ -107,12 +117,14 @@ public final class Looper implements Runnable {
 			rects.add(Imgproc.boundingRect(point));
 		}
 
+		/** Sort our bounding rectangles from smallest to largest. */
 		rects.sort(Comparator.comparingDouble(Rect::area));
 
 		synchronized (latestRects) {
 			latestRects.clear();
 			latestRects.addAll(rects);
 
+			/** If we're debugging, draw rectangles around the blobs. */
 			if (Robot.DEBUG) {
 				Pair<Rect, Rect> blobs = getLargestBlobs();
 
@@ -133,18 +145,33 @@ public final class Looper implements Runnable {
 		hierarchy.release();
 	}
 
+	/**
+	 * @param area the area to check
+	 * @return whether the area is in bounds
+	 */
 	private boolean isAreaInBounds(double area) {
 		return area >= MIN_AREA && area <= MAX_AREA;
 	}
 
+	/**
+	 * @param blobs a pair of blobs
+	 * @return the center between the two blobs
+	 */
 	private int getCenterOfBlobsX(@NonNull Pair<Rect, Rect> blobs) {
 		return (getCenterX(blobs.first) + getCenterX(blobs.second)) / 2;
 	}
 
+	/**
+	 * @param blob
+	 * @return the center of one blob
+	 */
 	private int getCenterX(Rect blob) {
 		return blob.x + (blob.width / 2);
 	}
 
+	/**
+	 * @return the two largest blobs
+	 */
 	@Nullable
 	private Pair<Rect, Rect> getLargestBlobs() {
 		synchronized (latestRects) {
