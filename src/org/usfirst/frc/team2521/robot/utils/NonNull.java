@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2521.robot.commands.automation.camera;
+package org.usfirst.frc.team2521.robot.utils;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
