@@ -50,14 +50,18 @@ public final class Looper implements Runnable {
 	}
 
 	private void clearCompletedTasks() {
-		for (Future task : new ArrayList<>(tasks)) if (task.isDone()) tasks.remove(task);
+		for (Future task : new ArrayList<>(tasks))
+			if (task.isDone()) tasks.remove(task);
 	}
 
 	public boolean hasFoundBlob() {
 		Pair<Rect, Rect> blobs = getLargestBlobs();
+
 		if (blobs == null) return false;
+
 		double largestArea = blobs.first.area();
 		double secondLargestArea = blobs.second.area();
+
 		return isAreaInBounds(largestArea) && isAreaInBounds(secondLargestArea);
 	}
 
@@ -65,40 +69,44 @@ public final class Looper implements Runnable {
 		if (!hasFoundBlob()) {
 			throw new IllegalStateException("Cannot get CV offset if no blobs have been found");
 		}
+
 		return getCenterOfBlobsX(getLargestBlobs()) - CENTER_X;
 	}
 
 	@Override
 	public void run() {
 		Sensors.Camera.Type camera = Robot.sensors.getCamera();
+
 		Mat inputImage = new Mat();
-		synchronized (LOCK) {
-			if (camera.getSink().grabFrame(inputImage) == 0) return;
-		}
+		Mat greenMask = new Mat();
+		Mat hierarchy = new Mat();
 
 		List<MatOfPoint> contours = new ArrayList<>();
 
 		Preferences prefs = Preferences.getInstance();
 
-		Mat greenMask = new Mat();
-		Scalar lowerThreshold = new Scalar(prefs.getInt("lower_b", 0),
-										   prefs.getInt("lower_g", 20),
-										   prefs.getInt("lower_r", 0));
-		Scalar upperThreshold = new Scalar(prefs.getInt("upper_b", 75),
-										   prefs.getInt("upper_g", 255),
-										   prefs.getInt("upper_r", 20));
+		synchronized (LOCK) {
+			if (camera.getSink().grabFrame(inputImage) == 0) return;
+		}
+
+		Scalar lowerThreshold = new Scalar(
+				prefs.getInt("lower_b", 0),
+				prefs.getInt("lower_g", 20),
+				prefs.getInt("lower_r", 0));
+		Scalar upperThreshold = new Scalar(
+				prefs.getInt("upper_b", 75),
+				prefs.getInt("upper_g", 255),
+				prefs.getInt("upper_r", 20));
+
 		Core.inRange(inputImage, lowerThreshold, upperThreshold, greenMask);
-		Mat hierarchy = new Mat();
-		Imgproc.findContours(greenMask,
-							 contours,
-							 hierarchy,
-							 Imgproc.RETR_TREE,
-							 Imgproc.CHAIN_APPROX_SIMPLE);
+		Imgproc.findContours(greenMask, contours, hierarchy, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
 
 		List<Rect> rects = new ArrayList<>(contours.size());
+
 		for (MatOfPoint point : contours) {
 			rects.add(Imgproc.boundingRect(point));
 		}
+
 		rects.sort(Comparator.comparingDouble(Rect::area));
 
 		synchronized (latestRects) {
@@ -107,14 +115,14 @@ public final class Looper implements Runnable {
 
 			if (Robot.DEBUG) {
 				Pair<Rect, Rect> blobs = getLargestBlobs();
+
 				if (blobs != null) {
 					Rect largest = blobs.first;
-					Imgproc.rectangle(inputImage, largest.tl(), largest.br(), upperThreshold);
 					Rect secondLargest = blobs.second;
-					Imgproc.rectangle(inputImage,
-									  secondLargest.tl(),
-									  secondLargest.br(),
-									  upperThreshold);
+
+					Imgproc.rectangle(inputImage, largest.tl(), largest.br(), upperThreshold);
+					Imgproc.rectangle(inputImage, secondLargest.tl(), secondLargest.br(), upperThreshold);
+
 					camera.getSource().putFrame(inputImage);
 				}
 			}
@@ -141,8 +149,7 @@ public final class Looper implements Runnable {
 	private Pair<Rect, Rect> getLargestBlobs() {
 		synchronized (latestRects) {
 			if (latestRects.size() < 2) return null;
-			else return Pair.create(latestRects.get(latestRects.size() - 1),
-									latestRects.get(latestRects.size() - 2));
+			else return Pair.create(latestRects.get(latestRects.size() - 1), latestRects.get(latestRects.size() - 2));
 		}
 	}
 }
