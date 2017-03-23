@@ -124,7 +124,7 @@ public class Sensors extends Subsystem {
 		private static final int REAR_CAMERA_ID = 0;
 
 		private static final int FPS = 30;
-		private static final int BRIGHTNESS = 12;
+		private static final int BRIGHTNESS = 18;
 		private static final int EXPOSURE = 0;
 		private static final int WHITE_BALANCE_TEMP = 4500;
 
