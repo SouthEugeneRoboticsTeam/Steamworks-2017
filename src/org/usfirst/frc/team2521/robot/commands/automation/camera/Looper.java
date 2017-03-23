@@ -72,14 +72,12 @@ public final class Looper implements Runnable {
 
 	/**
 	 * @return the CV X offset
-	 * @throws IllegalStateException if a blob could not be found
 	 */
-	public double getCVOffsetX() throws IllegalStateException {
-		if (!hasFoundBlob()) {
-			throw new IllegalStateException("Cannot get CV offset if no blobs have been found");
-		}
+	@Nullable
+	public Double getCVOffsetX() {
+		if (!hasFoundBlob()) return null;
 
-		return getCenterOfBlobsX(getLargestBlobs()) - CENTER_X;
+		return (double) (getCenterOfBlobsX(getLargestBlobs()) - CENTER_X);
 	}
 
 	@Override

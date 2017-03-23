@@ -21,12 +21,9 @@ public abstract class DriveToBlob extends PIDCommand {
 	@Override
 	protected final void execute() {
 		// Angle between camera line of sight and target
-		double offsetX;
-		try {
-			offsetX = Robot.sensors.getCVOffsetX();
-		} catch (IllegalStateException e) {
-			return;
-		}
+		Double offsetX = Robot.sensors.getCVOffsetX();
+		if (offsetX == null) return;
+
 		double targetAngle = Math.atan(offsetX / CAMERA_PROJ_PLANE_DISTANCE);
 
 		// Convert angle to degrees

@@ -24,20 +24,14 @@ public class TurnToBoiler extends PIDCommand {
 
 	@Override
 	protected boolean isFinished() {
-		try {
-			return Math.abs(Robot.sensors.getCVOffsetX()) < 5;
-		} catch (IllegalStateException e) {
-			return false;
-		}
+		Double offsetX = Robot.sensors.getCVOffsetX();
+		return offsetX != null && Math.abs(offsetX) < 5;
 	}
 
 	@Override
 	protected double returnPIDInput() {
-		try {
-			return Robot.sensors.getCVOffsetX();
-		} catch (IllegalStateException e) {
-			return Sensors.DEFAULT_CV_OFFSET;
-		}
+		Double offsetX = Robot.sensors.getCVOffsetX();
+		return offsetX == null ? Sensors.DEFAULT_CV_OFFSET : offsetX;
 	}
 
 	@Override

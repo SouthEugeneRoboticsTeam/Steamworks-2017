@@ -5,6 +5,7 @@ import com.kauailabs.navx.frc.AHRS;
 import org.usfirst.frc.team2521.robot.Robot;
 import org.usfirst.frc.team2521.robot.RobotMap;
 import org.usfirst.frc.team2521.robot.commands.automation.camera.Looper;
+import org.usfirst.frc.team2521.robot.commands.automation.camera.Nullable;
 import org.usfirst.frc.team2521.robot.commands.base.DisplaySensors;
 
 import edu.wpi.cscore.CvSink;
@@ -47,11 +48,8 @@ public class Sensors extends Subsystem {
 		if (Robot.DEBUG) {
 			SmartDashboard.putNumber("Navx angle", getNavxAngle());
 
-			try {
-				SmartDashboard.putNumber("CV offset", getCVOffsetX());
-			} catch (IllegalStateException e) {
-				// Do nothing
-			}
+			Double offsetX = getCVOffsetX();
+			if (offsetX != null) SmartDashboard.putNumber("CV offset", offsetX);
 		}
 	}
 
@@ -69,7 +67,8 @@ public class Sensors extends Subsystem {
 	 * @return the target's offset (in pixels) from the center of the screen
 	 * @see Sensors#hasFoundBlob()
 	 */
-	public double getCVOffsetX() throws IllegalStateException {
+	@Nullable
+	public Double getCVOffsetX() {
 		return Looper.getInstance().getCVOffsetX();
 	}
 
@@ -137,19 +136,31 @@ public class Sensors extends Subsystem {
 		static {
 			/** Setup front image source. */
 			FRONT_IMAGE_SINK = new CvSink("Front CV Image Grabber");
-			FRONT_IMAGE_SOURCE = new CvSource("CV Image Source", VideoMode.PixelFormat.kMJPEG, WIDTH, HEIGHT, FPS);
+			FRONT_IMAGE_SOURCE = new CvSource("CV Image Source",
+											  VideoMode.PixelFormat.kMJPEG,
+											  WIDTH,
+											  HEIGHT,
+											  FPS);
 			FRONT_IMAGE_SINK.setSource(
-					getUsbCamera(FRONT_CAMERA_ID, new MjpegServer("Front MJPEG Server", FRONT_INPUT_STREAM_PORT)));
+					getUsbCamera(FRONT_CAMERA_ID,
+								 new MjpegServer("Front MJPEG Server", FRONT_INPUT_STREAM_PORT)));
 
-			new MjpegServer("Front CV Image Stream", FRONT_CV_STREAM_PORT).setSource(FRONT_IMAGE_SOURCE);
+			new MjpegServer("Front CV Image Stream", FRONT_CV_STREAM_PORT).setSource(
+					FRONT_IMAGE_SOURCE);
 
 			/** Setup rear image source. */
 			REAR_IMAGE_SINK = new CvSink("Rear CV Image Grabber");
-			REAR_IMAGE_SOURCE = new CvSource("CV Image Source", VideoMode.PixelFormat.kMJPEG, WIDTH, HEIGHT, FPS);
+			REAR_IMAGE_SOURCE = new CvSource("CV Image Source",
+											 VideoMode.PixelFormat.kMJPEG,
+											 WIDTH,
+											 HEIGHT,
+											 FPS);
 			REAR_IMAGE_SINK.setSource(
-					getUsbCamera(REAR_CAMERA_ID, new MjpegServer("Rear MJPEG Server", REAR_INPUT_STREAM_PORT)));
+					getUsbCamera(REAR_CAMERA_ID,
+								 new MjpegServer("Rear MJPEG Server", REAR_INPUT_STREAM_PORT)));
 
-			new MjpegServer("Rear CV Image Stream", REAR_CV_STREAM_PORT).setSource(REAR_IMAGE_SOURCE);
+			new MjpegServer("Rear CV Image Stream",
+							REAR_CV_STREAM_PORT).setSource(REAR_IMAGE_SOURCE);
 		}
 
 		private Camera() {
