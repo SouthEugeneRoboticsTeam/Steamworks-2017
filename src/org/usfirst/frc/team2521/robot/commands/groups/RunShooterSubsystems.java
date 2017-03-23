@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class RunShooterSubsystems extends CommandGroup {
 	private double speedCutoff = -200;
+	private boolean upToSpeed = false;
 
 	public RunShooterSubsystems() {
 		addParallel(new RunAgitator(true));
@@ -21,10 +22,9 @@ public class RunShooterSubsystems extends CommandGroup {
 		addSequential(new RunFeeder() {
 			@Override
 			protected void execute() {
-				if (Robot.shooter.getEncVelocity() < speedCutoff) {
+				if (Robot.shooter.getEncVelocity() < speedCutoff || upToSpeed) {
+					upToSpeed = true;
 					Robot.feeder.setMotor(-Feeder.FEEDER_SPEED);
-				} else {
-					Robot.feeder.setMotor(0);
 				}
 			}
 		});

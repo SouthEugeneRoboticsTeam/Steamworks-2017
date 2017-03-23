@@ -5,60 +5,87 @@ import org.usfirst.frc.team2521.robot.Robot;
 import org.usfirst.frc.team2521.robot.RobotMap;
 import org.usfirst.frc.team2521.robot.commands.automation.DriveToGear;
 import org.usfirst.frc.team2521.robot.commands.base.RunDrivetrain;
-import org.usfirst.frc.team2521.robot.subsystems.Sensors;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.TimedCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import static org.usfirst.frc.team2521.robot.subsystems.Sensors.Camera;
+
 public class Auto extends CommandGroup {
+	private static final int RED_ANGLE = -42;
+	private static final int BLUE_ANGLE = 60;
+	private static final String KEY_NAME = "Auto mode";
+
 	public Auto() {
 		switch (OI.getInstance().getAutoMode()) {
 			case RobotMap.AutoModes.NOTHING:
-				SmartDashboard.putString("Auto mode", "Nothing");
+				SmartDashboard.putString(KEY_NAME, "Nothing");
 				break;
 			case RobotMap.AutoModes.CROSS_BASELINE:
-				SmartDashboard.putString("Auto mode", "Cross baseline");
+				SmartDashboard.putString(KEY_NAME, "Cross baseline");
 				addSequential(new RunDrivetrain(), 2);
 				break;
 			case RobotMap.AutoModes.BALLS_ONLY:
-				SmartDashboard.putString("Auto mode", "Balls only");
+				SmartDashboard.putString(KEY_NAME, "Balls only");
 				addSequential(new RunDrivetrain(), 1);
 				addSequential(new AlignShooter());
 				break;
 			case RobotMap.AutoModes.GEAR_THEN_BALL:
-				SmartDashboard.putString("Auto mode", "Ball then gear");
-				Robot.sensors.setCVCamera(Sensors.Camera.FRONT);
-				addSequential(new RunDrivetrain(), 2);
-				addSequential(new DriveToGear());
-				addSequential(new RunDrivetrain(), 0.25);
+				SmartDashboard.putString(KEY_NAME, "gear then ball");
+				Robot.sensors.setCVCamera(Camera.Type.FRONT);
+				addSequential(new DriveToGearBoiler());
+				addSequential(new Command() {
+					@Override
+					protected void initialize() {
+						Robot.sensors.setCVCamera(Camera.Type.REAR);
+					}
+
+					@Override
+					protected boolean isFinished() {
+						return true;
+					}
+				});
 				addSequential(new TimedCommand(1));
+				addSequential(new RunDrivetrain(true), .75);
 				addSequential(new AlignShooter());
 				break;
-			case RobotMap.AutoModes.GEAR_LEFT:
-				Robot.sensors.setCVCamera(Sensors.Camera.FRONT);
-				SmartDashboard.putString("Auto mode", "Gear left");
-				addSequential(new RunDrivetrain(), 2);
-				addSequential(new DriveToGear());
-				addSequential(new RunDrivetrain(), .25);
+			case RobotMap.AutoModes.GEAR_FEEDER:
+				SmartDashboard.putString(KEY_NAME, "Gear feeder");
+				addSequential(new DriveToGearFeeder());
+				break;
+			case RobotMap.AutoModes.GEAR_BOILER:
+				SmartDashboard.putString(KEY_NAME, "Gear boiler");
+				addSequential(new DriveToGearBoiler());
 				break;
 			case RobotMap.AutoModes.GEAR_MIDDLE:
-				Robot.sensors.setCVCamera(Sensors.Camera.FRONT);
-				SmartDashboard.putString("Auto mode", "Gear middle");
+				SmartDashboard.putString(KEY_NAME, "Gear middle");
 				addSequential(new DriveToGear());
-				addSequential(new RunDrivetrain(), 2);
 				break;
-			case RobotMap.AutoModes.GEAR_RIGHT:
-				Robot.sensors.setCVCamera(Sensors.Camera.FRONT);
-				SmartDashboard.putString("Auto mode", "Gear right");
-				addSequential(new RunDrivetrain(), 2);
-				addSequential(new DriveToGear());
-				addSequential(new RunDrivetrain(), 0.25);
-				break;
+			case RobotMap.AutoModes.BALLS_STATIONARY:
+				SmartDashboard.putString(KEY_NAME, "Balls Stationary");
+				addSequential(new RunShooterSubsystems());
 			default:
-				SmartDashboard.putString("Auto mode", "Cross baseline");
+				SmartDashboard.putString(KEY_NAME, "Cross baseline");
 				addSequential(new RunDrivetrain(), 2);
-				break;
+		}
+	}
+
+	private static final class DriveToGearBoiler extends DriveToGearBase {
+		@Override
+		protected int getAngle() {
+			return DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red
+					? RED_ANGLE : BLUE_ANGLE;
+		}
+	}
+
+	private static final class DriveToGearFeeder extends DriveToGearBase {
+		@Override
+		protected int getAngle() {
+			return DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red
+					? BLUE_ANGLE : RED_ANGLE;
 		}
 	}
 }

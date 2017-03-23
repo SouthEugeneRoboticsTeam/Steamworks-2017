@@ -38,9 +38,10 @@ public class RobotMap {
 		public final static int NOTHING = 3;
 		public final static int CROSS_BASELINE = 6;
 		public final static int GEAR_THEN_BALL = 15;
-		public final static int GEAR_LEFT = 8;
 		public final static int GEAR_MIDDLE = 4;
-		public final static int GEAR_RIGHT = 2;
+		public final static int GEAR_FEEDER = 2;
+		public final static int GEAR_BOILER = 8;
 		public final static int BALLS_ONLY = 1;
+		public final static int BALLS_STATIONARY = 5;
 	}
 }

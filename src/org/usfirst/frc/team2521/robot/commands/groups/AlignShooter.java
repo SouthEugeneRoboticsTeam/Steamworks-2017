@@ -14,8 +14,14 @@ import edu.wpi.first.wpilibj.command.TimedCommand;
 public class AlignShooter extends CommandGroup {
 	public AlignShooter() {
 		addParallel(new RunShooter());
+		addSequential(new TurnToBoiler());
 		addSequential(new DriveToBoiler());
-		addParallel(new TurnToBoiler());
+		addParallel(new TurnToBoiler() {
+			@Override
+			protected boolean isFinished() {
+				return false;
+			}
+		});
 		addSequential(new TimedCommand(1));
 		addParallel(new RunShooterSubsystems());
 	}

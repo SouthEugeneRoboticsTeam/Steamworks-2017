@@ -14,11 +14,13 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
+import static org.usfirst.frc.team2521.robot.subsystems.Sensors.Camera;
+
 /**
  * This is the main robot class which calls various methods depending on the current game stage.
  */
 public class Robot extends IterativeRobot {
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 
 	public static Drivetrain drivetrain;
 	public static Sensors sensors;
@@ -37,6 +39,8 @@ public class Robot extends IterativeRobot {
 		shooter = new Shooter();
 		feeder = new Feeder();
 		agitator = new Agitator();
+
+		runCameraLooper();
 	}
 
 	@Override
@@ -46,6 +50,10 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
+		sensors.setCVCamera(Camera.Type.FRONT);
+
+		runCameraLooper();
+
 		auto = new Auto();
 		auto.start();
 	}
@@ -58,6 +66,10 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopInit() {
 		if (auto != null) auto.cancel();
+
+		sensors.setCVCamera(Camera.Type.REAR);
+
+		runCameraLooper();
 	}
 
 	@Override
@@ -68,5 +80,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void testPeriodic() {
 		LiveWindow.run();
+	}
+
+	private void runCameraLooper() {
+		new CameraLooper().start();
 	}
 }

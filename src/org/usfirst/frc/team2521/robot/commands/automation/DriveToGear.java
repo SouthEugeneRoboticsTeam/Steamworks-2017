@@ -2,9 +2,10 @@ package org.usfirst.frc.team2521.robot.commands.automation;
 
 import org.usfirst.frc.team2521.robot.Robot;
 import org.usfirst.frc.team2521.robot.subsystems.Drivetrain;
-import org.usfirst.frc.team2521.robot.subsystems.Sensors;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import static org.usfirst.frc.team2521.robot.subsystems.Sensors.Camera;
 
 /**
  * This command drives to the gear drop-off automatically.
@@ -25,7 +26,7 @@ public class DriveToGear extends DriveToBlob {
 
 	@Override
 	protected void initialize() {
-		Robot.sensors.setCVCamera(Sensors.Camera.FRONT);
+		Robot.sensors.setCVCamera(Camera.Type.FRONT);
 	}
 
 	@Override
@@ -56,5 +57,10 @@ public class DriveToGear extends DriveToBlob {
 				Robot.drivetrain.setRight(getSlowSpeed());
 			}
 		}
+	}
+
+	@Override
+	protected double returnPIDInput() {
+		return Robot.sensors.getNavxAngle();
 	}
 }

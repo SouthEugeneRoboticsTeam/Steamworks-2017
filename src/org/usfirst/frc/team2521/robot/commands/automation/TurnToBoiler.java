@@ -5,8 +5,10 @@ import org.usfirst.frc.team2521.robot.subsystems.Sensors;
 
 import edu.wpi.first.wpilibj.command.PIDCommand;
 
+import static org.usfirst.frc.team2521.robot.subsystems.Sensors.Camera;
+
 public class TurnToBoiler extends PIDCommand {
-	private static final double P = 0.0025;
+	private static final double P = 0.002;
 	private static final double I = 0.00015;
 	private static final double D = 0;
 
@@ -17,17 +19,25 @@ public class TurnToBoiler extends PIDCommand {
 
 	@Override
 	protected void initialize() {
-		Robot.sensors.setCVCamera(Sensors.Camera.REAR);
+		Robot.sensors.setCVCamera(Camera.Type.REAR);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return false;
+		try {
+			return Math.abs(Robot.sensors.getCVOffsetX()) < 5;
+		} catch (IllegalStateException e) {
+			return false;
+		}
 	}
 
 	@Override
 	protected double returnPIDInput() {
-		return Robot.sensors.getCVOffsetX();
+		try {
+			return Robot.sensors.getCVOffsetX();
+		} catch (IllegalStateException e) {
+			return Sensors.DEFAULT_CV_OFFSET;
+		}
 	}
 
 	@Override
