@@ -61,7 +61,7 @@ public final class Looper implements Runnable {
 		return isAreaInBounds(largestArea) && isAreaInBounds(secondLargestArea);
 	}
 
-	public double getCVOffsetX() {
+	public double getCVOffsetX() throws IllegalStateException {
 		if (!hasFoundBlob()) {
 			throw new IllegalStateException("Cannot get CV offset if no blobs have been found");
 		}

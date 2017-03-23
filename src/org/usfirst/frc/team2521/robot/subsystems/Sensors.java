@@ -43,7 +43,11 @@ public class Sensors extends Subsystem {
 	public void display() {
 		SmartDashboard.putNumber("Rear ultra distance", getRearUltraInches());
 		SmartDashboard.putBoolean("Blob found", hasFoundBlob());
-		if (hasFoundBlob()) SmartDashboard.putNumber("CV offset", getCVOffsetX());
+		try {
+			SmartDashboard.putNumber("CV offset", getCVOffsetX());
+		} catch (IllegalStateException e) {
+			// Do nothing
+		}
 
 		if (Robot.DEBUG) {
 			SmartDashboard.putNumber("Navx angle", getNavxAngle());
@@ -65,7 +69,7 @@ public class Sensors extends Subsystem {
 	 * @return the target's offset (in pixels) from the center of the screen
 	 * @see Sensors#hasFoundBlob()
 	 */
-	public double getCVOffsetX() {
+	public double getCVOffsetX() throws IllegalStateException {
 		return Looper.getInstance().getCVOffsetX();
 	}
 
