@@ -47,6 +47,7 @@ public class Sensors extends Subsystem {
 		if (Robot.DEBUG) {
 			if (hasFoundBlob()) SmartDashboard.putNumber("CV offset", getCVOffsetX());
 			SmartDashboard.putNumber("Navx angle", getNavxAngle());
+			SmartDashboard.putNumber("Navx Angle", ahrs.getYaw());
 		}
 	}
 
@@ -119,7 +120,7 @@ public class Sensors extends Subsystem {
 		private static final int REAR_CAMERA_ID = 0;
 
 		private static final int FPS = 30;
-		private static final int BRIGHTNESS = 7;
+		private static final int BRIGHTNESS = 12;
 		private static final int EXPOSURE = 0;
 		private static final int WHITE_BALANCE_TEMP = 4500;
 

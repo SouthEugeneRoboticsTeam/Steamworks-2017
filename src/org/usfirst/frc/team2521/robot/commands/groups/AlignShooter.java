@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.command.TimedCommand;
 public class AlignShooter extends CommandGroup {
 	public AlignShooter() {
 		addParallel(new RunShooter());
+		addParallel(new TurnToBoiler());
 		addSequential(new DriveToBoiler());
 		addParallel(new TurnToBoiler());
 		addSequential(new TimedCommand(1));
