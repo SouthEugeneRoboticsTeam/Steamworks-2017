@@ -4,7 +4,6 @@ import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
 
 import org.usfirst.frc.team2521.robot.RobotMap;
-import org.usfirst.frc.team2521.robot.commands.base.RunClimber;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -41,7 +40,5 @@ public class Climber extends Subsystem {
 	}
 
 	@Override
-	public void initDefaultCommand() {
-		setDefaultCommand(new RunClimber());
-	}
+	public void initDefaultCommand() {}
 }
