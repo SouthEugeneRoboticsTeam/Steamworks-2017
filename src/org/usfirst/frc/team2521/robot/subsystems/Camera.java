@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2521.robot.subsystems;
 
+import org.usfirst.frc.team2521.robot.Robot;
 import org.usfirst.frc.team2521.robot.commands.automation.camera.CameraLooper;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -12,7 +13,7 @@ public class Camera extends Subsystem {
 	}
 
 	public boolean isRunning() {
-		return running;
+		return Robot.DEBUG || running;
 	}
 
 	@Override
