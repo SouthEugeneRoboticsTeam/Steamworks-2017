@@ -32,8 +32,8 @@ public final class Looper implements Runnable {
 
 	private static final int CENTER_X = Camera.WIDTH / 2;
 
-	private static final int MIN_AREA = 50;
-	private static final int MAX_AREA = 10000;
+	private static final int MIN_AREA = 50 / 4;
+	private static final int MAX_AREA = 10000 / 4;
 
 	private final List<Rect> latestRects = new ArrayList<>();
 	private final List<Future> tasks = new ArrayList<>();
