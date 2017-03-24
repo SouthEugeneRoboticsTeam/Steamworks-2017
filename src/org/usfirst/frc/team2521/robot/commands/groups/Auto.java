@@ -34,7 +34,7 @@ public class Auto extends CommandGroup {
 				addSequential(new AlignShooter());
 				break;
 			case RobotMap.AutoModes.GEAR_THEN_BALL:
-				SmartDashboard.putString(KEY_NAME, "gear then ball");
+				SmartDashboard.putString(KEY_NAME, "Gear then ball");
 				Robot.sensors.setCVCamera(Camera.Type.FRONT);
 				addSequential(new DriveToGearBoiler());
 				addSequential(new Command() {
