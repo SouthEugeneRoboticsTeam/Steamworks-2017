@@ -5,6 +5,7 @@ import com.ctre.CANTalon.TalonControlMode;
 
 import org.usfirst.frc.team2521.robot.OI;
 import org.usfirst.frc.team2521.robot.RobotMap;
+import org.usfirst.frc.team2521.robot.commands.base.RunClimber;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -27,17 +28,12 @@ public class Climber extends Subsystem {
 	 * Runs the climber at a constant speed.
 	 */
 	public void runClimber() {
-		master.set(-OI.getInstance().getRightStick().getY());
+		master.set(-Math.abs(OI.getInstance().getRightStick().getY()));
 		slave.set(RobotMap.CLIMBER_MASTER_MOTOR);
 	}
 
-	/**
-	 * Stops the climber.
-	 */
-	public void stopClimber() {
-		master.set(0);
-	}
-
 	@Override
-	public void initDefaultCommand() {}
+	public void initDefaultCommand() {
+		setDefaultCommand(new RunClimber());
+	}
 }
