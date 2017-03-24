@@ -26,6 +26,7 @@ public class DriveToBoiler extends PIDCommand {
 	@Override
 	protected void initialize() {
 		Robot.sensors.setCVCamera(Camera.Type.REAR);
+		Robot.camera.setRunning(true);
 		setSetpoint(DISTANCE_SETPOINT);
 	}
 
@@ -44,5 +45,10 @@ public class DriveToBoiler extends PIDCommand {
 	@Override
 	protected double returnPIDInput() {
 		return Robot.sensors.getRearUltraInches();
+	}
+
+	@Override
+	protected void end() {
+		Robot.camera.setRunning(false);
 	}
 }

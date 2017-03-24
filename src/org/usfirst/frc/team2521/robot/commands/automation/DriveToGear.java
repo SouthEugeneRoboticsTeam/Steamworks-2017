@@ -31,6 +31,7 @@ public class DriveToGear extends PIDCommand {
 	@Override
 	protected void initialize() {
 		Robot.sensors.setCVCamera(Camera.Type.FRONT);
+		Robot.camera.setRunning(true);
 	}
 
 	@Override
@@ -84,5 +85,10 @@ public class DriveToGear extends PIDCommand {
 	@Override
 	protected double returnPIDInput() {
 		return Robot.sensors.getNavxAngle();
+	}
+
+	@Override
+	protected void end() {
+		Robot.camera.setRunning(false);
 	}
 }

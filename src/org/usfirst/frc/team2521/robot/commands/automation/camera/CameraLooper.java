@@ -11,7 +11,7 @@ public class CameraLooper extends Command {
 
 	@Override
 	protected void execute() {
-		Looper.getInstance().loop();
+		if (Robot.camera.isRunning()) Looper.getInstance().loop();
 	}
 
 	@Override
