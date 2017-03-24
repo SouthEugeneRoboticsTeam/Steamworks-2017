@@ -20,6 +20,7 @@ public class DriveToBoiler extends PIDCommand {
 	public DriveToBoiler() {
 		super(P, I, D);
 		requires(Robot.drivetrain);
+		requires(Robot.camera);
 	}
 
 	@Override

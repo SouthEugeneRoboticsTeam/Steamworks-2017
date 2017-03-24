@@ -15,6 +15,7 @@ public class TurnToBoiler extends PIDCommand {
 	public TurnToBoiler() {
 		super(P, I, D);
 		requires(Robot.drivetrain);
+		requires(Robot.camera);
 	}
 
 	@Override
