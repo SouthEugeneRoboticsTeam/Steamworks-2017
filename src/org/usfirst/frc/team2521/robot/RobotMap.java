@@ -11,8 +11,6 @@ public class RobotMap {
 	// Left joystick buttons
 	public static final int ALIGN_SHOOTER_BUTTON_PORT = 7;
 	public static final int DRIVE_TO_GEAR_LEFT_PORT = 8;
-	public static final int DRIVE_TO_GEAR_RIGHT_PORT = 9;
-	public static final int RUN_CLIMBER_PORT = 3;
 
 	// Secondary joystick buttons
 	public static final int RUN_SHOOTER_SUBSYSTEMS_BUTTON_PORT = 1;
