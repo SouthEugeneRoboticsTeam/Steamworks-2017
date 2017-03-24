@@ -26,6 +26,7 @@ public class DriveToBoiler extends PIDCommand {
 	@Override
 	protected void initialize() {
 		Robot.sensors.setCVCamera(Camera.Type.REAR);
+		setSetpoint(DISTANCE_SETPOINT);
 	}
 
 	@Override
