@@ -19,6 +19,7 @@ public class OI {
 	private static final int[] CUSTOM_BUTTONS = {2, 3, 4, 5};
 
 	private final Joystick left;
+	private final Joystick right;
 	private final Joystick custom;
 
 	private JoystickButton alignShooterButton;
@@ -29,17 +30,17 @@ public class OI {
 
 	private OI() {
 		left = new Joystick(RobotMap.LEFT_STICK_PORT);
+		right = new Joystick(RobotMap.SECONDARY_STICK_PORT);
 		custom = new Joystick(RobotMap.CUSTOM_STICK_PORT);
 
 		alignShooterButton = new JoystickButton(left, RobotMap.ALIGN_SHOOTER_BUTTON_PORT);
 		driveToGearLeftButton = new JoystickButton(left, RobotMap.DRIVE_TO_GEAR_LEFT_PORT);
 		runClimberButton = new JoystickButton(left, RobotMap.RUN_CLIMBER_PORT);
 
-		Joystick secondary = new Joystick(RobotMap.SECONDARY_STICK_PORT);
-		runShooterSubsystemsButton = new JoystickButton(secondary,
-														RobotMap.RUN_SHOOTER_SUBSYSTEMS_BUTTON_PORT);
-		runAgitatorBackwardButton = new JoystickButton(secondary,
-													   RobotMap.RUN_AGITATOR_BACKWARD_BUTTON_PORT);
+		runShooterSubsystemsButton =
+				new JoystickButton(right, RobotMap.RUN_SHOOTER_SUBSYSTEMS_BUTTON_PORT);
+		runAgitatorBackwardButton =
+				new JoystickButton(right, RobotMap.RUN_AGITATOR_BACKWARD_BUTTON_PORT);
 
 		setButtonListeners();
 	}
@@ -63,6 +64,10 @@ public class OI {
 	 */
 	public Joystick getLeftStick() {
 		return left;
+	}
+
+	public Joystick getRightStick() {
+		return right;
 	}
 
 	private void setButtonListeners() {
