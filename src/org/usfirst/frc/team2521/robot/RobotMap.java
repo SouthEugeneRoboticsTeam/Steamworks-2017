@@ -5,19 +5,18 @@ package org.usfirst.frc.team2521.robot;
  */
 public class RobotMap {
 	public static final int LEFT_STICK_PORT = 0;
-	public static final int RIGHT_STICK_PORT = 1;
-	public static final int SECONDARY_STICK_PORT = 2;
-	public static final int CUSTOM_STICK_PORT = 3;
+	public static final int SECONDARY_STICK_PORT = 1;
+	public static final int CUSTOM_STICK_PORT = 2;
 
-	// Right joystick buttons
-	public static final int ALIGN_SHOOTER_BUTTON_PORT = 7; // On Left stick
-	public static final int DRIVE_TO_GEAR_LEFT_PORT = 8; // On left stick
-	public static final int DRIVE_TO_GEAR_RIGHT_PORT = 9; // On left stick
+	// Left joystick buttons
+	public static final int ALIGN_SHOOTER_BUTTON_PORT = 7;
+	public static final int DRIVE_TO_GEAR_LEFT_PORT = 8;
+	public static final int DRIVE_TO_GEAR_RIGHT_PORT = 9;
 	public static final int RUN_CLIMBER_PORT = 3;
 
 	// Secondary joystick buttons
-	public static final int RUN_SHOOTER_SUBSYSTEMS_BUTTON_PORT = 1; // On secondary stick
-	public static final int RUN_AGITATOR_BACKWARD_BUTTON_PORT = 2; // On secondary stick
+	public static final int RUN_SHOOTER_SUBSYSTEMS_BUTTON_PORT = 1;
+	public static final int RUN_AGITATOR_BACKWARD_BUTTON_PORT = 2;
 
 	public static final int FRONT_RIGHT_MOTOR = 10;
 	public static final int FRONT_LEFT_MOTOR = 14;
