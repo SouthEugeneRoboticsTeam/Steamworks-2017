@@ -21,9 +21,4 @@ public class RunClimber extends Command {
 	protected boolean isFinished() {
 		return false;
 	}
-
-	@Override
-	protected void end() {
-		Robot.climber.stopClimber();
-	}
 }

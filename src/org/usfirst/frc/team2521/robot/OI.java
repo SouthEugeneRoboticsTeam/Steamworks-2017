@@ -2,7 +2,6 @@ package org.usfirst.frc.team2521.robot;
 
 import org.usfirst.frc.team2521.robot.commands.automation.DriveToGear;
 import org.usfirst.frc.team2521.robot.commands.base.RunAgitator;
-import org.usfirst.frc.team2521.robot.commands.base.RunClimber;
 import org.usfirst.frc.team2521.robot.commands.groups.AlignShooter;
 import org.usfirst.frc.team2521.robot.commands.groups.RunShooterSubsystems;
 
@@ -19,27 +18,26 @@ public class OI {
 	private static final int[] CUSTOM_BUTTONS = {2, 3, 4, 5};
 
 	private final Joystick left;
+	private final Joystick right;
 	private final Joystick custom;
 
 	private JoystickButton alignShooterButton;
 	private JoystickButton driveToGearLeftButton;
 	private JoystickButton runShooterSubsystemsButton;
 	private JoystickButton runAgitatorBackwardButton;
-	private JoystickButton runClimberButton;
 
 	private OI() {
 		left = new Joystick(RobotMap.LEFT_STICK_PORT);
+		right = new Joystick(RobotMap.SECONDARY_STICK_PORT);
 		custom = new Joystick(RobotMap.CUSTOM_STICK_PORT);
 
 		alignShooterButton = new JoystickButton(left, RobotMap.ALIGN_SHOOTER_BUTTON_PORT);
 		driveToGearLeftButton = new JoystickButton(left, RobotMap.DRIVE_TO_GEAR_LEFT_PORT);
-		runClimberButton = new JoystickButton(left, RobotMap.RUN_CLIMBER_PORT);
 
-		Joystick secondary = new Joystick(RobotMap.SECONDARY_STICK_PORT);
-		runShooterSubsystemsButton = new JoystickButton(secondary,
-														RobotMap.RUN_SHOOTER_SUBSYSTEMS_BUTTON_PORT);
-		runAgitatorBackwardButton = new JoystickButton(secondary,
-													   RobotMap.RUN_AGITATOR_BACKWARD_BUTTON_PORT);
+		runShooterSubsystemsButton =
+				new JoystickButton(right, RobotMap.RUN_SHOOTER_SUBSYSTEMS_BUTTON_PORT);
+		runAgitatorBackwardButton =
+				new JoystickButton(right, RobotMap.RUN_AGITATOR_BACKWARD_BUTTON_PORT);
 
 		setButtonListeners();
 	}
@@ -65,12 +63,15 @@ public class OI {
 		return left;
 	}
 
+	public Joystick getRightStick() {
+		return right;
+	}
+
 	private void setButtonListeners() {
 		alignShooterButton.toggleWhenActive(new AlignShooter());
 		driveToGearLeftButton.toggleWhenActive(new DriveToGear());
 		runShooterSubsystemsButton.toggleWhenActive(new RunShooterSubsystems());
 		runAgitatorBackwardButton.toggleWhenActive(new RunAgitator(false));
-		runClimberButton.whileHeld(new RunClimber());
 	}
 
 	private static final class Holder {

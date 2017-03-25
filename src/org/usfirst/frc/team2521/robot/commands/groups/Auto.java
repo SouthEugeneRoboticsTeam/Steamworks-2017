@@ -16,7 +16,7 @@ import static org.usfirst.frc.team2521.robot.subsystems.Sensors.Camera;
 
 public class Auto extends CommandGroup {
 	private static final int RED_ANGLE = -42;
-	private static final int BLUE_ANGLE = 60;
+	private static final int BLUE_ANGLE = 45;
 	private static final String KEY_NAME = "Auto mode";
 
 	public Auto() {
@@ -34,7 +34,7 @@ public class Auto extends CommandGroup {
 				addSequential(new AlignShooter());
 				break;
 			case RobotMap.AutoModes.GEAR_THEN_BALL:
-				SmartDashboard.putString(KEY_NAME, "gear then ball");
+				SmartDashboard.putString(KEY_NAME, "Gear then ball");
 				addSequential(new DriveToGearBoiler());
 				addSequential(new TimedCommand(1));
 				addSequential(new RunDrivetrain(true), .75);
@@ -55,6 +55,7 @@ public class Auto extends CommandGroup {
 			case RobotMap.AutoModes.BALLS_STATIONARY:
 				SmartDashboard.putString(KEY_NAME, "Balls Stationary");
 				addSequential(new RunShooterSubsystems());
+				break;
 			default:
 				SmartDashboard.putString(KEY_NAME, "Cross baseline");
 				addSequential(new RunDrivetrain(), 2);

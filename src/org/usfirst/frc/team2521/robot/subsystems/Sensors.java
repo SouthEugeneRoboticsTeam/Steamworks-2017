@@ -116,11 +116,11 @@ public class Sensors extends Subsystem {
 
 		private static final int FRONT_INPUT_STREAM_PORT = 1185;
 		private static final int FRONT_CV_STREAM_PORT = 1186;
-		private static final int FRONT_CAMERA_ID = 1;
+		private static final int FRONT_CAMERA_ID = 0;
 
 		private static final int REAR_INPUT_STREAM_PORT = 1187;
 		private static final int REAR_CV_STREAM_PORT = 1188;
-		private static final int REAR_CAMERA_ID = 0;
+		private static final int REAR_CAMERA_ID = 1;
 
 		private static final int FPS = 30;
 		private static final int BRIGHTNESS = 18;

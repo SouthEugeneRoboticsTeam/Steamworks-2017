@@ -100,7 +100,7 @@ public final class Looper implements Runnable {
 		Preferences prefs = Preferences.getInstance();
 		Scalar lowerThreshold = new Scalar(
 				prefs.getInt("lower_b", 0),
-				prefs.getInt("lower_g", 20),
+				prefs.getInt("lower_g", 10),
 				prefs.getInt("lower_r", 0));
 		Scalar upperThreshold = new Scalar(
 				prefs.getInt("upper_b", 75),
@@ -116,8 +116,6 @@ public final class Looper implements Runnable {
 				.map(Imgproc::boundingRect)
 				.sorted(Comparator.comparingDouble(Rect::area))
 				.collect(Collectors.toCollection(() -> new ArrayList<>(contours.size())));
-
-		// Sort our bounding rectangles from smallest to largest.
 
 		synchronized (latestRects) {
 			latestRects.clear();

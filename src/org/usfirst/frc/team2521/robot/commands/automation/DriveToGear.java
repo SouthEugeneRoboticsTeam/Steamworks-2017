@@ -1,8 +1,6 @@
 package org.usfirst.frc.team2521.robot.commands.automation;
 
 import org.usfirst.frc.team2521.robot.Robot;
-import org.usfirst.frc.team2521.robot.subsystems.Drivetrain;
-
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -12,11 +10,13 @@ import static org.usfirst.frc.team2521.robot.subsystems.Sensors.Camera;
  * This command drives to the gear drop-off automatically.
  */
 public class DriveToGear extends PIDCommand {
-	private static final double P = 0.008;
+	private static final double P = 0.015;
 	private static final double I = 0;
 	private static final double D = 0;
 
 	private static final double CAMERA_PROJ_PLANE_DISTANCE = 216.226;
+
+	private static final double GEAR_SLOW_SPEED = 0.3;
 
 	/** true if we're straight-on */
 	private boolean oriented;
@@ -46,7 +46,7 @@ public class DriveToGear extends PIDCommand {
 		targetAngle *= 180 / Math.PI;
 
 		// Consider ourselves oriented when our angle error is less than 20
-		oriented = Math.abs(targetAngle) < 20;
+		oriented = Math.abs(targetAngle) < 10;
 
 		targetAngle += Robot.sensors.getNavxAngle();
 		setSetpoint(targetAngle);
@@ -54,7 +54,7 @@ public class DriveToGear extends PIDCommand {
 
 	@Override
 	protected boolean isFinished() {
-		return !Robot.sensors.hasFoundBlob();
+		return hasFoundBlob && !Robot.sensors.hasFoundBlob();
 	}
 
 	@Override
@@ -62,23 +62,23 @@ public class DriveToGear extends PIDCommand {
 		if (Robot.DEBUG) {
 			SmartDashboard.putNumber("Drive to gear output", output);
 			SmartDashboard.putBoolean("Has found blob", hasFoundBlob);
+			SmartDashboard.putBoolean("Oriented", oriented);
 		}
+
 		if (Robot.sensors.hasFoundBlob()) {
 			hasFoundBlob = true;
 			// If we are already oriented, drive straight
 			if (oriented) {
-				Robot.drivetrain.setLeft(Drivetrain.SLOW_SPEED);
-				Robot.drivetrain.setRight(Drivetrain.SLOW_SPEED);
+				Robot.drivetrain.setLeft(GEAR_SLOW_SPEED);
+				Robot.drivetrain.setRight(GEAR_SLOW_SPEED);
 			} else if (output > 0) {
 				Robot.drivetrain.setLeft(output);
 			} else {
 				Robot.drivetrain.setRight(-output);
 			}
-		} else {
-			if (hasFoundBlob) {
-				Robot.drivetrain.setLeft(Drivetrain.SLOW_SPEED);
-				Robot.drivetrain.setRight(Drivetrain.SLOW_SPEED);
-			}
+		} else if (hasFoundBlob) {
+			Robot.drivetrain.setLeft(GEAR_SLOW_SPEED);
+			Robot.drivetrain.setRight(GEAR_SLOW_SPEED);
 		}
 	}
 

@@ -12,9 +12,9 @@ public abstract class DriveToGearBase extends CommandGroup {
 		addSequential(new RunDrivetrain(), .75);
 		addSequential(new TimedCommand(0.25));
 		addSequential(new DriveToAngle(getAngle()));
-		addSequential(new TimedCommand(0.25));
+		addSequential(new TimedCommand(0.75));
 		addSequential(new DriveToGear());
-		addSequential(new RunDrivetrain(), .15);
+		addSequential(new RunDrivetrain(), .25);
 	}
 
 	protected abstract int getAngle();
