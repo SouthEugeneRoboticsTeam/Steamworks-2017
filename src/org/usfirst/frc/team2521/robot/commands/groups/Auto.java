@@ -1,18 +1,14 @@
 package org.usfirst.frc.team2521.robot.commands.groups;
 
 import org.usfirst.frc.team2521.robot.OI;
-import org.usfirst.frc.team2521.robot.Robot;
 import org.usfirst.frc.team2521.robot.RobotMap;
 import org.usfirst.frc.team2521.robot.commands.automation.DriveToGear;
 import org.usfirst.frc.team2521.robot.commands.base.RunDrivetrain;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.TimedCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import static org.usfirst.frc.team2521.robot.subsystems.Sensors.Camera;
 
 public class Auto extends CommandGroup {
 	private static final int RED_ANGLE = -42;

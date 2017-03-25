@@ -7,12 +7,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Camera extends Subsystem {
 	private boolean running;
 
-	public void setRunning(boolean running) {
-		this.running = running;
-	}
-
 	public boolean isRunning() {
 		return running;
+	}
+
+	public void setRunning(boolean running) {
+		this.running = running;
 	}
 
 	@Override
