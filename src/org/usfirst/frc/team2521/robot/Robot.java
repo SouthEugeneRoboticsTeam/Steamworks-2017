@@ -20,7 +20,7 @@ import static org.usfirst.frc.team2521.robot.subsystems.Sensors.Camera;
  * This is the main robot class which calls various methods depending on the current game stage.
  */
 public class Robot extends IterativeRobot {
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 
 	public static Drivetrain drivetrain;
 	public static Sensors sensors;
@@ -67,7 +67,7 @@ public class Robot extends IterativeRobot {
 	public void teleopInit() {
 		if (auto != null) auto.cancel();
 
-		sensors.setCVCamera(Camera.Type.REAR);
+		sensors.setCVCamera(Camera.Type.FRONT);
 
 		runCameraLooper();
 	}

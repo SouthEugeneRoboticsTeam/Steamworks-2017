@@ -87,7 +87,7 @@ public class Sensors extends Subsystem {
 	 * @param cameraType desired camera to use
 	 */
 	public void setCVCamera(Camera.Type cameraType) {
-//		this.cameraType = cameraType;
+		this.cameraType = cameraType;
 	}
 
 	public Camera.Type getCamera() {
@@ -111,8 +111,8 @@ public class Sensors extends Subsystem {
 	}
 
 	public static final class Camera {
-		public static final int WIDTH = 640 / 2;
-		public static final int HEIGHT = 480 / 2;
+		public static final int WIDTH = 640;
+		public static final int HEIGHT = 480;
 
 		private static final int FRONT_INPUT_STREAM_PORT = 1185;
 		private static final int FRONT_CV_STREAM_PORT = 1186;
