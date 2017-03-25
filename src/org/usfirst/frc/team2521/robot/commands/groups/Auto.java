@@ -31,18 +31,18 @@ public class Auto extends CommandGroup {
 				break;
 			case RobotMap.AutoModes.GEAR_THEN_BALL:
 				SmartDashboard.putString(KEY_NAME, "Gear then ball");
-				addSequential(new DriveToGearBoiler());
+				addSequential(new GearAutoBoiler());
 				addSequential(new TimedCommand(1));
 				addSequential(new RunDrivetrain(true), .75);
 				addSequential(new AlignShooter());
 				break;
 			case RobotMap.AutoModes.GEAR_FEEDER:
 				SmartDashboard.putString(KEY_NAME, "Gear feeder");
-				addSequential(new DriveToGearFeeder());
+				addSequential(new GearAutoFeeder());
 				break;
 			case RobotMap.AutoModes.GEAR_BOILER:
 				SmartDashboard.putString(KEY_NAME, "Gear boiler");
-				addSequential(new DriveToGearBoiler());
+				addSequential(new GearAutoBoiler());
 				break;
 			case RobotMap.AutoModes.GEAR_MIDDLE:
 				SmartDashboard.putString(KEY_NAME, "Gear middle");
@@ -58,19 +58,17 @@ public class Auto extends CommandGroup {
 		}
 	}
 
-	private static final class DriveToGearBoiler extends DriveToGearBase {
+	private static final class GearAutoBoiler extends GearAutoBase {
 		@Override
-		protected int getAngle() {
-			return DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red
-					? RED_ANGLE : BLUE_ANGLE;
+		protected int getAngle(DriverStation.Alliance alliance) {
+			return alliance == DriverStation.Alliance.Red ? RED_ANGLE : BLUE_ANGLE;
 		}
 	}
 
-	private static final class DriveToGearFeeder extends DriveToGearBase {
+	private static final class GearAutoFeeder extends GearAutoBase {
 		@Override
-		protected int getAngle() {
-			return DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red
-					? BLUE_ANGLE : RED_ANGLE;
+		protected int getAngle(DriverStation.Alliance alliance) {
+			return alliance == DriverStation.Alliance.Red ? BLUE_ANGLE : RED_ANGLE;
 		}
 	}
 }
