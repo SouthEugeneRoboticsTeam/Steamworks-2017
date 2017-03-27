@@ -36,7 +36,7 @@ public class DriveToAngle extends PIDCommand {
 	protected void execute() {
 		if (Robot.DEBUG) {
 			SmartDashboard.putNumber("Navx angle error",
-									 (Robot.sensors.getNavxAngle() - targetAngle));
+									 Robot.sensors.getNavxAngle() - targetAngle);
 		}
 	}
 

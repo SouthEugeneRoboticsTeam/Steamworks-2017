@@ -24,6 +24,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Sensors extends Subsystem {
 	public static final double DEFAULT_CV_OFFSET = 0;
+	private static final double GRAVITY = 9.8;
+	private static final int ULTRA_SCALE_FACTOR = 1000;
 
 	private AnalogInput rearUltra;
 	private AHRS ahrs;
@@ -57,7 +59,7 @@ public class Sensors extends Subsystem {
 	 * @return the distance in inches from the rear (shooter side) ultrasonic sensor
 	 */
 	public double getRearUltraInches() {
-		return rearUltra.getVoltage() * 1000 / 9.8;
+		return rearUltra.getVoltage() * ULTRA_SCALE_FACTOR / GRAVITY;
 	}
 
 	/**
@@ -134,7 +136,7 @@ public class Sensors extends Subsystem {
 		private static final CvSource REAR_IMAGE_SOURCE;
 
 		static {
-			/** Setup front image source. */
+			// Setup front image source.
 			FRONT_IMAGE_SINK = new CvSink("Front CV Image Grabber");
 			FRONT_IMAGE_SOURCE = new CvSource("CV Image Source",
 											  VideoMode.PixelFormat.kMJPEG,
@@ -148,7 +150,7 @@ public class Sensors extends Subsystem {
 			new MjpegServer("Front CV Image Stream", FRONT_CV_STREAM_PORT).setSource(
 					FRONT_IMAGE_SOURCE);
 
-			/** Setup rear image source. */
+			// Setup rear image source.
 			REAR_IMAGE_SINK = new CvSink("Rear CV Image Grabber");
 			REAR_IMAGE_SOURCE = new CvSource("CV Image Source",
 											 VideoMode.PixelFormat.kMJPEG,
