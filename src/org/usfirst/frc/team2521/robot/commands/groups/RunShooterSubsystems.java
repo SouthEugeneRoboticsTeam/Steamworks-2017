@@ -13,7 +13,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  * starts the feeder once the shooter is up to speed.
  */
 public class RunShooterSubsystems extends CommandGroup {
-	private double speedCutoff = -200;
+	private static final double SPEED_CUTOFF = -200;
+
 	private boolean upToSpeed = false;
 
 	public RunShooterSubsystems() {
@@ -22,7 +23,7 @@ public class RunShooterSubsystems extends CommandGroup {
 		addSequential(new RunFeeder() {
 			@Override
 			protected void execute() {
-				if (Robot.shooter.getEncVelocity() < speedCutoff || upToSpeed) {
+				if (Robot.shooter.getEncVelocity() < SPEED_CUTOFF || upToSpeed) {
 					upToSpeed = true;
 					Robot.feeder.setMotor(-Feeder.FEEDER_SPEED);
 				}

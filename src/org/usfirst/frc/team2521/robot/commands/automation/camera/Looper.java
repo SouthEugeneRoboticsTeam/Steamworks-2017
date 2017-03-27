@@ -35,6 +35,14 @@ public final class Looper implements Runnable {
 	private static final int MIN_AREA = 50;
 	private static final int MAX_AREA = 10000;
 
+	private static final int LOWER_B = 0;
+	private static final int LOWER_G = 10;
+	private static final int LOWER_R = 0;
+
+	private static final int UPPER_B = 75;
+	private static final int UPPER_G = 255;
+	private static final int UPPER_R = 20;
+
 	private final List<Rect> latestRects = new ArrayList<>();
 	private final List<Future> tasks = new ArrayList<>();
 
@@ -99,13 +107,13 @@ public final class Looper implements Runnable {
 		// Define the lower and upper color thresholds.
 		Preferences prefs = Preferences.getInstance();
 		Scalar lowerThreshold = new Scalar(
-				prefs.getInt("lower_b", 0),
-				prefs.getInt("lower_g", 10),
-				prefs.getInt("lower_r", 0));
+				prefs.getInt("lower_b", LOWER_B),
+				prefs.getInt("lower_g", LOWER_G),
+				prefs.getInt("lower_r", LOWER_R));
 		Scalar upperThreshold = new Scalar(
-				prefs.getInt("upper_b", 75),
-				prefs.getInt("upper_g", 255),
-				prefs.getInt("upper_r", 20));
+				prefs.getInt("upper_b", UPPER_B),
+				prefs.getInt("upper_g", UPPER_G),
+				prefs.getInt("upper_r", UPPER_R));
 
 		// Find the areas that meet our threshold and find their contours.
 		List<MatOfPoint> contours = new ArrayList<>();
