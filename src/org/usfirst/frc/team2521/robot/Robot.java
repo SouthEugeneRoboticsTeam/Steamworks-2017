@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2521.robot;
 
+import org.usfirst.frc.team2521.robot.commands.automation.camera.CameraLooper;
 import org.usfirst.frc.team2521.robot.commands.groups.Auto;
 import org.usfirst.frc.team2521.robot.subsystems.Agitator;
 import org.usfirst.frc.team2521.robot.subsystems.Climber;
@@ -12,6 +13,8 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+
+import static org.usfirst.frc.team2521.robot.subsystems.Sensors.Camera;
 
 /**
  * This is the main robot class which calls various methods depending on the current game stage.
@@ -37,9 +40,7 @@ public class Robot extends IterativeRobot {
 		feeder = new Feeder();
 		agitator = new Agitator();
 
-		auto = new Auto();
-
-		sensors.setCVCamera(Sensors.Camera.REAR);
+		runCameraLooper();
 	}
 
 	@Override
@@ -49,7 +50,11 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
-		Robot.sensors.setCVCamera(Sensors.Camera.FRONT);
+		sensors.setCVCamera(Camera.Type.FRONT);
+
+		runCameraLooper();
+
+		auto = new Auto();
 		auto.start();
 	}
 
@@ -60,7 +65,11 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
-		auto.cancel();
+		if (auto != null) auto.cancel();
+
+		sensors.setCVCamera(Camera.Type.FRONT);
+
+		runCameraLooper();
 	}
 
 	@Override
@@ -71,5 +80,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void testPeriodic() {
 		LiveWindow.run();
+	}
+
+	private void runCameraLooper() {
+		new CameraLooper().start();
 	}
 }

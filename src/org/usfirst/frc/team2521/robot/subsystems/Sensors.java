@@ -4,13 +4,18 @@ import com.kauailabs.navx.frc.AHRS;
 
 import org.usfirst.frc.team2521.robot.Robot;
 import org.usfirst.frc.team2521.robot.RobotMap;
+import org.usfirst.frc.team2521.robot.commands.automation.camera.Looper;
+import org.usfirst.frc.team2521.robot.utils.Nullable;
 import org.usfirst.frc.team2521.robot.commands.base.DisplaySensors;
 
+import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.CvSource;
+import edu.wpi.cscore.MjpegServer;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoMode;
 import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -18,30 +23,20 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * methods to show sensor data on the SmartDashboard.
  */
 public class Sensors extends Subsystem {
+	public static final double DEFAULT_CV_OFFSET = 0;
+	private static final double ULTRA_SCALE_FACTOR = 1000 / 9.8; // See ultrasonic datasheet: http://www.maxbotix.com/documents/LV-MaxSonar-EZ_Datasheet.pdf
+
 	private AnalogInput rearUltra;
-	private AnalogInput leftLidar;
-	private AnalogInput rightLidar;
-
-	private NetworkTable table;
-
 	private AHRS ahrs;
-
-	/** Lidar distance equation: `distance = m/lidar^2 + b` */
-	private double MED_LIDAR_M = 1.964 * Math.pow(10, 7);
-	private double MED_LIDAR_B = -1.045;
+	private Camera.Type cameraType;
 
 	public Sensors() {
 		rearUltra = new AnalogInput(RobotMap.REAR_ULTRA_PORT);
 
-		leftLidar = new AnalogInput(RobotMap.LEFT_LIDAR_PORT);
-		rightLidar = new AnalogInput(RobotMap.RIGHT_LIDAR_PORT);
-
-		table = NetworkTable.getTable("Vision");
-
 		ahrs = new AHRS(SPI.Port.kMXP);
 		ahrs.reset();
 
-		setCVThresholds();
+		setCVCamera(Camera.Type.FRONT);
 	}
 
 	/**
@@ -49,10 +44,13 @@ public class Sensors extends Subsystem {
 	 */
 	public void display() {
 		SmartDashboard.putNumber("Rear ultra distance", getRearUltraInches());
-		SmartDashboard.putBoolean("Blob found", getBlobFound());
-		
+		SmartDashboard.putBoolean("Blob found", hasFoundBlob());
+
 		if (Robot.DEBUG) {
-			SmartDashboard.putNumber("CV offset", getCVOffsetX());
+			SmartDashboard.putNumber("Navx angle", getNavxAngle());
+
+			Double offsetX = getCVOffsetX();
+			if (offsetX != null) SmartDashboard.putNumber("CV offset", offsetX);
 		}
 	}
 
@@ -60,54 +58,27 @@ public class Sensors extends Subsystem {
 	 * @return the distance in inches from the rear (shooter side) ultrasonic sensor
 	 */
 	public double getRearUltraInches() {
-		return rearUltra.getVoltage() * 1000 / 9.8;
-	}
-
-	/**
-	 * @return the raw value from the side lidar
-	 */
-	private double getLeftLidarRaw() {
-		return leftLidar.getValue();
-	}
-
-	/**
-	 * @return the distance in inches from the side lidar
-	 */
-	public double getLeftLidarInches() {
-		return MED_LIDAR_M / Math.pow(getLeftLidarRaw(), 2) + MED_LIDAR_B;
-	}
-
-	/**
-	 * @return the raw value from the side lidar
-	 */
-	private double getRightLidarRaw() {
-		return rightLidar.getValue();
-	}
-
-	/**
-	 * @return the distance in inches from the side lidar
-	 */
-	public double getRightLidarInches() {
-		return MED_LIDAR_M / Math.pow(getRightLidarRaw(), 2) + MED_LIDAR_B;
+		return rearUltra.getVoltage() * ULTRA_SCALE_FACTOR;
 	}
 
 	/**
 	 * Returns the target's offset (in pixels) from the center of the screen on the X-axis. This
-	 * value is only updated if getBlobFound() is `true`.
+	 * value is only updated if hasFoundBlob() is `true`.
 	 *
 	 * @return the target's offset (in pixels) from the center of the screen
-	 * @see Sensors#getBlobFound()
+	 * @see Sensors#hasFoundBlob()
 	 */
-	public double getCVOffsetX() {
-		return table.getNumber("offset_x", 0.0);
+	@Nullable
+	public Double getCVOffsetX() {
+		return Looper.getInstance().getCVOffsetX();
 	}
 
 	/**
 	 * @return whether a blob is currently being tracked in computer vision
 	 * @see Sensors#getCVOffsetX()
 	 */
-	public boolean getBlobFound() {
-		return table.getBoolean("blob_found", false);
+	public boolean hasFoundBlob() {
+		return Looper.getInstance().hasFoundBlob();
 	}
 
 	/**
@@ -116,40 +87,12 @@ public class Sensors extends Subsystem {
 	 *
 	 * @param cameraType desired camera to use
 	 */
-	public void setCVCamera(Camera cameraType) {
-		table.putBoolean("front_camera", cameraType == Camera.FRONT);
+	public void setCVCamera(Camera.Type cameraType) {
+		this.cameraType = cameraType;
 	}
 
-	/**
-	 * Sets the minnow board's blob thresholds based on SmartDashboard
-	 * preferences.
-	 */
-	private void setCVThresholds() {
-		double frontLowerRed = Preferences.getInstance().getDouble("front_lower_red", 0);
-		double frontLowerGreen = Preferences.getInstance().getDouble("front_lower_green", 55);
-		double frontLowerBlue = Preferences.getInstance().getDouble("front_lower_blue", 0);
-		double frontUpperRed = Preferences.getInstance().getDouble("front_upper_red", 50);
-		double frontUpperGreen = Preferences.getInstance().getDouble("front_upper_green", 175);
-		double frontUpperBlue = Preferences.getInstance().getDouble("front_upper_blue", 50);
-		double rearLowerRed = Preferences.getInstance().getDouble("rear_lower_red", 0);
-		double rearLowerGreen = Preferences.getInstance().getDouble("rear_lower_green", 55);
-		double rearLowerBlue = Preferences.getInstance().getDouble("rear_lower_blue", 0);
-		double rearUpperRed = Preferences.getInstance().getDouble("rear_upper_red", 50);
-		double rearUpperGreen = Preferences.getInstance().getDouble("rear_upper_green", 175);
-		double rearUpperBlue = Preferences.getInstance().getDouble("rear_upper_blue", 50);
-
-		table.putNumber("front_lower_red", frontLowerRed);
-		table.putNumber("front_lower_green", frontLowerGreen);
-		table.putNumber("front_lower_blue", frontLowerBlue);
-		table.putNumber("front_upper_red", frontUpperRed);
-		table.putNumber("front_upper_green", frontUpperGreen);
-		table.putNumber("front_upper_blue", frontUpperBlue);
-		table.putNumber("rear_lower_red", rearLowerRed);
-		table.putNumber("rear_lower_green", rearLowerGreen);
-		table.putNumber("rear_lower_blue", rearLowerBlue);
-		table.putNumber("rear_upper_red", rearUpperRed);
-		table.putNumber("rear_upper_green", rearUpperGreen);
-		table.putNumber("rear_upper_blue", rearUpperBlue);
+	public Camera.Type getCamera() {
+		return cameraType;
 	}
 
 	/**
@@ -159,9 +102,6 @@ public class Sensors extends Subsystem {
 		return ahrs.getYaw();
 	}
 
-	/**
-	 * Resets the gyro for yaw, setting the navX angle to 0
-	 */
 	public void resetNavxAngle() {
 		ahrs.reset();
 	}
@@ -171,8 +111,97 @@ public class Sensors extends Subsystem {
 		setDefaultCommand(new DisplaySensors());
 	}
 
-	public enum Camera {
-		FRONT, REAR
+	public static final class Camera {
+		public static final int WIDTH = 640;
+		public static final int HEIGHT = 480;
+
+		private static final int FRONT_INPUT_STREAM_PORT = 1185;
+		private static final int FRONT_CV_STREAM_PORT = 1186;
+		private static final int FRONT_CAMERA_ID = 0;
+
+		private static final int REAR_INPUT_STREAM_PORT = 1187;
+		private static final int REAR_CV_STREAM_PORT = 1188;
+		private static final int REAR_CAMERA_ID = 1;
+
+		private static final int FPS = 30;
+		private static final int BRIGHTNESS = 18;
+		private static final int EXPOSURE = 0;
+		private static final int WHITE_BALANCE_TEMP = 4500;
+
+		private static final CvSink FRONT_IMAGE_SINK;
+		private static final CvSource FRONT_IMAGE_SOURCE;
+
+		private static final CvSink REAR_IMAGE_SINK;
+		private static final CvSource REAR_IMAGE_SOURCE;
+
+		static {
+			// Setup front image source.
+			FRONT_IMAGE_SINK = new CvSink("Front CV Image Grabber");
+			FRONT_IMAGE_SOURCE = new CvSource("CV Image Source",
+											  VideoMode.PixelFormat.kMJPEG,
+											  WIDTH,
+											  HEIGHT,
+											  FPS);
+			FRONT_IMAGE_SINK.setSource(
+					getUsbCamera(FRONT_CAMERA_ID,
+								 new MjpegServer("Front MJPEG Server", FRONT_INPUT_STREAM_PORT)));
+
+			new MjpegServer("Front CV Image Stream", FRONT_CV_STREAM_PORT).setSource(
+					FRONT_IMAGE_SOURCE);
+
+			// Setup rear image source.
+			REAR_IMAGE_SINK = new CvSink("Rear CV Image Grabber");
+			REAR_IMAGE_SOURCE = new CvSource("CV Image Source",
+											 VideoMode.PixelFormat.kMJPEG,
+											 WIDTH,
+											 HEIGHT,
+											 FPS);
+			REAR_IMAGE_SINK.setSource(
+					getUsbCamera(REAR_CAMERA_ID,
+								 new MjpegServer("Rear MJPEG Server", REAR_INPUT_STREAM_PORT)));
+
+			new MjpegServer("Rear CV Image Stream",
+							REAR_CV_STREAM_PORT).setSource(REAR_IMAGE_SOURCE);
+		}
+
+		private Camera() {
+			throw new AssertionError("No instance for you!");
+		}
+
+		private static UsbCamera getUsbCamera(int cameraId, MjpegServer server) {
+			UsbCamera camera = new UsbCamera("Camera", cameraId);
+
+			camera.setResolution(WIDTH, HEIGHT);
+			camera.setBrightness(BRIGHTNESS);
+			camera.setExposureManual(EXPOSURE);
+			camera.setWhiteBalanceManual(WHITE_BALANCE_TEMP);
+
+			server.setSource(camera);
+
+			return camera;
+		}
+
+		public enum Type {
+			/** Used for auto gear. */
+			FRONT(FRONT_IMAGE_SINK, FRONT_IMAGE_SOURCE),
+			/** Used for auto shooting. */
+			REAR(REAR_IMAGE_SINK, REAR_IMAGE_SOURCE);
+
+			private final CvSink sink;
+			private final CvSource source;
+
+			Type(CvSink sink, CvSource source) {
+				this.sink = sink;
+				this.source = source;
+			}
+
+			public CvSink getSink() {
+				return sink;
+			}
+
+			public CvSource getSource() {
+				return source;
+			}
+		}
 	}
 }
-

@@ -5,26 +5,24 @@ package org.usfirst.frc.team2521.robot;
  */
 public class RobotMap {
 	public static final int LEFT_STICK_PORT = 0;
-	public static final int RIGHT_STICK_PORT = 1;
-	public static final int SECONDARY_STICK_PORT = 2;
-	public static final int CUSTOM_STICK_PORT = 3;
+	public static final int SECONDARY_STICK_PORT = 1;
+	public static final int CUSTOM_STICK_PORT = 2;
 
-	// Right joystick buttons
-	public static final int ALIGN_SHOOTER_BUTTON_PORT = 7; // On Left stick
-	public static final int DRIVE_TO_GEAR_LEFT_PORT = 8; // On left stick
-	public static final int DRIVE_TO_GEAR_RIGHT_PORT = 9; // On left stick
+	// Left joystick buttons
+	public static final int ALIGN_SHOOTER_BUTTON_PORT = 7;
+	public static final int DRIVE_TO_GEAR_LEFT_PORT = 8;
 
 	// Secondary joystick buttons
-	public static final int RUN_SHOOTER_SUBSYSTEMS_BUTTON_PORT = 1; // On secondary stick
-	public static final int RUN_AGITATOR_BACKWARD_BUTTON_PORT = 2; // On secondary stick
+	public static final int RUN_SHOOTER_SUBSYSTEMS_BUTTON_PORT = 1;
+	public static final int RUN_AGITATOR_BACKWARD_BUTTON_PORT = 2;
 
 	public static final int FRONT_RIGHT_MOTOR = 10;
 	public static final int FRONT_LEFT_MOTOR = 14;
 	public static final int REAR_RIGHT_MOTOR = 11;
 	public static final int REAR_LEFT_MOTOR = 15;
 
-	public static final int CLIMBER_WHEEL_SLAVE_MOTOR = 17;
-	public static final int CLIMBER_WHEEL_MASTER_MOTOR = 16;
+	public static final int CLIMBER_MASTER_MOTOR = 16;
+	public static final int CLIMBER_SLAVE_MOTOR = 17;
 
 	public static final int AGITATOR_MOTOR = 19;
 
@@ -32,20 +30,19 @@ public class RobotMap {
 	public static final int FEEDER_MOTOR = 12;
 
 	public static final int REAR_ULTRA_PORT = 1;
-	public static final int LEFT_LIDAR_PORT = 0;
-	public static final int RIGHT_LIDAR_PORT = 2;
-	
-	public static final int IS_SHOOTING_PIN = 1;
+
+  public static final int IS_SHOOTING_PIN = 1;
 	public static final int IS_BLUE_ALLIANCE_PIN = 2;
 	public static final int IS_RED_ALLIANCE_PIN = 3;
 
 	public final static class AutoModes {
-		public final static int NOTHING = 0;
-		public final static int CROSS_BASE_LINE = 6;
-		public final static int BALL_THEN_GEAR = 15;
-		public final static int GEAR_LEFT = 8;
+		public final static int NOTHING = 3;
+		public final static int CROSS_BASELINE = 6;
+		public final static int GEAR_THEN_BALL = 15;
 		public final static int GEAR_MIDDLE = 4;
-		public final static int GEAR_RIGHT = 2;
+		public final static int GEAR_FEEDER = 2;
+		public final static int GEAR_BOILER = 8;
 		public final static int BALLS_ONLY = 1;
+		public final static int BALLS_STATIONARY = 5;
 	}
 }

@@ -19,31 +19,25 @@ public class OI {
 
 	private final Joystick left;
 	private final Joystick right;
-	private final Joystick secondary;
 	private final Joystick custom;
 
 	private JoystickButton alignShooterButton;
 	private JoystickButton driveToGearLeftButton;
-	private JoystickButton driveToGearRightButton;
 	private JoystickButton runShooterSubsystemsButton;
 	private JoystickButton runAgitatorBackwardButton;
 
 	private OI() {
 		left = new Joystick(RobotMap.LEFT_STICK_PORT);
-		right = new Joystick(RobotMap.RIGHT_STICK_PORT);
-		secondary = new Joystick(RobotMap.SECONDARY_STICK_PORT);
+		right = new Joystick(RobotMap.SECONDARY_STICK_PORT);
 		custom = new Joystick(RobotMap.CUSTOM_STICK_PORT);
 
-		// Right joystick buttons
 		alignShooterButton = new JoystickButton(left, RobotMap.ALIGN_SHOOTER_BUTTON_PORT);
 		driveToGearLeftButton = new JoystickButton(left, RobotMap.DRIVE_TO_GEAR_LEFT_PORT);
-		driveToGearRightButton = new JoystickButton(left, RobotMap.DRIVE_TO_GEAR_RIGHT_PORT);
 
-		// Secondary joystick buttons
-		runShooterSubsystemsButton = new JoystickButton(secondary,
-														RobotMap.RUN_SHOOTER_SUBSYSTEMS_BUTTON_PORT);
-		runAgitatorBackwardButton = new JoystickButton(secondary,
-													   RobotMap.RUN_AGITATOR_BACKWARD_BUTTON_PORT);
+		runShooterSubsystemsButton =
+				new JoystickButton(right, RobotMap.RUN_SHOOTER_SUBSYSTEMS_BUTTON_PORT);
+		runAgitatorBackwardButton =
+				new JoystickButton(right, RobotMap.RUN_AGITATOR_BACKWARD_BUTTON_PORT);
 
 		setButtonListeners();
 	}
@@ -69,24 +63,13 @@ public class OI {
 		return left;
 	}
 
-	/**
-	 * @return the right joystick
-	 */
 	public Joystick getRightStick() {
 		return right;
 	}
 
-	/**
-	 * @return the secondary joystick
-	 */
-	public Joystick getSecondaryStick() {
-		return secondary;
-	}
-
 	private void setButtonListeners() {
 		alignShooterButton.toggleWhenActive(new AlignShooter());
-		driveToGearLeftButton.toggleWhenActive(new DriveToGear(true));
-		driveToGearRightButton.toggleWhenActive(new DriveToGear(false));
+		driveToGearLeftButton.toggleWhenActive(new DriveToGear());
 		runShooterSubsystemsButton.toggleWhenActive(new RunShooterSubsystems());
 		runAgitatorBackwardButton.toggleWhenActive(new RunAgitator(false));
 	}
