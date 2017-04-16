@@ -24,8 +24,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Sensors extends Subsystem {
 	public static final double DEFAULT_CV_OFFSET = 0;
-	private static final double GRAVITY = 9.8;
-	private static final int ULTRA_SCALE_FACTOR = 1000;
+	private static final double ULTRA_SCALE_FACTOR = 1000 / 9.8; // See ultrasonic datasheet: http://www.maxbotix.com/documents/LV-MaxSonar-EZ_Datasheet.pdf
 
 	private AnalogInput rearUltra;
 	private AHRS ahrs;
@@ -59,7 +58,7 @@ public class Sensors extends Subsystem {
 	 * @return the distance in inches from the rear (shooter side) ultrasonic sensor
 	 */
 	public double getRearUltraInches() {
-		return rearUltra.getVoltage() * ULTRA_SCALE_FACTOR / GRAVITY;
+		return rearUltra.getVoltage() * ULTRA_SCALE_FACTOR;
 	}
 
 	/**
