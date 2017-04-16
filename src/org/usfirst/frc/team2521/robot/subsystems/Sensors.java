@@ -4,9 +4,9 @@ import com.kauailabs.navx.frc.AHRS;
 
 import org.usfirst.frc.team2521.robot.Robot;
 import org.usfirst.frc.team2521.robot.RobotMap;
-import org.usfirst.frc.team2521.robot.commands.automation.camera.Looper;
 import org.usfirst.frc.team2521.robot.commands.base.DisplaySensors;
 import org.usfirst.frc.team2521.robot.utils.Nullable;
+import org.usfirst.frc.team2521.robot.vision.Looper;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;

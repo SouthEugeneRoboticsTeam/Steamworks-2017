@@ -1,4 +1,6 @@
-package org.usfirst.frc.team2521.robot.commands.automation.camera;
+package org.usfirst.frc.team2521.robot.commands.base;
+
+import org.usfirst.frc.team2521.robot.vision.Looper;
 
 import org.usfirst.frc.team2521.robot.Robot;
 
