@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2521.robot.commands.automation;
 
 import org.usfirst.frc.team2521.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -28,6 +29,12 @@ public class DriveToGear extends PIDCommand {
 	}
 
 	@Override
+	protected void initialize() {
+		Robot.sensors.setCVCamera(Camera.Type.FRONT);
+		Robot.camera.setRunning(true);
+	}
+
+	@Override
 	protected void execute() {
 		// Angle between camera line of sight and target
 		Double offsetX = Robot.sensors.getCVOffsetX();
@@ -43,11 +50,6 @@ public class DriveToGear extends PIDCommand {
 
 		targetAngle += Robot.sensors.getNavxAngle();
 		setSetpoint(targetAngle);
-	}
-
-	@Override
-	protected void initialize() {
-		Robot.sensors.setCVCamera(Camera.Type.FRONT);
 	}
 
 	@Override
@@ -83,5 +85,10 @@ public class DriveToGear extends PIDCommand {
 	@Override
 	protected double returnPIDInput() {
 		return Robot.sensors.getNavxAngle();
+	}
+
+	@Override
+	protected void end() {
+		Robot.camera.setRunning(false);
 	}
 }

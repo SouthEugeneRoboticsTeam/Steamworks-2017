@@ -20,6 +20,7 @@ public class TurnToBoiler extends PIDCommand {
 	@Override
 	protected void initialize() {
 		Robot.sensors.setCVCamera(Camera.Type.REAR);
+		Robot.camera.setRunning(true);
 	}
 
 	@Override
@@ -43,5 +44,10 @@ public class TurnToBoiler extends PIDCommand {
 			Robot.drivetrain.setLeft(0);
 			Robot.drivetrain.setRight(0);
 		}
+	}
+
+	@Override
+	protected void end() {
+		Robot.camera.setRunning(false);
 	}
 }

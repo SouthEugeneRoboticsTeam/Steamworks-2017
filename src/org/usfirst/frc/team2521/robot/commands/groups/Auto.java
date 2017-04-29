@@ -1,18 +1,14 @@
 package org.usfirst.frc.team2521.robot.commands.groups;
 
 import org.usfirst.frc.team2521.robot.OI;
-import org.usfirst.frc.team2521.robot.Robot;
 import org.usfirst.frc.team2521.robot.RobotMap;
 import org.usfirst.frc.team2521.robot.commands.automation.DriveToGear;
 import org.usfirst.frc.team2521.robot.commands.base.RunDrivetrain;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.TimedCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import static org.usfirst.frc.team2521.robot.subsystems.Sensors.Camera;
 
 public class Auto extends CommandGroup {
 	private static final int RED_ANGLE = -42;
@@ -35,19 +31,7 @@ public class Auto extends CommandGroup {
 				break;
 			case RobotMap.AutoModes.GEAR_THEN_BALL:
 				SmartDashboard.putString(KEY_NAME, "Gear then ball");
-				Robot.sensors.setCVCamera(Camera.Type.FRONT);
 				addSequential(new GearAutoBoiler());
-				addSequential(new Command() {
-					@Override
-					protected void initialize() {
-						Robot.sensors.setCVCamera(Camera.Type.REAR);
-					}
-
-					@Override
-					protected boolean isFinished() {
-						return true;
-					}
-				});
 				addSequential(new TimedCommand(1));
 				addSequential(new RunDrivetrain(true), .75);
 				addSequential(new AlignShooter());

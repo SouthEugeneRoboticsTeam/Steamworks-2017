@@ -4,8 +4,6 @@ import org.usfirst.frc.team2521.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.PIDCommand;
 
-import static org.usfirst.frc.team2521.robot.subsystems.Sensors.Camera;
-
 /**
  * This command drives to the correct spot to shoot from automatically.
  */
@@ -24,7 +22,6 @@ public class DriveToBoiler extends PIDCommand {
 
 	@Override
 	protected void initialize() {
-		Robot.sensors.setCVCamera(Camera.Type.REAR);
 		setSetpoint(DISTANCE_SETPOINT);
 	}
 
