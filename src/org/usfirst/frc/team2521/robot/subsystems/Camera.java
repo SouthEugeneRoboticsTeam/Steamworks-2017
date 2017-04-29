@@ -1,7 +1,7 @@
 package org.usfirst.frc.team2521.robot.subsystems;
 
 import org.usfirst.frc.team2521.robot.Robot;
-import org.usfirst.frc.team2521.robot.commands.automation.camera.CameraLooper;
+import org.usfirst.frc.team2521.robot.commands.base.CameraLooper;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 

@@ -26,7 +26,6 @@ public class DriveToGear extends PIDCommand {
 	public DriveToGear() {
 		super(P, I, D);
 		requires(Robot.drivetrain);
-		requires(Robot.camera);
 	}
 
 	@Override
