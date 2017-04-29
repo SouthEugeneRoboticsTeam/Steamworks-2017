@@ -1,8 +1,8 @@
 package org.usfirst.frc.team2521.robot;
 
-import org.usfirst.frc.team2521.robot.commands.base.CameraLooper;
 import org.usfirst.frc.team2521.robot.commands.groups.Auto;
 import org.usfirst.frc.team2521.robot.subsystems.Agitator;
+import org.usfirst.frc.team2521.robot.subsystems.Camera;
 import org.usfirst.frc.team2521.robot.subsystems.Climber;
 import org.usfirst.frc.team2521.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2521.robot.subsystems.Feeder;
@@ -14,8 +14,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
-import static org.usfirst.frc.team2521.robot.subsystems.Sensors.Camera;
-
 /**
  * This is the main robot class which calls various methods depending on the current game stage.
  */
@@ -24,6 +22,7 @@ public class Robot extends IterativeRobot {
 
 	public static Drivetrain drivetrain;
 	public static Sensors sensors;
+	public static Camera camera;
 	public static Shooter shooter;
 	public static Feeder feeder;
 	public static Climber climber;
@@ -35,12 +34,11 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		drivetrain = new Drivetrain();
 		sensors = new Sensors();
+		camera = new Camera();
 		climber = new Climber();
 		shooter = new Shooter();
 		feeder = new Feeder();
 		agitator = new Agitator();
-
-		runCameraLooper();
 	}
 
 	@Override
@@ -50,10 +48,6 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
-		sensors.setCVCamera(Camera.Type.FRONT);
-
-		runCameraLooper();
-
 		auto = new Auto();
 		auto.start();
 	}
@@ -66,10 +60,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopInit() {
 		if (auto != null) auto.cancel();
-
-		sensors.setCVCamera(Camera.Type.FRONT);
-
-		runCameraLooper();
 	}
 
 	@Override
@@ -80,9 +70,5 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void testPeriodic() {
 		LiveWindow.run();
-	}
-
-	private void runCameraLooper() {
-		new CameraLooper().start();
 	}
 }
