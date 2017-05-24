@@ -7,6 +7,7 @@ import org.usfirst.frc.team2521.robot.OI;
 import org.usfirst.frc.team2521.robot.RobotMap;
 import org.usfirst.frc.team2521.robot.commands.base.TeleopDrivetrain;
 
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -18,6 +19,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Drivetrain extends Subsystem {
 	/** Speed to set drivetrain to when we want to move at a slow, constant speed */
 	public static final double SLOW_SPEED = 0.4;
+
+	private boolean slowMode = false;
+	private double slowModeMultiplier = 0.5;
 
 	private RobotDrive frontDrive;
 	private RobotDrive rearDrive;
@@ -44,7 +48,11 @@ public class Drivetrain extends Subsystem {
 	 * @see OI#getLeftStick()
 	 */
 	private void arcadeDrive() {
+		slowMode = Preferences.getInstance().getBoolean("slowMode", false);
 		double move = -OI.getInstance().getLeftStick().getY();
+		if (slowMode) {
+			move *= slowModeMultiplier;
+		}
 		double rotate = -OI.getInstance().getLeftStick().getX();
 
 		frontDrive.arcadeDrive(move, rotate);
