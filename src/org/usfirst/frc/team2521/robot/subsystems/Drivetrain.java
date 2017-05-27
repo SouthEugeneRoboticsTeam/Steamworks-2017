@@ -20,8 +20,8 @@ public class Drivetrain extends Subsystem {
 	/** Speed to set drivetrain to when we want to move at a slow, constant speed */
 	public static final double SLOW_SPEED = 0.4;
 
+	private final double SLOW_MODE_MULTIPLIER = 0.5;
 	private boolean slowMode = false;
-	private double slowModeMultiplier = 0.5;
 
 	private RobotDrive frontDrive;
 	private RobotDrive rearDrive;
@@ -49,11 +49,14 @@ public class Drivetrain extends Subsystem {
 	 */
 	private void arcadeDrive() {
 		slowMode = Preferences.getInstance().getBoolean("slowMode", false);
+
 		double move = -OI.getInstance().getLeftStick().getY();
-		if (slowMode) {
-			move *= slowModeMultiplier;
-		}
 		double rotate = -OI.getInstance().getLeftStick().getX();
+
+		if (slowMode) {
+			move *= SLOW_MODE_MULTIPLIER;
+			rotate += SLOW_MODE_MULTIPLIER;
+		}
 
 		frontDrive.arcadeDrive(move, rotate);
 		rearDrive.arcadeDrive(move, rotate);
