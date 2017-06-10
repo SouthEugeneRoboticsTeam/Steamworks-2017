@@ -55,7 +55,7 @@ public class Drivetrain extends Subsystem {
 
 		if (slowMode) {
 			move *= SLOW_MODE_MULTIPLIER;
-			rotate += SLOW_MODE_MULTIPLIER;
+			rotate *= SLOW_MODE_MULTIPLIER;
 		}
 
 		frontDrive.arcadeDrive(move, rotate);
