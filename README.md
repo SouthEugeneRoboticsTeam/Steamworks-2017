@@ -33,7 +33,7 @@ sure to label it with the name of that branch.
 ### Pull Requests
 
 Make sure your code follows
-[SERT's Style Guide](https://github.com/SouthEugeneRoboticsTeam/Style-Guidelines)
+[SERT's Style Guide](https://github.com/SouthEugeneRoboticsTeam/Guidelines)
 before making a pull request to merge your changes.
 
 Pull requests should be made to the `development` branch. Fully tested and
