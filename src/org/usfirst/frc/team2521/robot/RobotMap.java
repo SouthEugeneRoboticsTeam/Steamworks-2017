@@ -31,6 +31,10 @@ public class RobotMap {
 
 	public static final int REAR_ULTRA_PORT = 1;
 
+  	public static final int IS_SHOOTING_PIN = 1;
+	public static final int IS_BLUE_ALLIANCE_PIN = 2;
+	public static final int IS_RED_ALLIANCE_PIN = 3;
+
 	public final static class AutoModes {
 		public final static int NOTHING = 3;
 		public final static int CROSS_BASELINE = 6;
